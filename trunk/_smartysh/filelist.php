@@ -1,0 +1,55 @@
+<?php
+/*
+filelist.php - lists sites prototype files in browser top left corner
+*/
+require_once("config.php");
+
+$site_dir = $_GET["site_dir"];
+$page = $_GET["page"];
+
+
+$page_template = str_replace(".html", ".tpl", $page);
+
+
+
+echo "<table>";
+echo tpl_to_link($page_template, $site_dir);
+echo '<tr><td colspan="2">&nbsp;</td></tr>';
+
+$files = array();
+$index_in_list = false;
+if ($handle = opendir("../$site_dir/templates/pages")) {
+	while (false !== ($file = readdir($handle))) {
+		if($file!="." && $file!="..") { 
+			$tpl_files[] = $file;
+			//echo tpl_to_link($file, $site_dir) . "<br />";
+		}
+	}
+	closedir($handle);
+
+	sort($tpl_files);
+	if( in_array("index.tpl", $tpl_files) ) { 
+		$index_in_list = true;
+		foreach($tpl_files as $key=>$val) {
+			if ($val == "index.tpl")
+				unset($tpl_files[$key]);
+		}
+	}
+
+	if( $index_in_list ) { 
+		echo tpl_to_link("index.tpl", $site_dir);
+	}
+	foreach($tpl_files as $tpl_file) { 
+    if ($page_template != $tpl_file) {
+      echo tpl_to_link($tpl_file, $site_dir);
+    }
+	}
+}
+echo "</table>";
+
+function tpl_to_link($tpl_name, $site_dir) { 
+  global $config;
+	$html_name = str_replace(".tpl", ".html", $tpl_name);
+	return '<tr><td><a style="color:white;font-family:Verdana,serif; font-size:11px;" href="/'.$site_dir."/".$html_name.'">'.$html_name.'</a></td><td><a style="color:white;font-family:Verdana,serif; font-size:11px;" href="'.$config["basepath_local"]."/".$site_dir.$config["path_templates_pages"]."/".$tpl_name.'">(edit)</a></td></tr>';
+}
+?>
