@@ -1,0 +1,5 @@
+.banklinks{border-top:1px solid #C0C0C0;clear:both;margin:20px 0 0;overflow:hidden;padding:22px 0;width:100%}
+.banklinks .link{display:inline-block;margin:0 8px 10px 12px;vertical-align:middle}
+.banklinks input{height:13px;margin:0;padding:0;vertical-align:middle;width:13px}
+.banklinks img{display:inline;vertical-align:middle}
+.banklinks .caption{padding-left:4px;vertical-align:middle}

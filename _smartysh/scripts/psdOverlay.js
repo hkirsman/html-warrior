@@ -144,11 +144,14 @@ Psd overlay
   });
 
   $(document).keyup( function(e) { 
+    
     if (lock) {
       return false;
     }
 
     if (e.ctrlKey ) {
+      e.isDefaultPrevented();
+
       if (e.shiftKey) {
         var step = 10;
       } else {
@@ -177,6 +180,7 @@ Psd overlay
           "left"     : left+"px"
         });
       }
+      return false;
     }
   });
 /*
@@ -256,7 +260,7 @@ Psd overlay
 
   $.ajax({
     type: "GET",
-    url: "/_proto-smarty/filelist.php",
+    url: "/_smartysh/filelist.php",
     data: "site_dir="+site+"&page="+page,
     success: function(msg){
       $("div", filelist).append(msg);
