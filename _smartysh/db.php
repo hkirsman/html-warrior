@@ -1,10 +1,17 @@
 <?php
-$link = mysqli_connect($config["db"]["server"], $config["db"]["username"], $config["db"]["password"]);
-if (!$link) {
-    die("Could not connect: " . mysql_error() );
+
+if ($db = new SQLiteDatabase($config["path_db"])) {
+    // create tables if these do not exist
+    $q = @$db->query('SELECT id FROM access_log WHERE id = 1');
+    if ($q === false) {
+        $db->queryExec("
+            CREATE TABLE access_log (id int,
+            url varchar(255) NOT NULL,
+            date datetime NOT NULL,
+            PRIMARY KEY (id)
+        )");
+    }
+} else {
+    die($err);
 }
-mysqli_select_db($link, $config["db"]["db"]);
-//mysql_set_charset('utf8',$link); 
-//mysqli_query($this->link, "SET NAMES 'utf8'");
-mysqli_set_charset($link, 'utf8'); 
 ?>
