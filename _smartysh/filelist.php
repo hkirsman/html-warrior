@@ -12,8 +12,8 @@ $page_template = str_replace(".html", ".tpl", $page);
 
 
 
-echo "<table class=\"smartysh_templatelist\">";
-echo tpl_to_link($page_template, $site_dir);
+echo "<table class=\"smartysh_templatelist\" style=\"color:black\">";
+echo '<tr><td colspan="2"><a href="'.$config["basepath_local"]."/".$site_dir.$config["path_templates_pages"]."/".$page_template.'">edit this page</a> or layout</td></tr>';
 echo '<tr><td colspan="2">&nbsp;</td></tr>';
 
 $files = array();
