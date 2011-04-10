@@ -18,9 +18,9 @@ if ($handle = opendir("$site_dir/templates/pages")) {
 }
 
 // copy dirs
-full_copy($config_q["basepath"]."/$site_dir/images",  $config_q["basepath"]."/$site_dir/".$config["build_dir"]."/images");
-full_copy($config_q["basepath"]."/$site_dir/scripts", $config_q["basepath"]."/$site_dir/".$config["build_dir"]."/scripts");
-full_copy($config_q["basepath"]."/$site_dir/style",   $config_q["basepath"]."/$site_dir/".$config["build_dir"]."/style");
+full_copy($config["basepath"]."/$site_dir/images",  $config["basepath"]."/$site_dir/".$config["build_dir"]."/images");
+full_copy($config["basepath"]."/$site_dir/scripts", $config["basepath"]."/$site_dir/".$config["build_dir"]."/scripts");
+full_copy($config["basepath"]."/$site_dir/style",   $config["basepath"]."/$site_dir/".$config["build_dir"]."/style");
 
 
 function full_copy( $source, $target ) {
