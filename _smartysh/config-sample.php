@@ -1,11 +1,12 @@
 <?php
 
-$config["basepath"] = "d:/www";
-$config["baseurl"] = "http://localhost:8080";
+$config["basepath"] = "e:/www";
+$config["basepath_local"] = "file:///e:/www";
+$config["baseurl"] = "http://localhost:8888";
+
 $config["path_code"] = "/_smartysh";
 $config["code_path"] = $config["basepath"] . $config["path_code"];
 $config["basepath"] = $config["basepath"];
-$config["basepath_local"] = "file:///c:/www";
 $config["indent"] = "spaces"; // or tabs
 $config["indent_count"] = 2;
 $config["debug"] = false;
