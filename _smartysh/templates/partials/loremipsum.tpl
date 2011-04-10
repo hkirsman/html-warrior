@@ -1,6 +1,6 @@
 {php}
-global $config_q, $wordCount, $smarty;
-require_once($config_q["code_path"].'/externals/LoremIpsum.class.php');
+global $config, $wordCount, $smarty;
+require_once($config["code_path"].'/externals/LoremIpsum.class.php');
 
 if (!$smarty->tpl_vars['wordCount']->value) { 
    $wordCount = 100;
