@@ -12,7 +12,7 @@ $page_template = str_replace(".html", ".tpl", $page);
 
 
 
-echo "<table>";
+echo "<table class=\"smartysh_templatelist\">";
 echo tpl_to_link($page_template, $site_dir);
 echo '<tr><td colspan="2">&nbsp;</td></tr>';
 
@@ -42,14 +42,22 @@ if ($handle = opendir("../$site_dir/templates/pages")) {
 	foreach($tpl_files as $tpl_file) { 
     if ($page_template != $tpl_file) {
       echo tpl_to_link($tpl_file, $site_dir);
+    } else {
+      echo tpl_to_link($tpl_file, $site_dir,";color:red");
     }
 	}
 }
-echo "</table>";
+echo "</table>
+<style>
+.smartysh_templatelist a {
+  color:white;font-family:Verdana,serif; font-size:11px;
+}
+</style>
+";
 
-function tpl_to_link($tpl_name, $site_dir) { 
+function tpl_to_link($tpl_name, $site_dir, $style=false) { 
   global $config;
 	$html_name = str_replace(".tpl", ".html", $tpl_name);
-	return '<tr><td><a style="color:white;font-family:Verdana,serif; font-size:11px;" href="/'.$site_dir."/".$html_name.'">'.$html_name.'</a></td><td><a style="color:white;font-family:Verdana,serif; font-size:11px;" href="'.$config["basepath_local"]."/".$site_dir.$config["path_templates_pages"]."/".$tpl_name.'">(edit)</a></td></tr>';
+	return '<tr><td><a style="'.$style.'" href="/'.$site_dir."/".$html_name.'">'.$html_name.'</a></td><td><a style="'.$style.'" href="'.$config["basepath_local"]."/".$site_dir.$config["path_templates_pages"]."/".$tpl_name.'">(edit)</a></td></tr>';
 }
 ?>
