@@ -10,7 +10,7 @@
  */
 function smarty_function_plugins($params, &$smarty)
 {
-		global $smarty, $config_q, $plugin, $site_header, $site_footer;
+		global $smarty, $config, $plugin, $site_header, $site_footer;
 
 		$site_dir = explode("/", $smarty->template_dir);
 		$site_dir = $site_dir[0];
@@ -23,7 +23,7 @@ function smarty_function_plugins($params, &$smarty)
 
 		foreach($plugin as $key=>$var) {
 			$site_header == $site_footer = ""; // reset variables in next to be included index.php
-			require($config_q["code_path"]."/plugins/$var/index.php");
+			require($config["code_path"]."/plugins/$var/index.php");
 			$site_header = trim($site_header);
 			$site_footer = trim($site_footer);
 			if ( $params["position"] == "top" && strlen($site_header)) {
