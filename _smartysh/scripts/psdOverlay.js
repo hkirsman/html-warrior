@@ -238,7 +238,7 @@ Psd overlay
 // File list
 (function($) {
 
-  var filelist_html = "<div id=\"protoSmartyFilelist\" style=\"background: black; line-height: 16px; font-size: 11px; opacity: 0.5; font-family: Verdana; position: fixed;top:0;left:-2000px; z-index: 10000;\"> \
+  var filelist_html = "<div id=\"protoSmartyFilelist\" style=\"background: black; line-height: 16px; font-size: 11px; opacity: 0.8; font-family: Verdana; position: fixed;top:0;left:-2000px; z-index: 10000;\"> \
     <div style=\"padding: 5px 10px; opacity: 1;\"> \
      \
     </div> \

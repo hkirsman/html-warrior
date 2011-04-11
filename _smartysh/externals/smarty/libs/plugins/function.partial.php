@@ -88,6 +88,21 @@ function smarty_function_partial($params, &$smarty)
 				$a_outputFinal[$key] = $var;
 			}
 		}
-		return implode("\n", $a_outputFinal);
+    $outputFinal = implode("\n", $a_outputFinal);
+
+    // generate unique ids to placeholder divs
+    if (isset($smarty->page_placeholder_div_ids)) {
+      $smarty->page_placeholder_div_ids = $smarty->page_placeholder_div_ids+1;
+    } else {
+      $smarty->page_placeholder_div_ids = 1;
+    }
+
+    if ($config["show_partial_edit_links"] ) {
+      $outputFinal = ''.
+        '<script type="text/javascript">document.write(\'<div id="'.$config["smartysh_prefix"].'_begin page_placeholder_div_'.$smarty->page_placeholder_div_ids.'" tpl="'.$params["template"].'.tpl" style="display:none"></div>\');</script>'.
+        $outputFinal.
+        '<script type="text/javascript">document.write(\'<div id="'.$config["smartysh_prefix"].'_end_page_placeholder_div_'.$smarty->page_placeholder_div_ids.'" style="display:none"></div>\');</script>';
+    }
+		return $outputFinal;
 }
 ?>
