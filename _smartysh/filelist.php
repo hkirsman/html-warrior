@@ -37,7 +37,11 @@ if ($handle = opendir("../$site_dir/templates/pages")) {
 	}
 
 	if( $index_in_list ) { 
-		echo tpl_to_link("index.tpl", $site_dir);
+		if ($page_template != "" && $page_template!="index.tpl") {
+			echo tpl_to_link("index.tpl", $site_dir);
+		} else { 
+			echo tpl_to_link("index.tpl", $site_dir,";color:red");
+		}
 	}
 	foreach($tpl_files as $tpl_file) { 
     if ($page_template != $tpl_file) {
