@@ -9,6 +9,9 @@ $page = $_GET["page"];
 
 
 $page_template = str_replace(".html", ".tpl", $page);
+$page_template = explode("?", $page_template);
+$page_template = $page_template[0];
+
 
 
 
