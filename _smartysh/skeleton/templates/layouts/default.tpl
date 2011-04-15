@@ -35,6 +35,11 @@
       </div><!-- #footer -->
     </div><!-- #wrapper -->
     {plugins position="bottom" indent="    "}
+{if $debug==1}
+    {partial tpl=script file="../..{$config.path_code}/scripts/external/jquery-ui" indent="    "}
+    {partial tpl=script file="../..{$config.path_code}/scripts/external/jquery.cookie" indent="    "}
+    {partial tpl=script file="../..{$config.path_code}/scripts/psdOverlay" indent="    "}
+{/if}
     {partial tpl=script file="general" indent="    "}
   </body>
 </html>
