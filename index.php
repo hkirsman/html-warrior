@@ -8,9 +8,9 @@ header('Content-Type: text/html; charset=utf-8');
 require '_smartysh/config.php';
 require $config["code_path"] . '/init.php';
 require $config["code_path"] . '/externals/smarty/libs/Smarty.class.php';
-require_once($config["code_path"] . '/filesystem.php');
 
 $exploded_url = explode("/", trim($_SERVER["REQUEST_URI"], "/"));
+$exploded_url = explode("?", $exploded_url[0]);
 $site_dir = $exploded_url[0];
 
 $smarty = new Smarty;
@@ -20,6 +20,16 @@ $smarty->assign("config", $config);
 
 // admin
 if ($site_dir == "") {
+    if (isset($_GET["action"])) {
+        if ($_GET["action"] == "new_project") {
+            if (isset($_GET["name"])) {
+                echo "todo new ";
+            } else {
+                die("name attribute needed");
+            }
+        }
+    }
+
     $smarty->template_dir = $config["code_path"] . "/admin/templates/";
     $smarty->assign("access_log", get_access_log(array("limit" => 10)));
 
@@ -28,37 +38,6 @@ if ($site_dir == "") {
         $tmp[] = &$ma["timestamp"];
     array_multisort($tmp, SORT_DESC, $files, SORT_DESC);
     $smarty->assign("files", $files);
-    /*
-      echo '<input type="text" id="filter" />';
-      echo '
-      <script type="text/javascript">
-      var filter = document.getElementById("filter");
-      filter.focus();
-      </script>';
-
-
-      echo "<h1>Proto Smarty access log</h1>";
-      $access_log = ;
-
-      foreach($access_log as $key=>$var) {
-      echo '<a href="'.$var["url"].'">'.$var["url"].'</a><br />';
-      }
-
-      echo "<h1>Proto Smarty latest sites</h1>";
-
-
-
-      $files = dir_list( $config["basepath"] );
-      foreach($files as &$ma)
-      $tmp[] = &$ma["timestamp"];
-      array_multisort($tmp, SORT_DESC, $files, SORT_DESC);
-      foreach($files as &$ma)
-      if(strpos($ma["name"], "_")!==0 && is_dir($ma["name"]) && $ma["name"]!="templates_c" && strpos($ma["name"], "-files")===false && strpos($ma["name"], "-failid")===false ) {
-      echo '<div><a href="/'.$ma["name"].'/index.html">'.$ma["name"].'</a></div>';
-      }
-
-      echo "<h1>Latest opened files</h1>";
-     */
     $smarty->display("index.tpl");
     die();
 }
