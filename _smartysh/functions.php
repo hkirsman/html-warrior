@@ -52,4 +52,32 @@ function datetime($timestamp=false) {
     return $date;
 }
 
+/**
+ *
+ * @param string $source
+ * @param string $target
+ */
+function full_copy($source, $target) {
+    if (is_dir($source)) {
+        @mkdir($target);
+        $d = dir($source);
+        while (FALSE !== ( $entry = $d->read() )) {
+            if ($entry == '.' || $entry == '..') {
+                continue;
+            }
+            $Entry = $source . '/' . $entry;
+            if (is_dir($Entry)) {
+                full_copy($Entry, $target . '/' . $entry);
+                continue;
+            }
+            copy($Entry, $target . '/' . $entry);
+            touch($target . '/' . $entry, filemtime($Entry)); // set time
+        }
+        $d->close();
+    } else {
+        copy($source, $target);
+        touch($target, filemtime($source)); // set time
+    }
+}
+
 ?>
