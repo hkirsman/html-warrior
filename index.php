@@ -67,7 +67,7 @@ if ($site_dir == "") {
 // todo build also logged templates
 if (isset($_GET["build"])) {
     if ($_GET["build"] == 1) {
-        require_once($config["code_path"] . '/build.php');
+        require_once($config["code_path"] . '/includes/build.php');
         die("Site build done... go to <a href=\"index.html\">frontpage</a>");
     }
 }
