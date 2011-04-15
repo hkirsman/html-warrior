@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Saves opened urls to database
+ * @global <type> $db
+ * @param array $arr
+ */
 function add_access_log($arr=array()) {
     global $db;
     $q = "
@@ -19,6 +24,12 @@ function add_access_log($arr=array()) {
     $db->queryExec($q);
 }
 
+/**
+ * Gets latest viewed pages
+ * @global  $db
+ * @param array $arr
+ * @return array
+ */
 function get_access_log($arr=array()) {
     global $db;
     $out = array();
@@ -53,7 +64,7 @@ function datetime($timestamp=false) {
 }
 
 /**
- *
+ * Dir copy
  * @param string $source
  * @param string $target
  */
@@ -78,6 +89,38 @@ function full_copy($source, $target) {
         copy($source, $target);
         touch($target, filemtime($source)); // set time
     }
+}
+
+/**
+ * dir_list is currently used to get the latest projects in ordered by dir
+ * create date (newer first)
+ * @param string $dir
+ * @return array
+ * @todo sort by
+ */
+function dir_list($dir) {
+    if ($dir[strlen($dir) - 1] != '/')
+        $dir .= '/';
+
+    if (!is_dir($dir))
+        return array();
+
+    $dir_handle = opendir($dir);
+    $dir_objects = array();
+    while (false !== ($object = readdir($dir_handle))) {
+        if (!in_array($object, array('.', '..'))) {
+            $filename = $dir . $object;
+            $file_object = array(
+                'name' => $object,
+                'size' => filesize($filename),
+                'type' => filetype($filename),
+                'time' => date("d F Y H:i:s", filemtime($filename)),
+                'timestamp' => filemtime($filename)
+            );
+            $dir_objects[] = $file_object;
+        }
+    }
+    return $dir_objects;
 }
 
 ?>
