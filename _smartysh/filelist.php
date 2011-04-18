@@ -25,8 +25,8 @@ $index_in_list = false;
 if ($handle = opendir("../$site_dir/templates/pages")) {
     while (false !== ($file = readdir($handle))) {
         if ($file != "." && $file != "..") {
-            if(isset($config["hidden_file_prefix"])) {
-                if (strpos($file, $config["hidden_file_prefix"])===0) {
+            if (isset($config["hidden_file_prefix"])) {
+                if (strpos($file, $config["hidden_file_prefix"]) === 0) {
                     continue;
                 }
             }
