@@ -93,7 +93,7 @@ $smarty->assign("current_gmap_id", $current_gmap_id);
           draggable: true
         });
         google.maps.event.addListener(marker, 'dblclick', function(event) {
-          alert('lat='+event.latLng.Da+' lng='+event.latLng.Ea);
+          alert('lat='+event.latLng.Da+' lng='+event.latLng.Ea+' zoom='+this.map.zoom);
         });
         markersArray.push(marker);
       }
