@@ -4,6 +4,7 @@
   New latitude ang longitude can be aquired by clicking on map, dragging the marker to correct position and double-clicking it.
   @param integer $lat optional
   @param integer $lng optional
+  @param integer zoom optional
   @param integer|string $width optional; These are some examples how dimensions are converted: 100 = 100px; 100% = 100%; 100px = 100px;
   @param integer|string $height optional; These are some examples how dimensions are converted: 100 = 100px; 100% = 100%; 100px = 100px;
 
@@ -17,6 +18,7 @@ global $smarty;
 
 $lat = $smarty->getTemplateVars("lat");
 $lng = $smarty->getTemplateVars("lng");
+$zoom = $smarty->getTemplateVars("zoom");
 $width = $smarty->getTemplateVars("width");
 $height = $smarty->getTemplateVars("height");
 $current_gmap_id = $smarty->getTemplateVars("current_gmap_id");
@@ -32,6 +34,10 @@ if (!isset($lat)) {
 }
 if (!isset($lng)) {
     $lng = 24.705626;
+}
+
+if (!isset($zoom)) {
+    $zoom = 14;
 }
 
 if (!isset($width)) {
@@ -59,7 +65,7 @@ $smarty->assign("current_gmap_id", $current_gmap_id);
   (function() { 
     var lat = {$lat};
     var lng = {$lng};
-    var zoom = 14;
+    var zoom = {$zoom};
     var markersArray = [];
     if(lat && lng) {
       var latlng = new google.maps.LatLng(lat, lng);
@@ -108,6 +114,7 @@ $smarty->assign("current_gmap_id", $current_gmap_id);
 global $smarty;
 $smarty->clearAssign("width");
 $smarty->clearAssign("height");
+$smarty->clearAssign("zoom");
 $smarty->clearAssign("lat", $lat);
 $smarty->clearAssign("lng", $lng);
 {/php}
