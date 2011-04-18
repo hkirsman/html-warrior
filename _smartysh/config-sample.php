@@ -20,4 +20,6 @@ $config["path_db"] = $config["code_path"] . "/database/db";
 //$config["db"]["password"] = "";
 //$config["db"]["db"] = "smartysh";
 $config["timeoffset"] = 3600;
+// Hide templates from listings with these prefixes
+$config["hidden_file_prefix"] = "__";
 ?>
