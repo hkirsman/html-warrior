@@ -22,4 +22,6 @@ $config["path_db"] = $config["code_path"] . "/database/db";
 $config["timeoffset"] = 3600;
 // Hide templates from listings with these prefixes
 $config["hidden_file_prefix"] = "__";
+// use this to popup firefoxes browser download dialog to save default setting
+$config["template_edit_links_downloadable"] = false;
 ?>
