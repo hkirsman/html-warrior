@@ -12,7 +12,7 @@
     minimal parameters:
       partial tpl='gmap' indent=''
     all parameters:
-      partial tpl="gmap" lat=58.84 lng=25.30 width="100%" height=100 indent=""
+      partial tpl="gmap" lat=58.84 lng=25.30 width="100%" height="100" zoom=10 indent=""
 */
 global $smarty;
 
@@ -54,6 +54,7 @@ if (strpos($height, "%") === false && strpos($height, "px") === false) {
 }
 $smarty->assign("width", $width);
 $smarty->assign("height", $height);
+$smarty->assign("zoom", $zoom);
 $smarty->assign("lat", $lat);
 $smarty->assign("lng", $lng);
 $smarty->assign("current_gmap_id", $current_gmap_id);
