@@ -18,6 +18,8 @@ function smarty_function_partial($params, &$smarty) {
 
     if (isset($params["tpl"])) {
         $params["template"] = $params["tpl"];
+    } elseif (isset($params["name"])) {
+        $params["template"] = $params["name"];
     }
 
     foreach ($params as $key => $var) {
