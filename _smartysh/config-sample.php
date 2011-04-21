@@ -20,6 +20,8 @@ $config["path_db"] = $config["code_path"] . "/database/db";
 //$config["db"]["password"] = "";
 //$config["db"]["db"] = "smartysh";
 $config["timeoffset"] = 3600;
+$config["smartysh_prefix"] = "smartysh";
+$config["show_partial_edit_links"] = true;
 // Hide templates from listings with these prefixes
 $config["hidden_file_prefix"] = "__";
 // use this to popup firefoxes browser download dialog to save default setting
