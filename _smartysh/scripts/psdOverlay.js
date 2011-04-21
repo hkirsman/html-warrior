@@ -1,60 +1,4 @@
 /**
- * PHP round for js
- */
-function round (value, precision, mode) {
-    // http://kevin.vanzonneveld.net
-    // +   original by: Philip Peterson
-    // +    revised by: Onno Marsman
-    // +      input by: Greenseed
-    // +    revised by: T.Wild
-    // +      input by: meo
-    // +      input by: William
-    // +   bugfixed by: Brett Zamir (http://brett-zamir.me)
-    // +      input by: Josep Sanz (http://www.ws3.es/)
-    // +    revised by: Rafał Kukawski (http://blog.kukawski.pl/)
-    // %        note 1: Great work. Ideas for improvement:
-    // %        note 1:  - code more compliant with developer guidelines
-    // %        note 1:  - for implementing PHP constant arguments look at
-    // %        note 1:  the pathinfo() function, it offers the greatest
-    // %        note 1:  flexibility & compatibility possible
-    // *     example 1: round(1241757, -3);
-    // *     returns 1: 1242000
-    // *     example 2: round(3.6);
-    // *     returns 2: 4
-    // *     example 3: round(2.835, 2);
-    // *     returns 3: 2.84
-    // *     example 4: round(1.1749999999999, 2);
-    // *     returns 4: 1.17
-    // *     example 5: round(58551.799999999996, 2);
-    // *     returns 5: 58551.8
-    var m, f, isHalf, sgn; // helper variables
-    precision |= 0; // making sure precision is integer
-    m = Math.pow(10, precision);
-    value *= m;
-    sgn = (value > 0) | -(value < 0); // sign of the number
-    isHalf = value % 1 === 0.5 * sgn;
-    f = Math.floor(value);
-
-    if (isHalf) {
-        switch (mode) {
-            case 'PHP_ROUND_HALF_DOWN':
-                value = f + (sgn < 0); // rounds .5 toward zero
-                break;
-            case 'PHP_ROUND_HALF_EVEN':
-                value = f + (f % 2 * sgn); // rouds .5 towards the next even integer
-                break;
-            case 'PHP_ROUND_HALF_ODD':
-                value = f + !(f % 2); // rounds .5 towards the next odd integer
-                break;
-            default:
-                value = f + (sgn > 0); // rounds .5 away from zero
-        }
-    }
-
-    return (isHalf ? value : Math.round(value)) / m;
-}
-
-/**
  * Show overlay on page
  */
 (function($) {
@@ -287,29 +231,56 @@ function round (value, precision, mode) {
         }
     });
 
-
-
 })(jQuery);
 
 /**
- * Get url property
- * @param string name parameter name to get from url
+ * Partial edit links
  */
-function smartysh_gup( name )
-{
-    name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-    var regexS = "[\\?&]"+name+"=([^&#]*)";
-    var regex = new RegExp( regexS );
-    var results = regex.exec( window.location.href );
-    if( results == null )
-        return "";
-    else
-        return results[1];
-}
+if (smartysh_config["show_partial_edit_links"]) {
+    $(document).ready(function() {
+        var partial_placeholder_prefix = smartysh_config["smartysh_prefix"]+"_placeholder";
+        var partial_placeholders = new Array;
 
-/**
- * Alias for console.log
- */
-function log(attr) {
-    console.log(attr);
+        var start_placeholder, end_placeholder;
+        var i = 0;
+        $("body [id^="+partial_placeholder_prefix+"]").each(function(f) {
+            var placeholder_id = this.id.split("__")[1];
+            if (typeof partial_placeholders[placeholder_id] == "undefined") {
+                partial_placeholders[placeholder_id] = new Array();
+            }
+            if(this.id.indexOf(partial_placeholder_prefix+"_begin")===0) {
+                partial_placeholders[placeholder_id]["begin"] = $(this);
+            } else if(this.id.indexOf(partial_placeholder_prefix+"_end")===0) {
+                partial_placeholders[placeholder_id]["end"] = $(this);
+                i++;
+            }
+        });
+
+        $(document).keydown(function(e) {
+            if (e.ctrlKey) {
+                draw_partial_overlays();
+            }
+        });
+
+        function draw_partial_overlays() {
+            var partial_overlay_class = smartysh_config["smartysh_prefix"]+"_partial_overlay";
+            var zIndex = 99999;
+            for(key in partial_placeholders) {
+                var partial_start = partial_placeholders[key]["begin"];
+                var partial_end = partial_placeholders[key]["end"];
+                var next_from_partial_start = partial_start.next(":visible");
+                var prev_from_partial_end = partial_end.prev(":visible");
+                var next_from_partial_start_offsets = next_from_partial_start.offset();
+                var prev_from_partial_end_offsets = prev_from_partial_end.offset();
+                var top = next_from_partial_start_offsets.top;
+                var left = next_from_partial_start_offsets.left;
+                //var width =
+                //var height =
+                var partial_overlay = $('<div class="'+partial_overlay_class+'" style="position:absolute;top:'+top+'px;left:'+left+'px;width:100px;height:100px;background:red;z-index:'+zIndex+';"></div>');
+                $("body").append(partial_overlay);
+                zIndex++;
+            }
+        }
+
+    });
 }

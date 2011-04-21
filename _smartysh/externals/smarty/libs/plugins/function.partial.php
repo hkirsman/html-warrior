@@ -91,7 +91,24 @@ function smarty_function_partial($params, &$smarty) {
             $a_outputFinal[$key] = $var;
         }
     }
-    return implode("\n", $a_outputFinal);
+    $s_outputFinal = implode("\n", $a_outputFinal);
+    // write placeholders with script tag so they don't mess up the docs
+    // validity
+    if ($config["show_partial_edit_links"] && $params["template"]!="script") {
+        $s_outputFinal = trim($s_outputFinal);
+        if (strlen($s_outputFinal)) {
+            if (!isset($smarty->partial_index)) {
+                $smarty->partial_index = 1;
+            } else {
+                $smarty->partial_index++;
+            }
+        
+            $s_outputFinal = '<script type="text/javascript" id="' . $config["smartysh_prefix"] . '_placeholder_begin__' . $smarty->partial_index . '"></script>' .
+                    $s_outputFinal .
+                    '<script type="text/javascript" id="' . $config["smartysh_prefix"] . '_placeholder_end__' . $smarty->partial_index . '"></script>';
+        }
+    }
+    return $s_outputFinal;
 }
 
 ?>
