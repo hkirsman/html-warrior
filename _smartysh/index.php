@@ -1,11 +1,12 @@
 <?php
 
+set_time_limit(999);
 //if(strpos($_SERVER["HTTP_USER_AGENT"], "MSIE"))
 header('Content-Type: text/html; charset=utf-8');
 //else
 //header('Content-type: application/xhtml+xml; charset=utf-8');
 
-require '_smartysh/config.php';
+require 'config.php';
 require $config["code_path"] . '/init.php';
 require $config["code_path"] . '/externals/smarty/libs/Smarty.class.php';
 
@@ -30,7 +31,7 @@ if ($site_dir == "") {
         }
     }
 
-    $smarty->template_dir = $config["code_path"] . "/admin/templates/";
+    $smarty->template_dir = $config["code_path"] . "/admin/templates";
     $smarty->assign("access_log", get_access_log(array("limit" => 10)));
 
     $files = dir_list($config["basepath"]);
@@ -51,7 +52,7 @@ if (isset($_GET["build"])) {
     }
 }
 
-$smarty->template_dir = $site_dir . "/templates/";
+$smarty->template_dir = $config["basepath"] ."/$site_dir/templates";
 //$smarty->force_compile = true;
 
 $smarty->error_reporting = ~E_NOTICE;
@@ -86,13 +87,13 @@ else
     $smarty->assign("frontpage", false);
 
 // template copy if not exists
-if (!file_exists($config["basepath"] . "/" . $smarty->template_dir . "/pages/" . $page . ".tpl") && !strpos($request_uri[1], "__logged")) {
+if (!file_exists($smarty->template_dir . "/pages/" . $page . ".tpl") && !strpos($request_uri[1], "__logged")) {
     echo '<div style="background: red">Templatet ei ole olemas. Kopeerin uue?. <a href="?copy=yes">jah</a></div>';
     if (@$_GET["copy"] == "yes") {
-        if (copy($config["code_path"] . "/templates/pages/" . $page . ".tpl", $config["basepath"] . "/" . $smarty->template_dir . "pages/" . $page . ".tpl")) {
+        if (copy($smarty->template_dir . "/pages/" . $page . ".tpl", $config["basepath"] . "/" . $smarty->template_dir . "/pages/" . $page . ".tpl")) {
             echo "done";
         } else {
-            echo $config["code_path"] . "/templates/pages/" . $page . ".tpl does not exist!";
+            echo $smarty->template_dir . "/pages/" . $page . ".tpl does not exist!";
         }
     }
     die();
@@ -102,12 +103,12 @@ if (@strpos($request_uri[1], "__logged")) {
     $smarty->assign("logged_sufix", "__logged");
     $smarty->assign("logged", true);
     $page_content = $smarty->fetch("pages/" . str_replace("__logged", "", $page) . ".tpl");
-    $template_filetime = filemtime($config["basepath"] . "/$site_dir/templates/pages/" . str_replace("__logged", "", $page) . ".tpl");
+    $template_filetime = filemtime($smarty->template_dir . "/pages/" . str_replace("__logged", "", $page) . ".tpl");
 } else {
     $smarty->assign("logged_sufix", "");
     $smarty->assign("logged", false);
     $page_content = $smarty->fetch("pages/" . $page . ".tpl");
-    $template_filetime = filemtime($config["basepath"] . "/$site_dir/templates/pages/" . $page . ".tpl");
+    $template_filetime = filemtime($smarty->template_dir . "/pages/" . $page . ".tpl");
 }
 $page_variables = parse_variables($page_content);
 
@@ -117,8 +118,7 @@ if (!isset($page_variables["layout"])) {
     $layout = $page_variables["layout"];
 }
 $layout_path = "layouts/" . $layout . ".tpl";
-
-$variable_indents = get_indents_for_variables(file_get_contents("$site_dir/templates/" . $layout_path));
+$variable_indents = get_indents_for_variables(file_get_contents($smarty->template_dir . "/" . $layout_path));
 
 if (isset($page_variables["title"]))
     $smarty->assign("title", $page_variables["title"]);
@@ -136,7 +136,7 @@ $smarty->assign("yield", indent(remove_variables($page_content), $variable_inden
 // add access log; must be after frontpage so we don't log that
 add_access_log(array("url" => $_SERVER["REQUEST_URI"]));
 
-require_once($site_dir . "/cfg/config.php");
+require_once($config["basepath"] ."/$site_dir/cfg/config.php");
 
 ob_start("callback");
 $smarty->display($layout_path);

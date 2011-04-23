@@ -42,7 +42,7 @@
        <h1>Proto Smarty latest sites</h1>
 
       {foreach $files as $key=>$var}
-        {if strpos($var["name"], "_")!==0 && is_dir($var["name"]) && $var["name"]!="templates_c" && strpos($var["name"], "-files")===false && strpos($var["name"], "-failid")===false}
+        {if strpos($var["name"], "_")!==0 && $var["type"]=="dir" && strpos($var["name"], "-files")===false && strpos($var["name"], "-failid")===false && strpos($var["name"], ".")===false}
           <div class="item"><a href="{$var.name}/index.html" project="{$var.name}">{$var.name}</a></div>
         {/if}
       {/foreach} 
