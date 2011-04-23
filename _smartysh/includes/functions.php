@@ -123,4 +123,41 @@ function dir_list($dir) {
     return $dir_objects;
 }
 
+/**
+ * Unified javascript tag
+ * @param string $file required URI to js. Js extension can be omitted. Php
+ * extension can be used.
+ * @return string <script> tag
+ */
+function html_javascript($file) {
+    $a_file = explode("/", $file);
+    $template_name = end($a_file);
+    $file = str_replace($template_name, "", $file);
+    if (strpos($template_name, ".php") === false) {
+        $file .= $template_name . ".js";
+    } else {
+        $file .= $template_name;
+    }
+    return '<script type="text/javascript" src="scripts/' . $file . '"></script>';
+}
+
+/**
+ * Unified style link tag
+ * @param string $file required URI to css. If extension is missing, .css is added
+ * to path
+ * @param string $media optional Can be used to define css media type
+ * @return <type>
+ */
+function html_css($file, $media=false) {
+    $a_file = explode("/", $file);
+    $template_name = end($a_file);
+    $file = str_replace($template_name, "", $file);
+    if (strpos($template_name, ".php") === false) {
+        $file .= $template_name . ".css";
+    } else {
+        $file .= $template_name;
+    }
+    return '<link rel="stylesheet" type="text/css" href="style/' . $file . '" ' . ($media ? " media=\"" . $media . "\"" : " media=\"all\"") . ' title="" />';
+}
+
 ?>

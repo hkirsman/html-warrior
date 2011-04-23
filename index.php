@@ -231,14 +231,4 @@ function url_remove_parameters($uri) {
     return $uri_new[0];
 }
 
-// unified javascript tag
-function html_javascript($file) {
-    return '<script type="text/javascript" src="scripts/' . $file . '.js"></script>';
-}
-
-// unified style link tag
-function html_css($file, $media=false) {
-    return '<link rel="stylesheet" type="text/css" href="style/' . $file . '.css" ' . ($media ? " media=\"" . $media . "\"" : " media=\"all\"") . ' title="" />';
-}
-
 ?>
