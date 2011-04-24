@@ -1,5 +1,6 @@
 <?php
 
+$time_start = microtime(1);
 set_time_limit(999);
 //if(strpos($_SERVER["HTTP_USER_AGENT"], "MSIE"))
 header('Content-Type: text/html; charset=utf-8');
@@ -52,7 +53,7 @@ if (isset($_GET["build"])) {
     }
 }
 
-$smarty->template_dir = $config["basepath"] ."/$site_dir/templates";
+$smarty->template_dir = $config["basepath"] . "/$site_dir/templates";
 //$smarty->force_compile = true;
 
 $smarty->error_reporting = ~E_NOTICE;
@@ -136,7 +137,7 @@ $smarty->assign("yield", indent(remove_variables($page_content), $variable_inden
 // add access log; must be after frontpage so we don't log that
 add_access_log(array("url" => $_SERVER["REQUEST_URI"]));
 
-require_once($config["basepath"] ."/$site_dir/cfg/config.php");
+require_once($config["basepath"] . "/$site_dir/cfg/config.php");
 
 ob_start("callback");
 $smarty->display($layout_path);
@@ -146,89 +147,10 @@ ob_end_flush();
 
 build_template($config["basepath"] . "/$site_dir/" . $config["build_dir"] . "/" . $page . ".html", $content, $template_filetime);
 
-// write file to $path
-function build_template($path, $content, $touchtime = false) {
-    $fh = fopen($path, 'w') or die("can't open file");
-    fwrite($fh, $content);
-    fclose($fh);
-    if ($touchtime) {
-        touch($path, $touchtime); // set time
-    }
+if ($config["debug"]) {
+    $time_end = microtime(1) - $time_start;
+    echo "<!--";
+    echo("Script load time: " . $time_end);
+    echo "-->";
 }
-
-// get variables from template
-// example:
-// @layout = "contact"
-function parse_variables($content) {
-    $variables = array();
-    $file = explode("\n", $content);
-    foreach ($file as $key => $var) {
-        if (preg_match("/^@/", $var)) {
-            $tempvar = explode(" = ", $var);
-            $tempvar_key = trim(str_replace("@", "", $tempvar[0]));
-            $tempvar_value = trim(str_replace('"', "", $tempvar[1]));
-            $variables[$tempvar_key][] = $tempvar_value;
-        }
-    }
-    foreach ($variables as $key => $var) {
-        if (count($var) == 1) {
-            $variables[$key] = $var[0];
-        } else {
-            $variables[$key] = $var;
-        }
-    }
-    return $variables;
-}
-
-// remove @ variables from template
-function remove_variables($content) {
-    $file = explode("\n", $content);
-    foreach ($file as $key => $var) {
-        if (preg_match("/^@/", $var)) {
-            unset($file[$key]);
-        }
-    }
-    return implode("\n", $file);
-}
-
-/*
-  $indent = amount of tabs or spaces
- */
-
-function indent($content, $indent, $ignore_first_row=true, $char="  ") {
-    $file = explode("\n", $content);
-    $real_indent = "";
-    for ($i = 0; $i < $indent; $i++) {
-        $real_indent = " " . $real_indent;
-    }
-    for ($i = 0; $i < count($file); $i++) {
-        if ($ignore_first_row && $i == 0) {
-            continue;
-        }
-        $file[$i] = $real_indent . $file[$i];
-    }
-    return implode("\n", $file);
-}
-
-// todo: ($pos-1)/2; --> calculate real indent with help of config
-function get_indents_for_variables($content) {
-    global $config;
-    $indents = array();
-    $file = explode("\n", $content);
-    for ($i = 0; $i < count($file); $i++) {
-        $pos = strpos($file[$i], "{\$");
-        if ($pos !== false) {
-            preg_match("/{\\$.*}/iU", $file[$i], $mt);
-            $variable = str_replace(array("{", "\$", "}"), "", $mt[0]);
-            $indents[$variable] = $pos;
-        }
-    }
-    return $indents;
-}
-
-function url_remove_parameters($uri) {
-    $uri_new = explode("?", $uri);
-    return $uri_new[0];
-}
-
 ?>

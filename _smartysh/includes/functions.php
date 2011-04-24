@@ -1,6 +1,30 @@
 <?php
 
 /**
+ * Debug variable - print_r variable but also add pre tags
+ * @param bool|string|array $arr
+ * @param bool $die optional Also die after output
+ * @param bool $see_html optional 
+ * @return string of the debugable array
+ */
+function arr($arr, $die=false, $see_html=false) {
+    echo '<hr/>';
+    $tmp = '';
+    ob_start();
+    print_r($arr);
+    $tmp = ob_get_contents();
+    ob_end_clean();
+    echo '<pre style="text-align: left;">';
+    echo $see_html ? htmlspecialchars($tmp) : $tmp;
+    echo '</pre>';
+    echo '<hr/>';
+    if ($die) {
+        die();
+    }
+    return $arr;
+}
+
+/**
  * Saves opened urls to database
  * @global <type> $db
  * @param array $arr
@@ -158,6 +182,101 @@ function html_css($file, $media=false) {
         $file .= $template_name;
     }
     return '<link rel="stylesheet" type="text/css" href="style/' . $file . '" ' . ($media ? " media=\"" . $media . "\"" : " media=\"all\"") . ' title="" />';
+}
+
+// write file to $path
+function build_template($path, $content, $touchtime = false) {
+    $fh = fopen($path, 'w') or die("can't open file");
+    fwrite($fh, $content);
+    fclose($fh);
+    if ($touchtime) {
+        touch($path, $touchtime); // set time
+    }
+}
+
+// get variables from template
+// example:
+// @layout = "contact"
+function parse_variables($content) {
+    $variables = array();
+    $file = explode("\n", $content);
+    foreach ($file as $key => $var) {
+        if (preg_match("/^@/", $var)) {
+            $tempvar = explode(" = ", $var);
+            $tempvar_key = trim(str_replace("@", "", $tempvar[0]));
+            $tempvar_value = trim(str_replace('"', "", $tempvar[1]));
+            $variables[$tempvar_key][] = $tempvar_value;
+        }
+    }
+    foreach ($variables as $key => $var) {
+        if (count($var) == 1) {
+            $variables[$key] = $var[0];
+        } else {
+            $variables[$key] = $var;
+        }
+    }
+    return $variables;
+}
+
+// remove @ variables from template
+function remove_variables($content) {
+    $file = explode("\n", $content);
+    foreach ($file as $key => $var) {
+        if (preg_match("/^@/", $var)) {
+            unset($file[$key]);
+        }
+    }
+    return implode("\n", $file);
+}
+
+/*
+  $indent = amount of tabs or spaces
+ */
+
+function indent($content, $indent, $ignore_first_row=true, $char="  ") {
+    $file = explode("\n", $content);
+    $real_indent = "";
+    for ($i = 0; $i < $indent; $i++) {
+        $real_indent = " " . $real_indent;
+    }
+    for ($i = 0; $i < count($file); $i++) {
+        if ($ignore_first_row && $i == 0) {
+            continue;
+        }
+        $file[$i] = $real_indent . $file[$i];
+    }
+    return implode("\n", $file);
+}
+
+// todo: ($pos-1)/2; --> calculate real indent with help of config
+function get_indents_for_variables($content) {
+    global $config;
+    $indents = array();
+    $file = explode("\n", $content);
+    for ($i = 0; $i < count($file); $i++) {
+        $pos = strpos($file[$i], "{\$");
+        if ($pos !== false) {
+            preg_match("/{\\$.*}/iU", $file[$i], $mt);
+            $variable = str_replace(array("{", "\$", "}"), "", $mt[0]);
+            $indents[$variable] = $pos;
+        }
+    }
+    return $indents;
+}
+
+function url_remove_parameters($uri) {
+    $uri_new = explode("?", $uri);
+    return $uri_new[0];
+}
+
+/**
+ * Find first tag name from string
+ * @param string $subject
+ * @return string Tag name
+ */
+function get_first_tag_name($subject) {
+    preg_match("/<([a-z].*)(\s.*)>/msiU", $subject, $matches);
+    return $matches[1];
 }
 
 ?>

@@ -240,6 +240,7 @@ if (smartysh_config["show_partial_edit_links"]) {
     $(document).ready(function() {
         var partial_placeholder_prefix = smartysh_config["smartysh_prefix"]+"_placeholder";
         var partial_placeholders = new Array;
+        var overlays_active = false;
 
         var start_placeholder, end_placeholder;
         var i = 0;
@@ -257,8 +258,17 @@ if (smartysh_config["show_partial_edit_links"]) {
         });
 
         $(document).keydown(function(e) {
-            if (e.ctrlKey) {
-                draw_partial_overlays();
+            if (e.ctrlKey && e.shiftKey) {
+                if (!overlays_active) {
+                    draw_partial_overlays();
+                }
+            }
+        });
+        $(document).keyup(function(e) {
+            if (e.ctrlKey || e.shiftKey) {
+                if (overlays_active) {
+                    remove_partial_overlays();
+                }
             }
         });
 
@@ -272,14 +282,26 @@ if (smartysh_config["show_partial_edit_links"]) {
                 var prev_from_partial_end = partial_end.prev(":visible");
                 var next_from_partial_start_offsets = next_from_partial_start.offset();
                 var prev_from_partial_end_offsets = prev_from_partial_end.offset();
+                // skip hidden layers
+                if ( next_from_partial_start_offsets === null || prev_from_partial_end_offsets === null ) {
+                    continue;
+                }
                 var top = next_from_partial_start_offsets.top;
                 var left = next_from_partial_start_offsets.left;
-                //var width =
-                //var height =
-                var partial_overlay = $('<div class="'+partial_overlay_class+'" style="position:absolute;top:'+top+'px;left:'+left+'px;width:100px;height:100px;background:red;z-index:'+zIndex+';"></div>');
+                // width and height calc we'll have to better i think
+                var width = next_from_partial_start.width();
+                //var height = prev_from_partial_end.top-top + prev_from_partial_end.height();
+                var height = prev_from_partial_end_offsets.top-top+prev_from_partial_end.height()-1;
+                var partial_overlay = $('<div class="'+partial_overlay_class+'" style="position:absolute;top:'+top+'px;left:'+left+'px;width:'+width+'px;height:'+height+'px;background:red;z-index:'+zIndex+';opacity:0.8;cursor:pointer;"></div>');
                 $("body").append(partial_overlay);
                 zIndex++;
             }
+            overlays_active = true;
+        }
+
+        function remove_partial_overlays() {
+            $(".smartysh_partial_overlay").remove();
+            overlays_active = false;
         }
 
     });

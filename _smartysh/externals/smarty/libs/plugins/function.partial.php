@@ -91,10 +91,12 @@ function smarty_function_partial($params, &$smarty) {
             $a_outputFinal[$key] = $var;
         }
     }
+    $random_string = " sfkdjfdslfj dsf<ul    id='foo'></ul>";
+
     $s_outputFinal = implode("\n", $a_outputFinal);
     // write placeholders with script tag so they don't mess up the docs
     // validity
-    if ($config["show_partial_edit_links"] && $params["template"]!="script") {
+    if ($config["show_partial_edit_links"] && $params["template"] != "script") {
         $s_outputFinal = trim($s_outputFinal);
         if (strlen($s_outputFinal)) {
             if (!isset($smarty->partial_index)) {
@@ -102,10 +104,18 @@ function smarty_function_partial($params, &$smarty) {
             } else {
                 $smarty->partial_index++;
             }
-        
-            $s_outputFinal = '<script type="text/javascript" id="' . $config["smartysh_prefix"] . '_placeholder_begin__' . $smarty->partial_index . '"></script>' .
-                    $s_outputFinal .
-                    '<script type="text/javascript" id="' . $config["smartysh_prefix"] . '_placeholder_end__' . $smarty->partial_index . '"></script>';
+
+            $placeholder_params_begin = 'id="' . $config["smartysh_prefix"] . '_placeholder_begin__' . $smarty->partial_index . '"';
+            $placeholder_params_end = 'id="' . $config["smartysh_prefix"] . '_placeholder_end__' . $smarty->partial_index . '"';
+            if (get_first_tag_name($s_outputFinal) == "li") {
+                $s_outputFinal = '<li ' . $placeholder_params_begin . ' style="display:none"></li>' .
+                        $s_outputFinal .
+                        '<li ' . $placeholder_params_end . ' style="display:none"></li>';
+            } else {
+                $s_outputFinal = '<script type="text/javascript" ' . $placeholder_params_begin . '></script>' .
+                        $s_outputFinal .
+                        '<script type="text/javascript" ' . $placeholder_params_end . '></script>';
+            }
         }
     }
     return $s_outputFinal;
