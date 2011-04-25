@@ -14,7 +14,7 @@ $page_template = explode("?", $page_template);
 $page_template = $page_template[0];
 
 echo "<table class=\"smartysh_templatelist\" style=\"color:black\">";
-echo '<tr><td colspan="2"><a href="' . (!$config["template_edit_links_downloadable"]?$config["basepath_local"]:"") . "/" . $site_dir . $config["path_templates_pages"] . "/" . $page_template . '?template_list_opened=1">edit this page</a> or layout</td></tr>';
+echo '<tr><td colspan="2"><a href="' . (!$config["template_edit_links_downloadable"] ? $config["basepath_local"] : "") . "/" . $site_dir . $config["path_templates_pages"] . "/" . $page_template . '?template_list_opened=1">edit this page</a> or layout</td></tr>';
 echo '<tr><td colspan="2">&nbsp;</td></tr>';
 
 $files = array();
@@ -66,9 +66,9 @@ echo "</table>
 ";
 
 function tpl_to_link($tpl_name, $site_dir, $style=false) {
-    global $config;
+    global $config, $smarty;
     $html_name = str_replace(".tpl", ".html", $tpl_name);
-    return '<tr><td><a style="' . $style . '" href="/' . $site_dir . "/" . $html_name . '?template_list_opened=1">' . $html_name . '</a></td><td><a style="' . $style . '" href="' . (!$config["template_edit_links_downloadable"]?$config["basepath_local"]:"") . "/" . $site_dir . $config["path_templates_pages"] . "/" . $tpl_name . '">(edit)</a></td></tr>';
+    return '<tr><td><a style="' . $style . '" href="/' . $site_dir . "/" . $html_name . '?template_list_opened=1">' . $html_name . '</a></td><td><a style="' . $style . '" href="' . (!$config["template_edit_links_downloadable"] ? $config["basepath_local"] : "") . "/" . $site_dir . $config["path_templates_pages"] . "/" . str_replace("__logged.", "", $tpl_name) . '">(edit)</a></td></tr>';
 }
 
 ?>
