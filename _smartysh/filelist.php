@@ -14,7 +14,7 @@ $page_template = explode("?", $page_template);
 $page_template = $page_template[0];
 
 echo "<table class=\"smartysh_templatelist\" style=\"color:black\">";
-echo '<tr><td colspan="2"><a href="' . (!$config["template_edit_links_downloadable"] ? $config["basepath_local"] : "") . "/" . $site_dir . $config["path_templates_pages"] . "/" . $page_template . '?template_list_opened=1">edit this page</a> or layout</td></tr>';
+echo '<tr><td colspan="2"><a href="' . (!$config["template_edit_links_downloadable"] ? $config["basepath_local"] : "") . "/" . $site_dir . $config["path_templates_pages"] . "/" . str_replace("__logged.", ".", $page_template) . '?template_list_opened=1">edit this page</a> or layout</td></tr>';
 echo '<tr><td colspan="2">&nbsp;</td></tr>';
 
 $files = array();
@@ -50,7 +50,7 @@ if ($handle = opendir("../$site_dir/templates/pages")) {
         }
     }
     foreach ($tpl_files as $tpl_file) {
-        if ($page_template != $tpl_file) {
+        if ($page_template != $tpl_file && str_replace("__logged.", ".", $page_template) != $tpl_file) {
             echo tpl_to_link($tpl_file, $site_dir);
         } else {
             echo tpl_to_link($tpl_file, $site_dir, ";color:red");
