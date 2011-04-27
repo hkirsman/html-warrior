@@ -77,7 +77,7 @@ Other
 .hidden2 { position: absolute; top: -2000px; }
 .lfloat { float: left; }
 .rfloat { float: right; }
-.lfloat2,.rfloat2{display:table-cell;vertical-align:top;width:10000px}
+.sidefloat{display:table-cell;vertical-align:top;width:10000px;}
 .aleft { text-align: left; }
 .aright { text-align: right; }
 .clear{clear:both;display:block;height:0;overflow:hidden;width:0;visibility:hidden}
