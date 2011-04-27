@@ -58,7 +58,7 @@ $smarty->assign("zoom", $zoom);
 $smarty->assign("lat", $lat);
 $smarty->assign("lng", $lng);
 $smarty->assign("current_gmap_id", $current_gmap_id);
-{/php}<div id="map_canvas_{$current_gmap_id}" style="width:{$width};height:{$height}"></div>
+{/php}<div id="map_canvas_{$current_gmap_id}" style="width:{$width};height:{$height}" {if $class} class="{$class}"{/if}></div>
 {if $current_gmap_id===1}
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 {/if}
