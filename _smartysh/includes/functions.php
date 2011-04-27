@@ -279,4 +279,16 @@ function get_first_tag_name($subject) {
     return $matches[1];
 }
 
+/**
+ *
+ * @global array $config required Smartysh config
+ * @global string $site_dir required Currently active site name (directory)
+ * @param <type> $tpl_name
+ * @return <type>
+ */
+function mk_partial_edit_link($tpl_name) {
+    global $config, $site_dir;
+    return (!$config["template_edit_links_downloadable"] ? $config["basepath_local"] : "") . "/" . $site_dir . $config["path_templates_partials"] . "/" . $tpl_name;
+}
+
 ?>

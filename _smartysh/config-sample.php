@@ -13,6 +13,7 @@ $config["debug"] = false;
 $config["build_dir"] = "build";
 $config["path_build"] = $config["build_dir"];
 $config["path_templates_pages"] = "/templates/pages";
+$config["path_templates_partials"] = "/templates/partials";
 // SQLite database files
 $config["path_db"] = $config["code_path"] . "/database/db";
 //$config["db"]["server"] = "127.0.0.1";

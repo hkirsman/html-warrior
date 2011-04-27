@@ -91,7 +91,6 @@ function smarty_function_partial($params, &$smarty) {
             $a_outputFinal[$key] = $var;
         }
     }
-    $random_string = " sfkdjfdslfj dsf<ul    id='foo'></ul>";
 
     $s_outputFinal = implode("\n", $a_outputFinal);
     // write placeholders with script tag so they don't mess up the docs
@@ -108,13 +107,18 @@ function smarty_function_partial($params, &$smarty) {
             $placeholder_params_begin = 'id="' . $config["smartysh_prefix"] . '_placeholder_begin__' . $smarty->partial_index . '"';
             $placeholder_params_end = 'id="' . $config["smartysh_prefix"] . '_placeholder_end__' . $smarty->partial_index . '"';
             if (get_first_tag_name($s_outputFinal) == "li") {
-                $s_outputFinal = '<li ' . $placeholder_params_begin . ' style="display:none"></li>' .
+                $s_outputFinal = '<li ' . $placeholder_params_begin . ' style="display:none"><script type="text/javascript">smartysh_partial_edit_links[' . $smarty->partial_index .
+                        ']={"name":"' . $params["template"] . '", "path_edit":"' . mk_partial_edit_link($params["template"] . ".tpl") . '"}</script></li>' .
                         $s_outputFinal .
                         '<li ' . $placeholder_params_end . ' style="display:none"></li>';
             } else {
-                $s_outputFinal = '<script type="text/javascript" ' . $placeholder_params_begin . '></script>' .
+                $s_outputFinal = '
+                    <script type="text/javascript" ' . $placeholder_params_begin .
+                        '>smartysh_partial_edit_links[' . $smarty->partial_index .
+                        ']={"name":"' . $params["template"] . '", "path_edit":"' . mk_partial_edit_link($params["template"] . ".tpl") . '"}</script>' .
                         $s_outputFinal .
-                        '<script type="text/javascript" ' . $placeholder_params_end . '></script>';
+                        '<script type="text/javascript" ' . $placeholder_params_end .
+                        '></script>';
             }
         }
     }
