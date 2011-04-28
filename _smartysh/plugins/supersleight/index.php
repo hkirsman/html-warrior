@@ -1,4 +1,5 @@
 <?php
+
 $site_header == $site_footer = "";
 
 
@@ -7,6 +8,4 @@ $site_footer = <<<EOF
 <script type="text/javascript" src="scripts/external/supersleight.js"></script>
 <![endif]-->
 EOF;
-
-
 ?>
