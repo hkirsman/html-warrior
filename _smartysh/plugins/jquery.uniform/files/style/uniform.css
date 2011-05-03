@@ -28,20 +28,6 @@ div.button span {
   -webkit-font-smoothing: antialiased;
 }
 
-.selector, 
-.radio, 
-.checker, 
-.uploader,
-.button, 
-.selector *, 
-.radio *, 
-.checker *, 
-.uploader *,
-.button *{
-  margin: 0;
-  padding: 0;
-}
-
 /* INPUT & TEXTAREA */
 
 input.text,
