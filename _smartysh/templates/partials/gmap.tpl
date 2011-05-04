@@ -25,7 +25,7 @@ $current_gmap_id = $smarty->getTemplateVars("current_gmap_id");
 
 if (isset($current_gmap_id)) {
   $current_gmap_id++;
-} else { 
+} else {
   $current_gmap_id = 1;
 }
 
@@ -63,7 +63,7 @@ $smarty->assign("current_gmap_id", $current_gmap_id);
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 {/if}
 <script type="text/javascript">
-  (function() { 
+  (function() {
     var lat = {$lat};
     var lng = {$lng};
     var zoom = {$zoom};
@@ -94,7 +94,7 @@ $smarty->assign("current_gmap_id", $current_gmap_id);
           draggable: true
         });
         google.maps.event.addListener(marker, 'dblclick', function(event) {
-          alert('lat='+event.latLng.Da+' lng='+event.latLng.Ea+' zoom='+this.map.zoom);
+          alert('lat='+event.latLng.Ea+' lng='+event.latLng.Fa+' zoom='+this.map.zoom);
         });
         markersArray.push(marker);
       }
