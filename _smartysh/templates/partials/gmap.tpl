@@ -58,7 +58,7 @@ $smarty->assign("zoom", $zoom);
 $smarty->assign("lat", $lat);
 $smarty->assign("lng", $lng);
 $smarty->assign("current_gmap_id", $current_gmap_id);
-{/php}<div id="map_canvas_{$current_gmap_id}" style="width:{$width};height:{$height}" {if $class} class="{$class}"{/if}></div>
+{/php}<div id="{if isset($id)}{$id}{else}map_canvas_{$current_gmap_id}{/if}" style="width:{$width};height:{$height}" {if $class} class="{$class}"{/if}></div>
 {if $current_gmap_id===1}
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 {/if}
@@ -76,7 +76,7 @@ $smarty->assign("current_gmap_id", $current_gmap_id);
         center: latlng,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
-      var map = new google.maps.Map(document.getElementById("map_canvas_{$current_gmap_id}"), myOptions);
+      var map = new google.maps.Map(document.getElementById("{if isset($id)}{$id}{else}map_canvas_{$current_gmap_id}{/if}"), myOptions);
       var marker = new google.maps.Marker({
         position: latlng,
         map: map
@@ -118,4 +118,5 @@ $smarty->clearAssign("height");
 $smarty->clearAssign("zoom");
 $smarty->clearAssign("lat", $lat);
 $smarty->clearAssign("lng", $lng);
+$smarty->clearAssign("id");
 {/php}
