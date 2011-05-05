@@ -20,6 +20,8 @@ $smarty->allow_php_tag = true;
 
 $smarty->assign("config", $config);
 
+//$smarty->loadFilter("pre", "precompile");
+
 // admin
 if ($site_dir == "") {
     if (isset($_GET["action"])) {
