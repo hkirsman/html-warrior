@@ -308,13 +308,19 @@ if (smartysh_config["show_partial_edit_links"]) {
     });
 }
 
-/*
-// double text everywhere
-$("body *").filter(function()
-{
-     var $this = $(this);
-     return $this.children().length == 0 && $.trim($this.text()).length > 0;
-}).each(function() {
-    $(this).text($(this).text() + ' '+ $(this).text());
-});
-*/
+// double text
+(function($) {
+    if (smartysh_gup("multiply")) {
+        $("body *").filter(function()
+        {
+            var $this = $(this);
+            return $this.children().length == 0 && $.trim($this.text()).length > 0;
+        }).each(function() {
+            var newtext = "";
+            for(i=0;i<smartysh_gup("multiply");i++) {
+                newtext = ' '+ newtext + $(this).text();
+            }
+            $(this).text($(this).text() + newtext);
+        });
+    }
+})(jQuery);
