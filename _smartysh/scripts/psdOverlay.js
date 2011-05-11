@@ -307,3 +307,14 @@ if (smartysh_config["show_partial_edit_links"]) {
 
     });
 }
+
+/*
+// double text everywhere
+$("body *").filter(function()
+{
+     var $this = $(this);
+     return $this.children().length == 0 && $.trim($this.text()).length > 0;
+}).each(function() {
+    $(this).text($(this).text() + ' '+ $(this).text());
+});
+*/
