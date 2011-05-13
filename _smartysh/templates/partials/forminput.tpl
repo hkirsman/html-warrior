@@ -7,22 +7,22 @@
       {else if $type=="textarea"}
         <span><textarea rows="5" cols="60">{$value}</textarea></span>
       {else if $type=="check_one"}
-        {foreach from=$values key=key item=item name=$values}
+        {foreach from=$values key=key item=item name=check_one}
           <span><input type="radio" class="radio lfloat" value="" name="" /><label class="sidefloat">{$item}</label></span>
         {/foreach}
       {else if $type=="check_many"}
-        {foreach from=$values key=key item=item name=$values}
+        {foreach from=$values key=key item=item name=check_many}
           <span><input type="checkbox" class="checkbox lfloat" value="" name="" /><label class="sidefloat">{$item}</label></span>
         {/foreach}
       {else if $type=="select"}
         <select name="">
-          {foreach from=$values key=key item=item name=$values}
+          {foreach from=$values key=key item=item name=select}
             <option value="">{$item}</option>
           {/foreach}
         </select>
       {else if $type=="multiselect"}
         <select multiple="multiple" name="">
-          {foreach from=$values key=key item=item name=$values}
+          {foreach from=$values key=key item=item name=multiselect}
             <option value="">{$item}</option>
           {/foreach}
         </select>
