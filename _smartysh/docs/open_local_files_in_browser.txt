@@ -2,7 +2,7 @@
 
 1.0.1 Firefox
 
-Create user.js in c:\Users\hannes\AppData\Roaming\Mozilla\Firefox\Profiles\xxxxxxxxxxxxx\user.js
+Create user.js in c:\Users\USERNAME\AppData\Roaming\Mozilla\Firefox\Profiles\xxxxxxxxxxxxx\user.js
 
 Add
 user_pref("capability.policy.policynames", "localfilelinks");
