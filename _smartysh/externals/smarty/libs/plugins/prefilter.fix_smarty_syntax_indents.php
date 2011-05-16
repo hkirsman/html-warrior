@@ -3,14 +3,14 @@
 /*
  * Smarty plugin
  * -------------------------------------------------------------
- * File:     prefilter.precompile.php
+ * File:     prefilter.fix_smarty_syntax_indents.php
  * Type:     prefilter
- * Name:     precompile
- * Purpose:  Convert html tags to be lowercase.
+ * Name:     Fix smarty syntax indents
+ * Purpose:  Nicifies {if, {else etc for output
  * -------------------------------------------------------------
  */
 
-function smarty_prefilter_precompile($source, &$smarty) {
+function smarty_prefilter_fix_smarty_syntax_indents($source, &$smarty) {
     $a_source = explode("\n", $source);
     $trimmable_smarty_tags = array("if", "for", "foreach");
     $trimmable_smarty_tags_other = array("else");

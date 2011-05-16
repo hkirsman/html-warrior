@@ -20,7 +20,8 @@ $smarty->allow_php_tag = true;
 
 $smarty->assign("config", $config);
 
-//$smarty->loadFilter("pre", "precompile");
+//$smarty->loadFilter("pre", "fix_smarty_syntax_indents");
+//$smarty->loadFilter("pre", "add_partial_indents");
 
 // admin
 if ($site_dir == "") {

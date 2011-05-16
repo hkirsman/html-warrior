@@ -14,15 +14,15 @@
 function smarty_prefilter_add_partial_indents($source, &$smarty) {
     $a_source = explode("\n", $source);
 
-    foreach($a_source as $key=>$var) {
-      if (preg_match("/^(\s*)({partial.*([\"|']{1})})/U", $var, $mt)) {
-        $found_partial = $mt[2];
-        $quote = $mt[3];
-        $found_partial = str_replace($quote.'}', $quote.' indent="'.$mt[1].'"}', $found_partial);
-        $a_source[$key] = str_replace($mt[1].$mt[2], $mt[1].$found_partial, $var);
-      }
+    foreach ($a_source as $key => $var) {
+        if (preg_match("/^(\s*)({partial.*([\"|']{1})})/U", $var, $mt)) {
+            $found_partial = $mt[2];
+            $quote = $mt[3];
+            $found_partial = str_replace($quote . '}', $quote . ' indent="' . $mt[1] . '"}', $found_partial);
+            $a_source[$key] = str_replace($mt[1] . $mt[2], $mt[1] . $found_partial, $var);
+        }
     }
-    
+
     return implode("\n", $a_source);
 }
 
