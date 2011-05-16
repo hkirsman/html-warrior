@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="style/reset.css" media="all" />
     <link rel="stylesheet" type="text/css" href="style/theme_blue.css" media="all" title="" />
     <link rel="stylesheet" type="text/css" href="style/_style.css" media="all" title="" />
-    <link rel="stylesheet" type="text/css" href="style/external/jquery.ad-gallery.css" media="all" title="" />
+    <link rel="stylesheet" type="text/css" href="style/externals/jquery.ad-gallery.css" media="all" title="" />
     <link rel="stylesheet" type="text/css" href="style/print.css" media="print" title="" />
     <title>{$title}</title>
   </head>
@@ -57,8 +57,8 @@
     <!--[if lte IE 6]>
     <script type="text/javascript" src="scripts/supersleight.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="scripts/external/jquery-1.4.3.min.js"></script>
-    <script type="text/javascript" src="scripts/external/jquery.ad-gallery.js"></script>
+    <script type="text/javascript" src="scripts/externals/jquery-1.4.3.min.js"></script>
+    <script type="text/javascript" src="scripts/externals/jquery.ad-gallery.js"></script>
     <script type="text/javascript" src="scripts/general.js"></script>
   </body>
 </html>

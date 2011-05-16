@@ -40,8 +40,8 @@
     </div><!-- #wrapper -->
     {plugins position="bottom" indent="    "}
 {if $debug==1}
-    {partial tpl=script file="../..{$config.path_code}/scripts/external/jquery-ui"}
-    {partial tpl=script file="../..{$config.path_code}/scripts/external/jquery.cookie"}
+    {partial tpl=script file="../..{$config.path_code}/scripts/externals/jquery-ui"}
+    {partial tpl=script file="../..{$config.path_code}/scripts/externals/jquery.cookie"}
     {partial tpl=script file="../..{$config.path_code}/scripts/psdOverlay"}
 {/if}
     {partial tpl=script file="general" indent="    "}

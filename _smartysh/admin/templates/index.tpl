@@ -49,7 +49,7 @@
     </div>
 
     
-    <script type="text/javascript" src="/_smartysh/admin/scripts/external/jquery.js"></script>
+    <script type="text/javascript" src="/_smartysh/admin/scripts/externals/jquery.js"></script>
     <script type="text/javascript" src="/_smartysh/admin/scripts/general.js"></script>
   </body>
 </html>

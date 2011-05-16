@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Lastepoe uudiskiri</title>
 {if $page=="newsletter_web"}
-    {partial tpl="script" file="external/jquery-1.4.4.min" indent="    "}
+    {partial tpl="script" file="externals/jquery-1.4.4.min" indent="    "}
     {partial tpl="script" file="newsletter" indent="    "}
 {literal}
     <style type="text/css">

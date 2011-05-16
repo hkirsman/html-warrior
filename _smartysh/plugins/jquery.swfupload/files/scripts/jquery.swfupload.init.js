@@ -26,7 +26,7 @@ $(function(){
 
           
           // Flash Settings
-          flash_url : "scripts/external/swfupload/Flash/swfupload.swf"
+          flash_url : "scripts/externals/swfupload/Flash/swfupload.swf"
           
       });
       
