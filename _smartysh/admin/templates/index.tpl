@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="et">
@@ -17,7 +17,7 @@
     <title>Smarty'sh proto</title>
   </head>
   <body>
-    
+
     <div id="header">
       <form>
         <div><input type="text" id="filter" class="filter" /> <button id="clearbutton" type="reset" >clear</button></div>
@@ -28,27 +28,25 @@
       </form>
     </div>
 
+    <div id="content">
+      <div class="col col01">
+        <h1>Proto Smarty access log</h1>
+        {foreach $access_log as $key=>$var}
+          <div class="item"><a href="{$var.url}" project="{$var.name}">{$var.url}</a></div>
+        {/foreach}
+      </div>
 
-    <div class="clear"></div>
+      <div class="col col01">
+         <h1>Proto Smarty latest sites</h1>
 
-    <div class="col col01">
-      <h1>Proto Smarty access log</h1>
-      {foreach $access_log as $key=>$var} 
-        <div class="item"><a href="{$var.url}" project="{$var.name}">{$var.url}</a></div>
-      {/foreach} 
+        {foreach $files as $key=>$var}
+          {if strpos($var["name"], "_")!==0 && $var["type"]=="dir" && strpos($var["name"], "-files")===false && strpos($var["name"], "-failid")===false && strpos($var["name"], ".")===false}
+            <div class="item"><a href="{$var.name}/index.html" project="{$var.name}">{$var.name}</a></div>
+          {/if}
+        {/foreach}
+      </div>
     </div>
 
-    <div class="col col01">
-       <h1>Proto Smarty latest sites</h1>
-
-      {foreach $files as $key=>$var}
-        {if strpos($var["name"], "_")!==0 && $var["type"]=="dir" && strpos($var["name"], "-files")===false && strpos($var["name"], "-failid")===false && strpos($var["name"], ".")===false}
-          <div class="item"><a href="{$var.name}/index.html" project="{$var.name}">{$var.name}</a></div>
-        {/if}
-      {/foreach} 
-    </div>
-
-    
     <script type="text/javascript" src="/_smartysh/admin/scripts/externals/jquery.js"></script>
     <script type="text/javascript" src="/_smartysh/admin/scripts/general.js"></script>
   </body>

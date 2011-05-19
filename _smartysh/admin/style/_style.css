@@ -7,6 +7,7 @@ body,input,textarea,select,button{ font: 12px/18px Verdana, Arial, sans-serif; }
 a { color: #1259C7; text-decoration: none; }
 a:hover { text-decoration: underline; }
 h1 { color: #082320; font-size: 1.3em; font-weight: bold; }
+#header, #content  { width: 960px; margin: 0 auto; }
 /*
 Header
 */
@@ -47,7 +48,7 @@ Columns
 */
 .col { float: left; min-height: 1px; }
 * HTML .col { height: 1px; }
-.col01 { margin: 0 25px 0 0; width: 204px; }
+.col01 { margin: 0 25px 0 0; width: 304px; }
 .col02 { width: 560px; }
 /*
 Pagination
