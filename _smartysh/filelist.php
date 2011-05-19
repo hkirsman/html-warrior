@@ -60,7 +60,7 @@ if ($handle = opendir("../$site_dir/templates/pages")) {
 echo "</table>
 <style>
 .smartysh_templatelist a {
-  color:white;font-family:Verdana,serif; font-size:11px;
+  color:white;font-family:Verdana,serif; font-size:11px; color: #404040;
 }
 </style>
 ";
@@ -68,7 +68,7 @@ echo "</table>
 function tpl_to_link($tpl_name, $site_dir, $style=false) {
     global $config, $smarty;
     $html_name = str_replace(".tpl", ".html", $tpl_name);
-    return '<tr><td><a style="' . $style . '" href="/' . $site_dir . "/" . $html_name . '?template_list_opened=1">' . $html_name . '</a></td><td><a style="' . $style . '" href="' . (!$config["template_edit_links_downloadable"] ? $config["basepath_local"] : "") . "/" . $site_dir . $config["path_templates_pages"] . "/" . str_replace("__logged.", "", $tpl_name) . '">(edit)</a></td></tr>';
+    return '<tr><td style="padding-right: 10px;"><a style="' . $style . '; font-weight:bold;" href="/' . $site_dir . "/" . $html_name . '?template_list_opened=1">' . $html_name . '</a></td><td><a style="' . $style . '" href="' . (!$config["template_edit_links_downloadable"] ? $config["basepath_local"] : "") . "/" . $site_dir . $config["path_templates_pages"] . "/" . str_replace("__logged.", "", $tpl_name) . '">(edit)</a></td></tr>';
 }
 
 ?>

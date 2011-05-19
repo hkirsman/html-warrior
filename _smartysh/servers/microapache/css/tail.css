@@ -1,0 +1,35 @@
+
+BODY
+{ 
+  font-family: arial,Helvetica;
+}
+
+P  
+{ 
+  font-family: arial,Helvetica;
+}
+
+Pre
+{ 
+  font-family: arial,Helvetica;
+}
+
+a:link
+{
+  text-decoration: none;
+  color: darkblue;
+}
+
+a:visited
+{
+  text-decoration: none;
+  color: purple;
+
+}
+
+a:hover
+{
+  color: red;
+/*  background: #000000; */
+  text-decoration: underline;
+}
