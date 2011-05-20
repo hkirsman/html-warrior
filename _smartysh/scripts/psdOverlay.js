@@ -81,7 +81,7 @@
                 opacity =  round (($("#overlayOpacity").val()*1.0 - 0.1), 1);
             }
         }
-    
+
         $.cookie("psdOverlayOpacity", opacity);
 
         $("#overlayOpacity").val(opacity);
@@ -91,7 +91,7 @@
     });
 
     $(document).keyup( function(e) {
-    
+
         if (lock) {
             return false;
         }
@@ -131,7 +131,7 @@
         }
     });
     /*
-  $("#overlayTopLeft").keyup( function(e) { 
+  $("#overlayTopLeft").keyup( function(e) {
     if (lock) {
       return false;
     }
@@ -149,7 +149,7 @@
     $.cookie("psdOverlayTop", top);
     $.cookie("psdOverlayLeft", left);
 
-    if ( e.keyCode==38 || e.keyCode==40 ) { // up or down 
+    if ( e.keyCode==38 || e.keyCode==40 ) { // up or down
       overlay.css({
         "top"     : top+"px"
       });
@@ -171,7 +171,7 @@
         $("#overlayImg").attr("src", "/"+site+"/overlays/"+file);
     });
 
-  
+
     $("#overlayLock").click(function(e) {
         if ( this.checked ) {
             lock = true;
@@ -179,7 +179,7 @@
             lock = false;
         }
     });
-  
+
 })(jQuery);
 
 /**
@@ -202,8 +202,9 @@
     "-webkit-box-shadow:5px 5px 100px rgba(0, 0, 0, 1);"+
     "-o-box-shadow:5px 5px 100px rgba(0, 0, 0, 1);"+
     "box-shadow:5px 5px 100px rgba(0, 0, 0, 1);"+
-    "line-height: 20px; "+
-    "font-size: 11px;"+
+    "line-height: 20px !important; "+
+    "font-size: 11px !important;"+
+    "text-align:left !important;"+
     "filter:alpha(opacity=95);"+
     "-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=95);"+
     "-moz-opacity:0.95;"+
@@ -212,7 +213,7 @@
     "-webkit-border-radius:0 0 5px 0;"+
     "-khtml-border-radius:0 0 5px 0;"+
     "border-radius:0 0 5px 0;"+
-    "font-family: Verdana, Arial, serif;"+
+    "font-family: Verdana, Arial, serif !important;"+
     "position: fixed;"+
     "top:0;"+
     "left:-2000px;"+
@@ -255,11 +256,8 @@
             if (smartysh_gup("template_list_opened")==1) {
                 filelist.css("left", 0);
             }
-     
+
             $(document).mousemove(function(e){
-                console.log("e.pageX"+e.pageX);
-                console.log("e.pageY"+e.pageY);
-                console.log("$(window).height()"+$(window).height());
                 if ( ( e.pageX < 5 && e.pageY < $(window).scrollTop()+filelist.height() ) || hoveringFilelist) {
                     filelist.css("left", 0);
                 } else {

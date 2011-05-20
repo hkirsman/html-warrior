@@ -61,7 +61,7 @@ if ($handle = opendir("../$site_dir/templates/pages")) {
 echo "</table>
 <style>
 .smartysh_templatelist a {
-  color:white;font-family:Verdana,serif; font-size:11px; color: #404040;
+  color:white;font-family:Verdana,serif; font-size:11px; color: #404040; line-height:20px; text-align:left;
 }
 </style>
 ";
