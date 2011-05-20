@@ -147,7 +147,7 @@ ob_start("callback");
 $smarty->display($layout_path);
 $smarty->assign("debug", 0);
 $content = $smarty->fetch($layout_path);
-ob_end_flush();
+@ob_end_flush();
 
 build_template($config["basepath"] . "/$site_dir/" . $config["build_dir"] . "/" . $page . ".html", $content, $template_filetime);
 
