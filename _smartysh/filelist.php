@@ -3,6 +3,7 @@
 /*
   filelist.php - lists sites prototype files in browser top left corner
  */
+require_once("includes/functions.php");
 require_once("config.php");
 
 $site_dir = $_GET["site_dir"];
