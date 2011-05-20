@@ -291,4 +291,40 @@ function mk_partial_edit_link($tpl_name) {
     return (!$config["template_edit_links_downloadable"] ? $config["basepath_local"] : "") . "/" . $site_dir . $config["path_templates_partials"] . "/" . $tpl_name;
 }
 
+/**
+ * Get current page url
+ * @return string
+ */
+function get_cur_page_url() {
+    $pageurl = 'http';
+    if ($_SERVER["HTTPS"] == "on") {
+        $pageurl .= "s";
+    }
+    $pageurl .= "://";
+    if ($_SERVER["SERVER_PORT"] != "80") {
+        $pageurl .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
+    } else {
+        $pageurl .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+    }
+    return $pageurl;
+}
+
+/**
+ * Get baseurl. Used in config.
+ * @return string
+ */
+function get_baseurl() {
+    $baseurl = 'http';
+    if (@$_SERVER["HTTPS"] == "on") {
+        $baseurl .= "s";
+    }
+    $baseurl .= "://";
+    if ($_SERVER["SERVER_PORT"] != "80") {
+        $baseurl .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"];
+    } else {
+        $baseurl .= $_SERVER["SERVER_NAME"];
+    }
+    return $baseurl;
+}
+
 ?>

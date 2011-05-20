@@ -7,6 +7,7 @@ header('Content-Type: text/html; charset=utf-8');
 //else
 //header('Content-type: application/xhtml+xml; charset=utf-8');
 
+require_once("includes/functions.php");
 require 'config.php';
 require $config["code_path"] . '/init.php';
 require $config["code_path"] . '/externals/smarty/libs/Smarty.class.php';
