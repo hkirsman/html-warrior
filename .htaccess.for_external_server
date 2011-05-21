@@ -1,25 +1,6 @@
-#RewriteEngine On
-#RewriteBase /
-#RewriteCond %{REQUEST_FILENAME} !-f
-##RewriteCond %{REQUEST_FILENAME} !-d
-#RewriteRule ^(.*)$ index.php/$1 [L]
-
-#RewriteEngine On
-#RewriteBase /
-#RewriteCond %{REQUEST_FILENAME} !-f
-##RewriteCond %{REQUEST_FILENAME} !-d
-#RewriteCond %{REQUEST_URI} !^/_proto-smarty/index.php.*
-#RewriteRule ^(.*)$ index.php/$1 [L]
-
-#RewriteEngine On
-#RewriteBase /
-#RewriteCond %{REQUEST_FILENAME} !-f
-##RewriteCond %{REQUEST_FILENAME} !-d
-#RewriteRule ^(.*)$ index.php/$1 [L,T=text/html]
-
-#RewriteCond %{HTTP_USER_AGENT} .*MSIE.*
-#RewriteCond %{REQUEST_URI} \.xhtml$
-#RewriteRule .* - [T=text/html]
+# There's a Apache web server for windows in _smartysh\servers\server2go
+# and it jus runs from there without configuration
+# If you have your own server, then rename this file to .htaccess
 
 RewriteEngine On
 RewriteBase /
