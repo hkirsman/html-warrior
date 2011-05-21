@@ -9,7 +9,7 @@
     hundreds of sites (in about 10 years).</p>
 
     <p>
-      About 2 years ago I started to reserch tools and tricks to get better and faster results at my field of expertise.
+      About 2 years ago I started to research tools and tricks to get better and faster results at my field of expertise.
     </p>
 
     <p>I stumpled upon <a href="http://staticmatic.rubyforge.org/">StaticMatic</a>
@@ -27,13 +27,15 @@
     </p>
 
     <p>
-      I am using Smarty every day so it's ready to be used by others.
+      I am using Smartysh every day so it's ready to be used by others.
     </p>
 
     <p>Feel free to ask any questions on <a href="http://groups.google.com/group/smartysh-discuss">http://groups.google.com/group/smartysh-discuss</a>.
     Also join <a href="http://groups.google.com/group/smartysh-announce">http://groups.google.com/group/smartysh-announce</a></p>
 
     <p>My contact is <a href="mailto:hannes.kirsman@eesti.ee">hannes.kirsman@eesti.ee</a></p>
+
+    <p>Thank you for listening!</p>
 
     </div><!-- .entry-content -->
 </div>

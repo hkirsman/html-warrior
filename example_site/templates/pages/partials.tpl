@@ -5,13 +5,22 @@
 
   <div class="entry-content">
 
-    <p>I'm text.tpl and i'm here to introduce partials. Partials are in templates/partials folder.
-    One calls partial with <strong>{literal}{partial tpl="TEMPLATE_NAME_WITHOUT_EXTENSION"}{/literal}</strong>.
+    <p>I'm partials.tpl and i'm here to introduce partials. Partials are in templates/partials folder.
+    One calls partial with<br /><strong>{literal}{partial tpl="TEMPLATE_NAME_WITHOUT_EXTENSION"}{/literal}</strong><br />
     This is the bare minimum - you can ofcourse add more parameters. Lets take img partial for example (using 3 of them in this template).
     The first image is defined like this: <strong>{literal}{partial tpl="img" src="data/fern-thumbnail.jpg" align="right"}{/literal}</strong>. Notice there isn't
     width or height but the output is this:<br />
     &lt;img src="images/data/fern-thumbnail.jpg" alt="" title="" width="230" height="48" style="float: right" /&gt;
     </p>
+
+    <p>That's PHP magic!</p>
+
+    <p>There is one option that is disabled for now but I suggest you check it out. It's even better than edit template link. It will make all the partials clickable.</p>
+
+    <p>So if you're interested then open up _smartysh/config.php and find<br />$config["show_partial_edit_links"] = false;<br />
+    Change it to true and refresh this page. Now hit P to toggle partial edit overlays. Some parts of pages should turn red. Just click on one of them.</p>
+
+    <p>It messes up built output though so disable it again.</p>
 
     <p>That's it for this page. Rest of the text just for fun.</p>
 

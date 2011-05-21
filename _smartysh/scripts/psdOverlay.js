@@ -294,15 +294,10 @@ if (smartysh_config["show_partial_edit_links"]) {
         });
 
         $(document).keydown(function(e) {
-            if (e.ctrlKey && e.shiftKey) {
+            if (e.keyCode == 80) {
                 if (!overlays_active) {
                     draw_partial_overlays();
-                }
-            }
-        });
-        $(document).keyup(function(e) {
-            if (e.ctrlKey || e.shiftKey) {
-                if (overlays_active) {
+                } else {
                     remove_partial_overlays();
                 }
             }

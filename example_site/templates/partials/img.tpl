@@ -11,7 +11,7 @@
     $src = $smarty->tpl_vars["file"]->value;
   }
 
-  if ( !isset($width) && !isset($height) ) { 
+  if ( !isset($width) && !isset($height) ) {
     $full_image_path = $config["basepath"] . "/" . $site_dir . "/images/".$src;
     list($width, $height) = getimagesize($full_image_path);
   }

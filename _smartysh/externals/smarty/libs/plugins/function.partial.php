@@ -47,6 +47,7 @@ function smarty_function_partial($params, &$smarty) {
         }
     }
     $output = $smarty->fetch("partials/" . $params["template"] . ".tpl");
+    $output = remove_bom($output);
 
     $page_variables = parse_variables($output);
     $output = remove_variables($output);

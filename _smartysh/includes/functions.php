@@ -4,7 +4,7 @@
  * Debug variable - print_r variable but also add pre tags
  * @param bool|string|array $arr
  * @param bool $die optional Also die after output
- * @param bool $see_html optional 
+ * @param bool $see_html optional
  * @return string of the debugable array
  */
 function arr($arr, $die=false, $see_html=false) {
@@ -325,6 +325,19 @@ function get_baseurl() {
         $baseurl .= $_SERVER["SERVER_NAME"];
     }
     return $baseurl;
+}
+
+/**
+ * Removes BOM from UTF-8. Although it's not recommended to use it
+ * someone might do it. And it breaks HTML.
+ * @param string $str
+ * @return string
+ */
+function remove_bom($str="") {
+    if (substr($str, 0, 3) == pack("CCC", 0xef, 0xbb, 0xbf)) {
+        $str = substr($str, 3);
+    }
+    return $str;
 }
 
 ?>
