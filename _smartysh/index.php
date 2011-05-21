@@ -23,6 +23,7 @@ $smarty->assign("config", $config);
 
 $smarty->loadFilter("pre", "fix_smarty_syntax_indents");
 $smarty->loadFilter("pre", "add_partial_indents");
+$smarty->loadFilter("output", "fix_smarty_syntax_indents");
 
 // admin
 if ($site_dir == "") {

@@ -23,16 +23,22 @@ function smarty_function_smartysh_plugins($params, &$smarty) {
 
     $output = "";
 
-    foreach ($plugin as $key => $var) {
-        $site_header == $site_footer = ""; // reset variables in next to be included index.php
-        require($config["code_path"] . "/plugins/$var/index.php");
-        $site_header = trim($site_header);
-        $site_footer = trim($site_footer);
-        if ($params["position"] == "top" && strlen($site_header)) {
-            $output .= $site_header . "\n";
-        } elseif ($params["position"] == "bottom" && strlen($site_footer)) {
-            $output .= $site_footer . "\n";
+    if (is_array($plugin)) {
+        foreach ($plugin as $key => $var) {
+            $site_header == $site_footer = ""; // reset variables in next to be included index.php
+            require($config["code_path"] . "/plugins/$var/index.php");
+            $site_header = trim($site_header);
+            $site_footer = trim($site_footer);
+            if ($params["position"] == "top" && strlen($site_header)) {
+                $output .= $site_header . "\n";
+            } elseif ($params["position"] == "bottom" && strlen($site_footer)) {
+                $output .= $site_footer . "\n";
+            }
         }
+    }
+
+    if (strlen($output)===0) {
+        $output = "__" . $config["smartysh_prefix"] . "_remove_line__";
     }
 
     $a_output = explode("\n", $output);
