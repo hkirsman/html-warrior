@@ -187,45 +187,8 @@
  */
 (function($) {
 
-    var styleouter = ""+
-    "background: #ffffff; /* Old browsers */"+
-    "background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */"+
-    "background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */"+
-    "background: -webkit-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Chrome10+,Safari5.1+ */"+
-    "background: -o-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* Opera11.10+ */"+
-    "background: -ms-linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* IE10+ */"+
-    "filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* IE6-9 */"+
-    "background: linear-gradient(top, #ffffff 0%,#e5e5e5 100%); /* W3C */"+
-    "border-right:1px solid gray;"+
-    "border-bottom:1px solid gray;"+
-    "-moz-box-shadow:5px 5px 100px rgba(0, 0, 0, 1);"+
-    "-webkit-box-shadow:5px 5px 100px rgba(0, 0, 0, 1);"+
-    "-o-box-shadow:5px 5px 100px rgba(0, 0, 0, 1);"+
-    "box-shadow:5px 5px 100px rgba(0, 0, 0, 1);"+
-    "line-height: 20px !important; "+
-    "font-size: 11px !important;"+
-    "text-align:left !important;"+
-    "filter:alpha(opacity=95);"+
-    "-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=95);"+
-    "-moz-opacity:0.95;"+
-    "opacity:0.95;"+
-    "-moz-border-radius:0 0 5px 0;"+
-    "-webkit-border-radius:0 0 5px 0;"+
-    "-khtml-border-radius:0 0 5px 0;"+
-    "border-radius:0 0 5px 0;"+
-    "font-family: Verdana, Arial, serif !important;"+
-    "position: fixed;"+
-    "top:0;"+
-    "left:-2000px;"+
-    "z-index: 10000;";
-    var styleinner = ""+
-    "padding: 10px 20px 15px 7px;"+
-    "filter:alpha(opacity=100);"+
-    "-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=100);"+
-    "-moz-opacity:1;"+
-    "opacity:1;";
-    var filelist_html = "<div id=\"protoSmartyFilelist\" style=\""+styleouter+" \"> \
-    <div style=\""+styleinner+"\"> \
+    var filelist_html = "<div id=\"protoSmartyFilelist\"> \
+    <div id=\"protoSmartyFilelistInner\"> \
     </div> \
   </div>";
     var filelist = $(filelist_html);
