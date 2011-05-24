@@ -6,8 +6,10 @@
  * File:     function.smartysh_init.php
  * Type:     function
  * Name:     smartysh_init
- * Purpose:  include Smartysh plugins. Currently it only adds
- * include code to html but does not incude files.
+ * Purpose:  include Smartysh init code to site templates
+ * which was hardcoded to templates before.
+ * Every time something radical changed in code, all templates where
+ * broken. Not anymore.
  * -------------------------------------------------------------
  */
 
