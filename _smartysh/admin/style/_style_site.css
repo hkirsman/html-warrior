@@ -26,13 +26,13 @@
     border-radius:0 0 5px 0;
     font-family: Verdana, Arial, serif !important;
     position: fixed;
-    top:0;
+    top:-210px;
     left:-2000px;
     z-index: 10000;
 }
 
 #protoSmartyFilelistInner {
-  padding: 10px 20px 15px 7px;
+  padding: 210px 20px 15px 207px;
   filter:alpha(opacity=100);
     -ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
     -moz-opacity:1;

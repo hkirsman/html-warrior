@@ -217,12 +217,12 @@
             var filelistHeight = filelist.height();
 
             if (smartysh_gup("template_list_opened")==1) {
-                filelist.css("left", 0);
+                filelist.css("left", "-200px");
             }
 
             $(document).mousemove(function(e){
                 if ( ( e.pageX < 5 && e.pageY < $(window).scrollTop()+filelist.height() ) || hoveringFilelist) {
-                    filelist.css("left", 0);
+                    filelist.css("left", "-200px");
                 } else {
                     filelist.css("left", "-2000px");
                 }
