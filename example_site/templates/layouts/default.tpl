@@ -8,10 +8,7 @@
       This s used for extra navigation and features during sites development.
       It will be removed during the output to build dir
     *}
-    {if $debug==1}
-      {partial tpl=script file="../..{$config.path_code}/scripts/smartysh_init.php"}
-      {partial tpl=script file="../..{$config.path_code}/scripts/smartysh_helpers"}
-    {/if}
+    {smartysh_init indent="    "}
     <meta charset="UTF-8" />
     {*
       You can add plugins cfg\config.php. There's one activated - jquery.
@@ -124,11 +121,7 @@
     {*
       Rest of the Smartysh extras we see on example site.
     *}
-    {if $debug==1}
-      {partial tpl=script file="../..{$config.path_code}/scripts/externals/jquery-ui"}
-      {partial tpl=script file="../..{$config.path_code}/scripts/externals/jquery.cookie"}
-      {partial tpl=script file="../..{$config.path_code}/scripts/psdOverlay"}
-    {/if}
+    {smartysh_init  position="bottom" indent="    "}
     {*
       Scripts partial. Just adds extension and scripts folder in path.
     *}
