@@ -6,6 +6,7 @@ if ($db = new SQLiteDatabase($config["path_db"])) {
     if ($q === false) {
         $db->queryExec("
             CREATE TABLE access_log (id int,
+            site_dir varchar(255) NOT NULL,
             url varchar(255) NOT NULL,
             date datetime NOT NULL,
             PRIMARY KEY (id)

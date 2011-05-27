@@ -16,6 +16,7 @@ $config["indent_count"] = 2;
 $config["debug"] = false;
 $config["build_dir"] = "build";
 $config["path_build"] = $config["build_dir"];
+$config["path_templates_layouts"] = "/templates/layouts";
 $config["path_templates_pages"] = "/templates/pages";
 $config["path_templates_partials"] = "/templates/partials";
 

@@ -30,14 +30,21 @@
 
     <div id="content">
       <div class="col col01">
-        <h1>Proto Smarty access log</h1>
+        <h1>Page access log</h1>
         {foreach $access_log as $key=>$var}
-          <div class="item"><a href="{$var.url}" project="{$var.name}">{$var.url}</a></div>
+          <div class="item"><a href="{$var.url}" project="{$var.name}">{$var.url_wo_slash}</a></div>
         {/foreach}
       </div>
 
       <div class="col col01">
-         <h1>Proto Smarty latest sites</h1>
+         <h1>Site access log</h1>
+        {foreach $access_log_site as $key=>$var}
+          <div class="item"><a href="{$var}" project="{$var}">{$var}</a></div>
+        {/foreach}
+      </div>
+
+      <div class="col col01">
+         <h1>All sites (newer first)</h1>
 
         {foreach $files as $key=>$var}
           {if strpos($var["name"], "_")!==0 && $var["type"]=="dir" && strpos($var["name"], "-files")===false && strpos($var["name"], "-failid")===false && strpos($var["name"], ".")===false}

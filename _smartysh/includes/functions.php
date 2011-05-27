@@ -36,11 +36,13 @@ function add_access_log($arr=array()) {
             access_log
             (
                 id,
+                site_dir,
                 url,
                 date
             )
         VALUES (
             NULL ,
+            '" . $arr["site_dir"] . "',
             '" . $arr["url"] . "',
             '" . datetime() . "'
         );
@@ -61,7 +63,7 @@ function get_access_log($arr=array()) {
         $limit = " LIMIT 0, " . $arr["limit"] . " ";
     }
     $results = $db->arrayQuery("
-        SELECT url
+        SELECT site_dir, url
         FROM access_log
         ORDER BY
         date desc
@@ -71,7 +73,39 @@ function get_access_log($arr=array()) {
         $out[] = $entry;
         $name = explode("/", $entry["url"]);
         $name = $name[1];
+
+        $out[count($out) - 1]["url_wo_slash"] = trim($entry["url"], "/");
         $out[count($out) - 1]["name"] = $name;
+    }
+    return $out;
+}
+
+/**
+ * Gets latest viewed pages
+ * @global  $db
+ * @param array $arr
+ * @return array
+ */
+function get_site_access_log($arr=array()) {
+    global $db;
+    $out = array();
+    $limit = "";
+    if (@$arr["limit"]) {
+        $limit = " LIMIT 0, " . $arr["limit"] . " ";
+    }
+    $results = $db->arrayQuery("
+        SELECT
+        DISTINCT
+            site_dir
+        FROM
+            access_log
+        ORDER BY
+            date desc
+            $limit
+    ");
+
+    foreach ($results as $entry) {
+        $out[] = $entry["site_dir"] . "/";
     }
     return $out;
 }

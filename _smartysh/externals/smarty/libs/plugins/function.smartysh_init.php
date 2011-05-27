@@ -14,7 +14,7 @@
  */
 
 function smarty_function_smartysh_init($params, &$smarty) {
-    global $smarty, $config, $debug;
+    global $smarty, $config, $debug, $smartysh;
 
     if ($smarty->getTemplateVars("debug") != 1) {
         return "__smartysh_remove_line__";
@@ -30,13 +30,15 @@ function smarty_function_smartysh_init($params, &$smarty) {
     $output = "";
 
     if ($params["position"] == "top") {
-        $output .= html_javascript("../.." . $config["path_code"] . "/scripts/smartysh_init.php") . "\n";
         $output .= html_javascript("../.." . $config["path_code"] . "/scripts/smartysh_helpers") . "\n";
+        $output .= html_javascript("../.." . $config["path_code"] . "/scripts/smartysh_init.php") . "\n";
         $output .= '<link rel="stylesheet" type="text/css" href="' . $config["path_code"] . '/admin/style/_style_site.css" media="screen, projection, print" title="" />';
     } elseif ($params["position"] == "bottom") {
         $output .= html_javascript("../.." . $config["path_code"] . "/scripts/externals/jquery-ui") . "\n";
         $output .= html_javascript("../.." . $config["path_code"] . "/scripts/externals/jquery.cookie") . "\n";
         $output .= html_javascript("../.." . $config["path_code"] . "/scripts/psdOverlay") . "\n";
+        require_once("filelist.php");
+        $output .= filelist($_GET["template_list_opened"]);
     }
 
     $a_output = explode("\n", $output);

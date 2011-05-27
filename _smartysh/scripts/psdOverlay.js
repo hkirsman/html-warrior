@@ -185,14 +185,16 @@
 /**
  * Show template listing on top left corner of the output. Not in built html
  */
-(function($) {
 
-    var filelist_html = "<div id=\"protoSmartyFilelist\"> \
-    <div id=\"protoSmartyFilelistInner\"> \
-    </div> \
-  </div>";
-    var filelist = $(filelist_html);
-    var hoveringFilelist = false;
+$(document).ready(function() {
+    var filelist = $("#protoSmartyFilelist");
+    var filelistWidth = filelist.width();
+    var filelistHeight = filelist.height();
+    if ( smartysh_gup("template_list_opened")==1 ) {
+        var hoveringFilelist = true;
+    } else {
+        var hoveringFilelist = false;
+    }
 
     filelist.bind({
         mouseenter: function() {
@@ -203,34 +205,14 @@
         }
     });
 
-    var site = (document.location+"").split("/")[3];
-    var page = (document.location+"").split("/")[4];
-
-    $.ajax({
-        type: "GET",
-        url: "/_smartysh/filelist.php",
-        data: "site_dir="+site+"&page="+page,
-        success: function(msg){
-            $("div", filelist).append(msg);
-            $("body").append(filelist);
-            var filelistWidth = filelist.width();
-            var filelistHeight = filelist.height();
-
-            if (smartysh_gup("template_list_opened")==1) {
-                filelist.css("left", "-200px");
-            }
-
-            $(document).mousemove(function(e){
-                if ( ( e.pageX < 5 && e.pageY < $(window).scrollTop()+filelist.height() ) || hoveringFilelist) {
-                    filelist.css("left", "-200px");
-                } else {
-                    filelist.css("left", "-2000px");
-                }
-            });
+    $(document).mousemove(function(e){
+        if ( ( e.pageX < 5 && e.pageY < $(window).scrollTop()+filelist.height() ) || hoveringFilelist) {
+            filelist.css("left", "-200px");
+        } else {
+            filelist.css("left", "-2000px");
         }
     });
-
-})(jQuery);
+});
 
 /**
  * Partial edit links

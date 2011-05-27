@@ -39,3 +39,7 @@
     opacity:1;"
 
  }
+
+.smartysh_templatelist a {  color:white;font-family:Verdana,serif; font-size:11px; color: #404040; line-height:20px; text-align:left; }
+.smartysh_templatelist a:hover { text-decoration: underline !important; }
+.smartysh_templatelist_active { color:red !important;font-weight:bold !important; }
