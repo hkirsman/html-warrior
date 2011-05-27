@@ -8,7 +8,7 @@
       This s used for extra navigation and features during sites development.
       It will be removed during the output to build dir
     *}
-    {smartysh_init indent="    "}
+    {smartysh_init}
     <meta charset="UTF-8" />
     {*
       You can add plugins cfg\config.php. There's one activated - jquery.
@@ -121,7 +121,7 @@
     {*
       Rest of the Smartysh extras we see on example site.
     *}
-    {smartysh_init  position="bottom" indent="    "}
+    {smartysh_init position="bottom"}
     {*
       Scripts partial. Just adds extension and scripts folder in path.
     *}
