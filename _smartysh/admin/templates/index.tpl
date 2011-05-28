@@ -19,13 +19,14 @@
   <body>
 
     <div id="header">
-      <form>
+      <form class="rfloat">
         <div><input type="text" id="filter" class="filter" /> <button id="clearbutton" type="reset" >clear</button></div>
       <script type="text/javascript">
         var filter = document.getElementById("filter");
         filter.focus();
       </script>
       </form>
+      <h1 class="logo sidefloat">Smartysh</h1>
     </div>
 
     <div id="content">

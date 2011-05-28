@@ -11,8 +11,8 @@ h1{color:#082320;font-size:1.3em;font-weight:bold;}
 /*
 Header
 */
-#header{padding-bottom:20px;padding:10px;}
-#header .logo{}
+#header{padding-bottom:20px;padding:10px;overflow:hidden;background-color:#F2F2F2;/*+border-radius:5px 5px 0 0;*/-moz-border-radius:5px 5px 0 0;-webkit-border-radius:5px 5px 0 0;-khtml-border-radius:5px 5px 0 0;border-radius:5px 5px 0 0;margin-top:10px;margin-bottom:8px;}
+#header .logo{font-size:20px;/*+text-shadow:-1px -1px #FFFFFF;*/-moz-text-shadow:-1px -1px #FFFFFF;-webkit-text-shadow:-1px -1px #FFFFFF;-o-text-shadow:-1px -1px #FFFFFF;text-shadow:-1px -1px #FFFFFF;padding-top:5px;}
 #filter{width:300px;border:1px solid #808080;padding:3px 5px;}
 /*
 Content
