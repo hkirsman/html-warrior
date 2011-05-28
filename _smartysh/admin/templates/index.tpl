@@ -14,7 +14,7 @@
     <!--[if IE 6]>
     <link href="/_smartysh/admin/style/style_ie6.css" rel="stylesheet" type="text/css" media="screen" />
     <![endif]-->
-    <title>Smarty'sh proto</title>
+    <title>Smartysh</title>
   </head>
   <body>
 
