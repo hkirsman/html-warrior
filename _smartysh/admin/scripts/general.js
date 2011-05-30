@@ -14,4 +14,4 @@
   $("#clearbutton").click(function() { 
     atags.css({"display": "block"})
   });
-})(jQuery);
+})(jQuerySmartysh);
