@@ -3,10 +3,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="et">
   <head>
-{if $debug==1}
-    {partial tpl=script file="../..{$config.path_code}/scripts/smartysh_init.php"}
-    {partial tpl=script file="../..{$config.path_code}/scripts/smartysh_helpers"}
-{/if}
+    {smartysh_init}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="style/reset.css" media="all" />
     <link rel="stylesheet" type="text/css" href="style/_style.css" media="all" title="" />
@@ -39,11 +36,7 @@
       </div><!-- #footer -->
     </div><!-- #wrapper -->
     {smartysh_plugins position="bottom" indent="    "}
-    {if $debug==1}
-      {partial tpl=script file="../..{$config.path_code}/scripts/externals/jquery-ui"}
-      {partial tpl=script file="../..{$config.path_code}/scripts/externals/jquery.cookie"}
-      {partial tpl=script file="../..{$config.path_code}/scripts/psdOverlay"}
-    {/if}
+    {smartysh_init position="bottom"}
     {partial tpl=script file="general"}
   </body>
 </html>
