@@ -36,7 +36,7 @@
       </div><!-- #footer -->
     </div><!-- #wrapper -->
     {smartysh_plugins position="bottom" indent="    "}
-    {smartysh_init position="bottom"}
     {partial tpl=script file="general"}
+    {smartysh_init position="bottom"}
   </body>
 </html>

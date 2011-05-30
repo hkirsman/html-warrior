@@ -112,19 +112,18 @@
         </div><!-- #colophon -->
       </div><!-- #footer -->
     </div><!-- #wrapper -->
-
     {*
       This is the same plugin code that's defined on the top of the page.
       This way we can choose where to include scripts and css.
     *}
     {smartysh_plugins position="bottom" indent="    "}
     {*
-      Rest of the Smartysh extras we see on example site.
-    *}
-    {smartysh_init position="bottom"}
-    {*
       Scripts partial. Just adds extension and scripts folder in path.
     *}
     {partial tpl=script file="general"}
+    {*
+      Rest of the Smartysh extras we see on example site.
+    *}
+    {smartysh_init position="bottom"}
   </body>
 </html>

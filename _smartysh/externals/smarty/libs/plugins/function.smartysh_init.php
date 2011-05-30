@@ -34,11 +34,13 @@ function smarty_function_smartysh_init($params, &$smarty) {
         $output .= html_javascript("../.." . $config["path_code"] . "/scripts/smartysh_init.php") . "\n";
         $output .= '<link rel="stylesheet" type="text/css" href="' . $config["path_code"] . '/admin/style/_style_site.css" media="screen, projection, print" title="" />';
     } elseif ($params["position"] == "bottom") {
+        require_once("filelist.php");
+        $output .= filelist($_GET["template_list_opened"]);
+        // load our scripts at the very end so we have overview of the page
+        $output .= html_javascript("../.." . $config["path_code"] . "/admin/scripts/externals/jquery") . "\n";
         $output .= html_javascript("../.." . $config["path_code"] . "/scripts/externals/jquery-ui") . "\n";
         $output .= html_javascript("../.." . $config["path_code"] . "/scripts/externals/jquery.cookie") . "\n";
         $output .= html_javascript("../.." . $config["path_code"] . "/scripts/psdOverlay") . "\n";
-        require_once("filelist.php");
-        $output .= filelist($_GET["template_list_opened"]);
     }
 
     $a_output = explode("\n", $output);
