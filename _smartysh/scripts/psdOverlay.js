@@ -180,14 +180,14 @@
         }
     });
 
-})(jQuery);
+})(jQuerySmartysh);
 
 /**
  * Show template listing on top left corner of the output. Not in built html
  */
 
-$(document).ready(function() {
-    var filelist = $("#protoSmartyFilelist");
+jQuerySmartysh(document).ready(function() {
+    var filelist = jQuerySmartysh("#protoSmartyFilelist");
     var filelistWidth = filelist.width();
     var filelistHeight = filelist.height();
     if ( smartysh_gup("template_list_opened")==1 ) {
@@ -205,8 +205,8 @@ $(document).ready(function() {
         }
     });
 
-    $(document).mousemove(function(e){
-        if ( ( e.pageX < 5 && e.pageY < $(window).scrollTop()+filelist.height() ) || hoveringFilelist) {
+    jQuerySmartysh(document).mousemove(function(e){
+        if ( ( e.pageX < 5 && e.pageY < jQuerySmartysh(window).scrollTop()+filelist.height() ) || hoveringFilelist) {
             filelist.css("left", "-200px");
         } else {
             filelist.css("left", "-2000px");
@@ -218,27 +218,27 @@ $(document).ready(function() {
  * Partial edit links
  */
 if (smartysh_config["show_partial_edit_links"]) {
-    $(document).ready(function() {
+    jQuerySmartysh(document).ready(function() {
         var partial_placeholder_prefix = smartysh_config["smartysh_prefix"]+"_placeholder";
         var partial_placeholders = new Array;
         var overlays_active = false;
 
         var start_placeholder, end_placeholder;
         var i = 0;
-        $("body [id^="+partial_placeholder_prefix+"]").each(function(f) {
+        jQuerySmartysh("body [id^="+partial_placeholder_prefix+"]").each(function(f) {
             var placeholder_id = this.id.split("__")[1];
             if (typeof partial_placeholders[placeholder_id] == "undefined") {
                 partial_placeholders[placeholder_id] = new Array();
             }
             if(this.id.indexOf(partial_placeholder_prefix+"_begin")===0) {
-                partial_placeholders[placeholder_id]["begin"] = $(this);
+                partial_placeholders[placeholder_id]["begin"] = jQuerySmartysh(this);
             } else if(this.id.indexOf(partial_placeholder_prefix+"_end")===0) {
-                partial_placeholders[placeholder_id]["end"] = $(this);
+                partial_placeholders[placeholder_id]["end"] = jQuerySmartysh(this);
                 i++;
             }
         });
 
-        $(document).keydown(function(e) {
+        jQuerySmartysh(document).keydown(function(e) {
             if (e.keyCode == 80) {
                 if (!overlays_active) {
                     draw_partial_overlays();
@@ -269,15 +269,15 @@ if (smartysh_config["show_partial_edit_links"]) {
                 var width = next_from_partial_start.width();
                 //var height = prev_from_partial_end.top-top + prev_from_partial_end.height();
                 var height = prev_from_partial_end_offsets.top-top+prev_from_partial_end.height()-1;
-                var partial_overlay = $('<a href="'+smartysh_partial_edit_links[id].path_edit+'" class="'+partial_overlay_class+'" style="position:absolute;top:'+top+'px;left:'+left+'px;width:'+width+'px;height:'+height+'px;background:red;z-index:'+zIndex+';opacity:0.8;">'+smartysh_partial_edit_links[id].name+'</a>');
-                $("body").append(partial_overlay);
+                var partial_overlay = jQuerySmartysh('<a href="'+smartysh_partial_edit_links[id].path_edit+'" class="'+partial_overlay_class+'" style="position:absolute;top:'+top+'px;left:'+left+'px;width:'+width+'px;height:'+height+'px;background:red;z-index:'+zIndex+';opacity:0.8;">'+smartysh_partial_edit_links[id].name+'</a>');
+                jQuerySmartysh("body").append(partial_overlay);
                 zIndex++;
             }
             overlays_active = true;
         }
 
         function remove_partial_overlays() {
-            $(".smartysh_partial_overlay").remove();
+            jQuerySmartysh(".smartysh_partial_overlay").remove();
             overlays_active = false;
         }
 
@@ -299,4 +299,4 @@ if (smartysh_config["show_partial_edit_links"]) {
             $(this).text($(this).text() + newtext);
         });
     }
-})(jQuery);
+})(jQuerySmartysh);
