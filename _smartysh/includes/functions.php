@@ -63,10 +63,13 @@ function get_access_log($arr=array()) {
         $limit = " LIMIT 0, " . $arr["limit"] . " ";
     }
     $results = $db->arrayQuery("
-        SELECT site_dir, url
-        FROM access_log
+        SELECT
+        DISTINCT
+            site_dir, url
+        FROM
+            access_log
         ORDER BY
-        date desc
+            date desc
         $limit");
 
     foreach ($results as $entry) {
