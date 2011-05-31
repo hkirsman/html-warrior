@@ -76,3 +76,21 @@ function smartysh_gup( name )
     else
         return results[1];
 }
+
+/**
+ * Disable text selectt
+ * @param dom target object to disable
+ */
+function smartysh_disable_select( target ) {
+    if (typeof target.onselectstart!="undefined") { //IE route
+        target.onselectstart=function(){
+            return false;
+        }
+    } else if (typeof target.style.MozUserSelect!="undefined") { //Firefox route
+        target.style.MozUserSelect="none"
+    } else {//All other route (ie: Opera)
+        target.onmousedown=function(){
+            return false
+        }
+    }
+}
