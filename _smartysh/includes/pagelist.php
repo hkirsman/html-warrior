@@ -1,6 +1,6 @@
 <?php
 
-function filelist($template_list_opened=false) {
+function pagelist($template_list_opened=false) {
     global $smarty, $config, $debug, $smartysh;
 
     $files = array();
@@ -75,7 +75,7 @@ function filelist($template_list_opened=false) {
     $smarty->assign("site_filelist_layout_edit_link", $site_filelist_layout_edit_link);
     $smarty->assign("template_list_opened", $template_list_opened);
 
-    return $smarty->fetch("admin/templates/site_filelist.tpl");
+    return $smarty->fetch("admin/templates/site_pagelist.tpl");
 }
 
 ?>

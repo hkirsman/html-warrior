@@ -1,5 +1,5 @@
-<div id="protoSmartyFilelist" style="left: {if $template_list_opened}-200{else}-2000{/if}px;">
-  <div id="protoSmartyFilelistInner">
+<div id="smartysh__pagelist" style="left: {if $template_list_opened}-200{else}-2000{/if}px;">
+  <div id="smartysh__pagelist-inner">
     <div style="padding: 2px 0;">
       <a href="/" style="font-size: 14px; color: #404040; text-decoration: none; font-weight: bold;">Smartysh</a>
     </div>

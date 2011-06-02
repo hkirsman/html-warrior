@@ -1,4 +1,4 @@
-#protoSmartyFilelist {
+#smartysh__pagelist, #smartysh__actionlist {
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
@@ -31,13 +31,25 @@
     z-index: 10000;
 }
 
-#protoSmartyFilelistInner {
+#smartysh__pagelist-inner, #smartysh__actionlist-inner {
   padding: 210px 20px 15px 207px;
   filter:alpha(opacity=100);
     -ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
     -moz-opacity:1;
-    opacity:1;"
+    opacity:1;
+ }
 
+ #smartysh__actionlist {
+    -moz-border-radius:0 5px 0 0;
+    -webkit-border-radius:0 5px 0 0;
+    -khtml-border-radius:0 5px 0 0;
+    border-radius:0 5px 0 0;
+    bottom: -210px;
+    top:auto;
+ }
+ #smartysh__actionlist-inner {
+  padding-top: 15px;
+  padding-bottom: 210px;
  }
 
 .smartysh_templatelist a {  color:white;font-family:Verdana,serif; font-size:11px; color: #404040; line-height:20px; text-align:left; }

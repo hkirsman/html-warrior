@@ -2,9 +2,9 @@
 (function($) {
 
     var
-    smartysh_mouse_x,
-    smartysh_mouse_y,
-    body = $("body");
+    smartysh__mouse_x,
+    smartysh__mouse_y,
+    smartysh__body = $("body");
 
     $(document).mousemove(function(e) {
         smartysh_mouse_x = e.pageX;
@@ -12,9 +12,9 @@
     });
 
     /**
-     * Show overlay on page
+     * Show design overlay on page
      */
-    (function($) {
+    (function() {
         var
         page = (document.location+"").split("/")[4].split(".")[0].split("?")[0],
         site = (document.location+"").split("/")[3],
@@ -118,10 +118,10 @@
             "right"   : "10px"
         });
 
-        body.after(controls);
+        smartysh__body.after(controls);
         smartysh_disable_select(document.getElementById("smartyshOverlayMove"));
-        body.after(draggable_handle);
-        body.after(overlay);
+        smartysh__body.after(draggable_handle);
+        smartysh__body.after(overlay);
 
         $("#resetToggle").click(function() {
             top = left = 0;
@@ -136,12 +136,12 @@
         $("#overlayToggle").click(function() {
             if (overlay_visible) {
                 overlay_visible = false;
-                body.css({
+                smartysh__body.css({
                     "opacity": 1
                 })
             } else {
                 overlay_visible = true;
-                body.css({
+                smartysh__body.css({
                     "opacity": opacity
                 })
             }
@@ -169,7 +169,7 @@
             $.cookie("psdOverlayOpacity", opacity);
 
             $("#overlayOpacity").val(opacity);
-            body.css({
+            smartysh__body.css({
                 "opacity": opacity
             });
         });
@@ -311,65 +311,85 @@
             $.cookie("overlay_position_x", overlay_position_x);
         });
         
-    })(jQuerySmartysh);
+    })();
 
     /**
-     * Show template listing on top left corner of the output. Not in built html
+     * Show template and action listing on top left and bottom left corner
+     * of the output. Not in built html
      */
+    (function() {
+        var pagelist = $("#smartysh__pagelist"),
+        actionlist = $("#smartysh__actionlist"),
+        pagelistWidth = pagelist.width(),
+        pagelistHeight = pagelist.height(),
+        hovering_pagelist,
+        hovering_actionlist;
 
-    jQuerySmartysh(document).ready(function() {
-        var filelist = jQuerySmartysh("#protoSmartyFilelist");
-        var filelistWidth = filelist.width();
-        var filelistHeight = filelist.height();
         if ( smartysh_gup("template_list_opened")==1 ) {
-            var hoveringFilelist = true;
+            hovering_pagelist = true;
         } else {
-            var hoveringFilelist = false;
+            hovering_pagelist = false;
         }
 
-        filelist.bind({
+        pagelist.bind({
             mouseenter: function() {
-                hoveringFilelist = true;
+                hovering_pagelist = true;
             },
             mouseleave: function() {
-                hoveringFilelist = false;
+                hovering_pagelist = false;
             }
         });
 
-        jQuerySmartysh(document).mousemove(function(e){
-            if ( ( e.pageX < 5 && e.pageY < jQuerySmartysh(window).scrollTop()+filelist.height() ) || hoveringFilelist) {
-                filelist.css("left", "-200px");
-            } else {
-                filelist.css("left", "-2000px");
+        actionlist.bind({
+            mouseenter: function() {
+                hovering_actionlist = true;
+            },
+            mouseleave: function() {
+                hovering_actionlist = false;
             }
         });
-    });
+
+        $(document).mousemove(function(e){
+            if ( ( e.pageX < 5 && e.pageY < $(window).height()/2 ) || hovering_pagelist) {
+                pagelist.css("left", "-200px");
+            } else {
+                pagelist.css("left", "-2000px");
+            }
+
+            if ( ( e.pageX < 5 && e.pageY > $(window).height() / 2 ) || hovering_actionlist) {
+                $("#smartysh__actionlist-inner").css("min-width", $("#smartysh__pagelist-inner", pagelist).width());
+                actionlist.css("left", "-200px");
+            } else {
+                actionlist.css("left", "-2000px");
+            }
+        });
+    })();
 
     /**
      * Partial edit links
      */
     if (smartysh_config["show_partial_edit_links"]) {
-        jQuerySmartysh(document).ready(function() {
+        (function() {
             var partial_placeholder_prefix = smartysh_config["smartysh_prefix"]+"_placeholder";
             var partial_placeholders = new Array;
             var overlays_active = false;
 
             var start_placeholder, end_placeholder;
             var i = 0;
-            jQuerySmartysh("body [id^="+partial_placeholder_prefix+"]").each(function(f) {
+            $("body [id^="+partial_placeholder_prefix+"]").each(function(f) {
                 var placeholder_id = this.id.split("__")[1];
                 if (typeof partial_placeholders[placeholder_id] == "undefined") {
                     partial_placeholders[placeholder_id] = new Array();
                 }
                 if(this.id.indexOf(partial_placeholder_prefix+"_begin")===0) {
-                    partial_placeholders[placeholder_id]["begin"] = jQuerySmartysh(this);
+                    partial_placeholders[placeholder_id]["begin"] = $(this);
                 } else if(this.id.indexOf(partial_placeholder_prefix+"_end")===0) {
-                    partial_placeholders[placeholder_id]["end"] = jQuerySmartysh(this);
+                    partial_placeholders[placeholder_id]["end"] = $(this);
                     i++;
                 }
             });
 
-            jQuerySmartysh(document).keydown(function(e) {
+            $(document).keydown(function(e) {
                 if (e.keyCode == 80) {
                     if (!overlays_active) {
                         draw_partial_overlays();
@@ -400,23 +420,23 @@
                     var width = next_from_partial_start.width();
                     //var height = prev_from_partial_end.top-top + prev_from_partial_end.height();
                     var height = prev_from_partial_end_offsets.top-top+prev_from_partial_end.height()-1;
-                    var partial_overlay = jQuerySmartysh('<a href="'+smartysh_partial_edit_links[id].path_edit+'" class="'+partial_overlay_class+'" style="position:absolute;top:'+top+'px;left:'+left+'px;width:'+width+'px;height:'+height+'px;background:red;z-index:'+zIndex+';opacity:0.8;">'+smartysh_partial_edit_links[id].name+'</a>');
-                    jQuerySmartysh("body").append(partial_overlay);
+                    var partial_overlay = $('<a href="'+smartysh_partial_edit_links[id].path_edit+'" class="'+partial_overlay_class+'" style="position:absolute;top:'+top+'px;left:'+left+'px;width:'+width+'px;height:'+height+'px;background:red;z-index:'+zIndex+';opacity:0.8;">'+smartysh_partial_edit_links[id].name+'</a>');
+                    $("body").append(partial_overlay);
                     zIndex++;
                 }
                 overlays_active = true;
             }
 
             function remove_partial_overlays() {
-                jQuerySmartysh(".smartysh_partial_overlay").remove();
+                $(".smartysh_partial_overlay").remove();
                 overlays_active = false;
             }
 
-        });
+        })();
     }
 
     // double text
-    (function($) {
+    (function() {
         if (smartysh_gup("multiply")) {
             $("body *").filter(function()
             {
@@ -430,6 +450,6 @@
                 $(this).text($(this).text() + newtext);
             });
         }
-    })(jQuerySmartysh);
+    })();
 
 })(jQuerySmartysh);
