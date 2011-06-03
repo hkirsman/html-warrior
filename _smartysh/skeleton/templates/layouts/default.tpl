@@ -18,7 +18,7 @@
     {partial template="oldbrowser"}
     <div id="wrapper">
       <div id="header">
-        <a id="logo" href="index{$logged_sufix}.html"><img src="images/base/logo.gif" alt="" title="" /></a>
+        <a id="logo" href="index{$logged_sufix}.html">{partial tpl="img" src="base/logo.jpg"}</a>
       </div><!-- #header -->
       <div id="nav">
         <ul>
