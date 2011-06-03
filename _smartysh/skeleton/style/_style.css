@@ -2,8 +2,8 @@
 /*
 Global
 */
-body { background: white url(../images/base/bg.gif) repeat; color: #000; width: 100%; }
-body,input,textarea,select,button{ font: 11px/18px Verdana, Arial, sans-serif; }
+body { background: white;  width: 100%; }
+body,input,textarea,select,button{ font: 11px/18px Verdana, Arial, sans-serif; color: #000; }
 a { color: #1259C7; text-decoration: none; }
 h1 { color: #082320; font-size: 1.3em; font-weight: bold; }
 /*
