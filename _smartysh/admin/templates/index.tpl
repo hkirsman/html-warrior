@@ -6,6 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="/_smartysh/admin/style/reset.css" media="all" />
     <link rel="stylesheet" type="text/css" href="/_smartysh/admin/style/_style.css" media="all" title="" />
+    <link rel="stylesheet" type="text/css" href="/_smartysh/admin/style/jquery-ui.css" media="all" title="" />
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="icon" href="favicon.png" type="image/png" />
     <!--[if lt IE 8]>
@@ -19,13 +20,15 @@
   <body>
 
     <div id="header">
-      <form class="rfloat">
-        <div><input type="text" id="filter" class="filter" /> <button id="clearbutton" type="reset" >clear</button></div>
-      <script type="text/javascript">
-        var filter = document.getElementById("filter");
-        filter.focus();
-      </script>
-      </form>
+      <div class="rfloat">
+        <div><input type="text" id="filter" class="filter" value="Search"
+              onclick="if(this.value=='Search'){ this.value=''; }"
+              onblur="if(this.value==''){ this.value='Search'; }" /></div>
+        <script type="text/javascript">
+          var filter = document.getElementById("filter");
+          filter.focus();
+        </script>
+      </div>
       <h1 class="logo sidefloat">Smartysh</h1>
     </div>
 
@@ -56,6 +59,7 @@
     </div>
 
     <script type="text/javascript" src="/_smartysh/admin/scripts/externals/jquery.js"></script>
+    <script type="text/javascript" src="/_smartysh/admin/scripts/externals/jquery-ui.js"></script>
     <script type="text/javascript" src="/_smartysh/admin/scripts/general.js"></script>
   </body>
 </html>
