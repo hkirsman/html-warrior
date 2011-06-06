@@ -52,6 +52,11 @@ if ($site_dir == "") {
     die();
 }
 
+// load custom site functions
+if (file_exists($config["basepath"] . "/" . $smartysh->site_dir . "/functions.php")) {
+    require_once($config["basepath"] . "/" . $smartysh->site_dir . "/functions.php");
+}
+
 // build all templates
 // todo build also logged templates
 if (isset($_GET["build"])) {
