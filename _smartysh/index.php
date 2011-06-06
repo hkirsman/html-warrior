@@ -1,11 +1,10 @@
 <?php
 
 $time_start = microtime(1);
+
 set_time_limit(999);
-//if(strpos($_SERVER["HTTP_USER_AGENT"], "MSIE"))
+
 header('Content-Type: text/html; charset=utf-8');
-//else
-//header('Content-type: application/xhtml+xml; charset=utf-8');
 
 require_once("includes/functions.php");
 require 'config.php';
@@ -19,6 +18,8 @@ $smartysh->site_dir = $site_dir;
 
 $smarty = new Smarty;
 $smarty->allow_php_tag = true;
+$smarty->error_reporting = ~E_NOTICE;
+error_reporting(~E_NOTICE);
 
 $smarty->assign("config", $config);
 
@@ -68,9 +69,6 @@ if (isset($_GET["build"])) {
 
 $smarty->template_dir = $config["basepath"] . "/$site_dir/templates";
 //$smarty->force_compile = true;
-
-$smarty->error_reporting = ~E_NOTICE;
-
 // clean url from parameters
 // like form search
 $_SERVER["REQUEST_URI"] = url_remove_parameters($_SERVER["REQUEST_URI"]);
