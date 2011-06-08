@@ -19,6 +19,9 @@ $config["path_build"] = $config["build_dir"];
 $config["path_templates_layouts"] = "/templates/layouts";
 $config["path_templates_pages"] = "/templates/pages";
 $config["path_templates_partials"] = "/templates/partials";
+$config["path_images"] = "/images";
+$config["path_style"] = "/style";
+$config["path_scripts"] = "/scripts";
 
 // SQLite database files
 $config["path_db"] = $config["code_path"] . "/database/db";
