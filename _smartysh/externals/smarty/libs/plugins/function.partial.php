@@ -11,10 +11,7 @@
  */
 
 function smarty_function_partial($params, &$smarty) {
-    global $smarty, $config;
-
-    $site_dir = explode("/", $smarty->template_dir);
-    $site_dir = $site_dir[0];
+    global $smarty, $smartysh, $config;
 
     if (isset($params["tpl"])) {
         $params["template"] = $params["tpl"];
@@ -56,8 +53,8 @@ function smarty_function_partial($params, &$smarty) {
     if (@$_GET["copy"] == "yes") {
         if ($page_variables["_files"]) {
             foreach ($page_variables["_files"] as $key => $var) {
-                if (file_exists($config["code_path"] . "/" . $var) && !file_exists($config["basepath"] . "/" . $site_dir . "/" . $var)) {
-                    if (copy($config["code_path"] . "/" . $var, $config["basepath"] . "/" . $site_dir . "/" . $var)) {
+                if (file_exists($config["code_path"] . "/" . $var) && !file_exists($config["basepath"] . "/" . $smartysh->runtime["site_dir"] . "/" . $var)) {
+                    if (copy($config["code_path"] . "/" . $var, $config["basepath"] . "/" . $smartysh->runtime["site_dir"] . "/" . $var)) {
                         echo "done copying $var";
                     }
                 }

@@ -3,6 +3,7 @@
 $time_start = microtime(1);
 
 set_time_limit(999);
+error_reporting(~E_NOTICE);
 
 header('Content-Type: text/html; charset=utf-8');
 
@@ -10,17 +11,10 @@ require_once("includes/functions.php");
 require 'config.php';
 require $config["code_path"] . '/init.php';
 $smartysh->config = $config; // todo: move $config to object
-require $config["code_path"] . '/externals/smarty/libs/Smarty.class.php';
 
-$exploded_url = explode("/", trim($_SERVER["REQUEST_URI"], "/"));
-$exploded_url = explode("?", $exploded_url[0]);
-$site_dir = $exploded_url[0];
-$smartysh->site_dir = $site_dir;
-
-$smarty = new Smarty;
-$smarty->allow_php_tag = true;
-$smarty->error_reporting = ~E_NOTICE;
-error_reporting(~E_NOTICE);
+$site_dir = explode("/", trim($smartysh->runtime["parsed_url"]["path"], "/"));
+$smartysh->runtime["site_dir"] = current($site_dir);
+unset($site_dir);
 
 $smarty->assign("config", $config);
 
@@ -29,7 +23,7 @@ $smarty->loadFilter("pre", "add_partial_indents");
 $smarty->loadFilter("output", "fix_smarty_syntax_indents");
 
 // admin
-if ($site_dir == "") {
+if ($smartysh->runtime["site_dir"] == "") {
     if (isset($_GET["action"])) {
         if ($_GET["action"] == "new_project") {
             if (isset($_GET["name"])) {
@@ -55,8 +49,8 @@ if ($site_dir == "") {
 }
 
 // load custom site functions
-if (file_exists($config["basepath"] . "/" . $smartysh->site_dir . "/functions.php")) {
-    require_once($config["basepath"] . "/" . $smartysh->site_dir . "/functions.php");
+if (file_exists($config["basepath"] . "/" . $smartysh->runtime["site_dir"] . "/functions.php")) {
+    require_once($config["basepath"] . "/" . $smartysh->runtime["site_dir"] . "/functions.php");
 }
 
 // build all templates
@@ -68,20 +62,14 @@ if (isset($_GET["build"])) {
     }
 }
 
-$smarty->template_dir = $config["basepath"] . "/$site_dir/templates";
-//$smarty->force_compile = true;
-// clean url from parameters
-// like form search
-$_SERVER["REQUEST_URI"] = url_remove_parameters($_SERVER["REQUEST_URI"]);
+$smarty->template_dir = $config["basepath"] . "/".$smartysh->runtime["site_dir"]."/templates";
 
-// temp hack
-$request_uri = explode("/", trim($_SERVER["REQUEST_URI"], "/"));
-
+$request_uri = explode("/", trim($smartysh->runtime["parsed_url"]["path"], "/"));
 
 if (!isset($request_uri[1])) {
     $smartysh->page = "index";
 } else {
-    $request_uri[1] = str_replace(".html", "", $request_uri[1]);
+    $request_uri[1] = str_replace(".html", "", end($request_uri));
     $smartysh->page = $request_uri[1];
 }
 
@@ -94,11 +82,13 @@ $smarty->assign("debug", $debug);
 
 $smarty->assign("page", $smartysh->page); // cool var; must stay in future code
 // shortcut for frontpage
-if ($smartysh->page == "index" || $smartysh->page == "index__logged")
+if ($smartysh->page == "index" || $smartysh->page == "index__logged") {
     $smarty->assign("frontpage", true);
-else
+} else {
     $smarty->assign("frontpage", false);
+}
 
+/*
 // template copy if not exists
 if (!file_exists($smarty->template_dir . "/pages/" . $smartysh->page . ".tpl") && !strpos($request_uri[1], "__logged")) {
     echo '<div style="background: red">Templatet ei ole olemas. Kopeerin uue?. <a href="?copy=yes">jah</a></div>';
@@ -111,22 +101,25 @@ if (!file_exists($smarty->template_dir . "/pages/" . $smartysh->page . ".tpl") &
     }
     die();
 }
+ */
+
+
+
 // logged and not logged switching
 if (@strpos($request_uri[1], "__logged")) {
     $smarty->assign("logged_sufix", "__logged");
     $smartysh->logged_sufix = "__logged";
     $smarty->assign("logged", true);
     $smartysh->logged = true;
-    $page_content = $smarty->fetch("pages/" . str_replace("__logged", "", $smartysh->page) . ".tpl");
-    $template_filetime = filemtime($smarty->template_dir . "/pages/" . str_replace("__logged", "", $smartysh->page) . ".tpl");
+    
 } else {
     $smarty->assign("logged_sufix", "");
     $smartysh->logged_sufix = "";
     $smarty->assign("logged", false);
     $smartysh->logged = false;
-    $page_content = $smarty->fetch("pages/" . $smartysh->page . ".tpl");
-    $template_filetime = filemtime($smarty->template_dir . "/pages/" . $smartysh->page . ".tpl");
 }
+$page_content = $smarty->fetch(get_page_template_path($smartysh->runtime["parsed_url"]["path"]));
+$template_filetime = filemtime(get_page_template_path($smartysh->runtime["parsed_url"]["path"]));
 $page_variables = parse_variables($page_content);
 
 if (!isset($page_variables["layout"])) {
@@ -151,11 +144,11 @@ $smarty->assign("yield", indent(remove_variables($page_content), $variable_inden
 
 // add access log; must be after frontpage so we don't log that
 add_access_log(array(
-    "site_dir" => $smartysh->site_dir,
+    "site_dir" => $smartysh->runtime["site_dir"],
     "url" => $_SERVER["REQUEST_URI"]
 ));
 
-require_once($config["basepath"] . "/$site_dir/cfg/config.php");
+require_once($config["basepath"] . "/".$smartysh->runtime["site_dir"]."/cfg/config.php");
 
 //require_once("filelist.php");
 
@@ -165,7 +158,7 @@ $smarty->assign("debug", 0);
 $content = $smarty->fetch($layout_path);
 @ob_end_flush();
 
-build_template($config["basepath"] . "/$site_dir/" . $config["build_dir"] . "/" . $smartysh->page . ".html", $content, $template_filetime);
+build_template($config["basepath"] . "/".$smartysh->runtime["site_dir"]."/" . $config["build_dir"] . "/" . $smartysh->page . ".html", $content, $template_filetime);
 
 if ($config["debug"]) {
     $time_end = microtime(1) - $time_start;

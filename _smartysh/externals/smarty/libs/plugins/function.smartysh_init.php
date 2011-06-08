@@ -20,9 +20,6 @@ function smarty_function_smartysh_init($params, &$smarty) {
         return "__smartysh_remove_line__";
     }
 
-    $site_dir = explode("/", $smarty->template_dir);
-    $site_dir = $site_dir[0];
-
     if (!isset($params["position"])) {
         $params["position"] = "top";
     }

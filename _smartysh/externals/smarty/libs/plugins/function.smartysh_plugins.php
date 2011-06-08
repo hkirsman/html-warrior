@@ -12,10 +12,7 @@
  */
 
 function smarty_function_smartysh_plugins($params, &$smarty) {
-    global $smarty, $config, $plugin, $site_header, $site_footer;
-
-    $site_dir = explode("/", $smarty->template_dir);
-    $site_dir = $site_dir[0];
+    global $smarty, $smartysh, $config, $plugin, $site_header, $site_footer;
 
     if (!isset($params["position"])) {
         $params["position"] = "top";

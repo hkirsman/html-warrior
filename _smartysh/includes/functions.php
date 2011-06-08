@@ -376,4 +376,41 @@ function remove_bom($str="") {
     return $str;
 }
 
+/**
+ * Get page template path based on url path ( /site_name/foo )
+ * @param string $url_path
+ * @return string
+ */
+function get_page_template_path($url_path) {
+    global $smartysh;
+    $template_path = "";
+    $a_url_path = explode("/", $url_path);
+    $a_url_path_without_site = array_splice($a_url_path, 2, count($a_url_path));
+    $url_path_without_site = join("/", $a_url_path_without_site);
+
+    if (strlen($url_path_without_site)===0) {
+        $url_path_without_site = "index";
+    }
+
+    $find = array("__logged", ".html");
+    $replace = "";
+
+    $template_path = $smartysh->config["basepath"] . "/" .
+    $smartysh->runtime["site_dir"] .
+    $smartysh->config["path_templates_pages"] . "/" .
+    str_replace($find, $replace, $url_path_without_site);
+
+    $template_path_with_ext = $template_path . ".tpl";
+
+    // if
+    if ( is_dir($template_path) ) {
+        // check if index exists
+        if ( file_exists($template_path."/index.tpl") ) {
+            return $template_path . "/index.tpl";
+        }
+    } else {
+        return $template_path_with_ext;
+    }
+}
+
 ?>
