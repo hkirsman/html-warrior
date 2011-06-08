@@ -5,11 +5,6 @@ $smarty = new Smarty;
 $smarty->allow_php_tag = true;
 $smarty->error_reporting = ~E_NOTICE;
 
-class Smartysh {
-
-}
-
-$smartysh = new Smartysh();
 require_once("includes/db.php");
 
 $smartysh->runtime = array(

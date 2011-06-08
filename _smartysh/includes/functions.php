@@ -113,12 +113,12 @@ function get_site_access_log($arr=array()) {
 }
 
 function datetime($timestamp=false) {
-    global $config;
+    global $smartysh;
 
     if ($timestamp) {
-        $date = date("Y-m-d H:M:s", $timestamp + $config["timeoffset"]);
+        $date = date("Y-m-d H:M:s", $timestamp + $smartysh->config["timeoffset"]);
     } else {
-        $date = date("Y-m-d H:i:s", time() + $config["timeoffset"]);
+        $date = date("Y-m-d H:i:s", time() + $smartysh->config["timeoffset"]);
     }
     return $date;
 }
@@ -286,7 +286,7 @@ function indent($content, $indent, $ignore_first_row=true, $char="  ") {
 
 // todo: ($pos-1)/2; --> calculate real indent with help of config
 function get_indents_for_variables($content) {
-    global $config;
+    global $smartysh;
     $indents = array();
     $file = explode("\n", $content);
     for ($i = 0; $i < count($file); $i++) {
@@ -317,14 +317,14 @@ function get_first_tag_name($subject) {
 
 /**
  *
- * @global array $config required Smartysh config
+ * @global array $smartysh->config required Smartysh config
  * @global string $site_dir required Currently active site name (directory)
  * @param <type> $tpl_name
  * @return <type>
  */
 function mk_partial_edit_link($tpl_name) {
-    global $config, $site_dir;
-    return (!$config["template_edit_links_downloadable"] ? $config["basepath_local"] : "") . "/" . $site_dir . $config["path_templates_partials"] . "/" . $tpl_name;
+    global $smartysh;
+    return (!$smartysh->config["template_edit_links_downloadable"] ? $smartysh->config["basepath_local"] : "") . "/" . $smartysh->runtime["site_dir"] . $smartysh->config["path_templates_partials"] . "/" . $tpl_name;
 }
 
 /**

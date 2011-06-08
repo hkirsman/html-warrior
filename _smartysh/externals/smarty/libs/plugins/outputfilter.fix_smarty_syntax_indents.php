@@ -11,7 +11,6 @@
  */
 
 function smarty_outputfilter_fix_smarty_syntax_indents($source, &$smarty) {
-    global $config;
     $a_source = explode("\n", $source);
 
     foreach ($a_source as $key => $var) {

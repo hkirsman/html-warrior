@@ -12,7 +12,7 @@
  */
 
 function smarty_function_smartysh_plugins($params, &$smarty) {
-    global $smarty, $smartysh, $config, $plugin, $site_header, $site_footer;
+    global $smartysh, $smarty, $plugin, $site_header, $site_footer;
 
     if (!isset($params["position"])) {
         $params["position"] = "top";
@@ -23,7 +23,7 @@ function smarty_function_smartysh_plugins($params, &$smarty) {
     if (is_array($plugin)) {
         foreach ($plugin as $key => $var) {
             $site_header == $site_footer = ""; // reset variables in next to be included index.php
-            require($config["code_path"] . "/plugins/$var/index.php");
+            require($smartysh->config["code_path"] . "/plugins/$var/index.php");
             $site_header = trim($site_header);
             $site_footer = trim($site_footer);
             if ($params["position"] == "top" && strlen($site_header)) {
@@ -35,7 +35,7 @@ function smarty_function_smartysh_plugins($params, &$smarty) {
     }
 
     if (strlen($output)===0) {
-        $output = "__" . $config["smartysh_prefix"] . "_remove_line__";
+        $output = "__" . $smartysh->config["smartysh_prefix"] . "_remove_line__";
     }
 
     $a_output = explode("\n", $output);

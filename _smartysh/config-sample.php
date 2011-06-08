@@ -1,36 +1,36 @@
 <?php
 
 // Paths
-$config["path_code"] = "/_smartysh";
-$config["basepath"] = substr($_SERVER['SCRIPT_FILENAME'], 0, strrpos($_SERVER['SCRIPT_FILENAME'], $config["path_code"]));
-##$config["basepath"] = "e:/www";
-$config["basepath_local"] = "file:///" . $config["basepath"];
-##$config["basepath_local"] = "file:///e:/www";
-$config["baseurl"] = get_baseurl();
-##$config["baseurl"] = "http://localhost:8888";
-$config["code_path"] = $config["basepath"] . $config["path_code"];
-$config["basepath"] = $config["basepath"];
+$smartysh->config["path_code"] = "/_smartysh";
+$smartysh->config["basepath"] = substr($_SERVER['SCRIPT_FILENAME'], 0, strrpos($_SERVER['SCRIPT_FILENAME'], $smartysh->config["path_code"]));
+##$smartysh->config["basepath"] = "e:/www";
+$smartysh->config["basepath_local"] = "file:///" . $smartysh->config["basepath"];
+##$smartysh->config["basepath_local"] = "file:///e:/www";
+$smartysh->config["baseurl"] = get_baseurl();
+##$smartysh->config["baseurl"] = "http://localhost:8888";
+$smartysh->config["code_path"] = $smartysh->config["basepath"] . $smartysh->config["path_code"];
+$smartysh->config["basepath"] = $smartysh->config["basepath"];
 
-$config["indent"] = "spaces"; // or tabs
-$config["indent_count"] = 2;
-$config["debug"] = false;
-$config["build_dir"] = "build";
-$config["path_build"] = $config["build_dir"];
-$config["path_templates_layouts"] = "/templates/layouts";
-$config["path_templates_pages"] = "/templates/pages";
-$config["path_templates_partials"] = "/templates/partials";
-$config["path_images"] = "/images";
-$config["path_style"] = "/style";
-$config["path_scripts"] = "/scripts";
+$smartysh->config["indent"] = "spaces"; // or tabs
+$smartysh->config["indent_count"] = 2;
+$smartysh->config["debug"] = false;
+$smartysh->config["build_dir"] = "build";
+$smartysh->config["path_build"] = $smartysh->config["build_dir"];
+$smartysh->config["path_templates_layouts"] = "/templates/layouts";
+$smartysh->config["path_templates_pages"] = "/templates/pages";
+$smartysh->config["path_templates_partials"] = "/templates/partials";
+$smartysh->config["path_images"] = "/images";
+$smartysh->config["path_style"] = "/style";
+$smartysh->config["path_scripts"] = "/scripts";
 
 // SQLite database files
-$config["path_db"] = $config["code_path"] . "/database/db";
+$smartysh->config["path_db"] = $smartysh->config["code_path"] . "/database/db";
 
-$config["timeoffset"] = 3600;
-$config["smartysh_prefix"] = "smartysh";
-$config["show_partial_edit_links"] = false;
+$smartysh->config["timeoffset"] = 3600;
+$smartysh->config["smartysh_prefix"] = "smartysh";
+$smartysh->config["show_partial_edit_links"] = false;
 // Hide templates from listings with these prefixes
-$config["hidden_file_prefix"] = "__";
+$smartysh->config["hidden_file_prefix"] = "__";
 // use this to popup firefoxes browser download dialog to save default setting
-$config["template_edit_links_downloadable"] = false;
+$smartysh->config["template_edit_links_downloadable"] = false;
 ?>
