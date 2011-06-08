@@ -11,7 +11,7 @@
  */
 
 function smarty_function_indent($params, &$smarty) {
-    global $smarty, $config_q;
+    global $smarty;
 
     if (isset($params["tpl"])) {
         $params["template"] = $params["tpl"];
