@@ -64,7 +64,6 @@ function get_access_log($arr=array()) {
     }
     $results = $db->arrayQuery("
         SELECT
-        DISTINCT
             site_dir, url
         FROM
             access_log
