@@ -9,6 +9,7 @@ header('Content-Type: text/html; charset=utf-8');
 require_once("includes/functions.php");
 require 'config.php';
 require $config["code_path"] . '/init.php';
+$smartysh->config = $config; // todo: move $config to object
 require $config["code_path"] . '/externals/smarty/libs/Smarty.class.php';
 
 $exploded_url = explode("/", trim($_SERVER["REQUEST_URI"], "/"));
