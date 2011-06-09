@@ -37,8 +37,8 @@ function smarty_function_smartysh_init($params, &$smarty) {
         $output .= actionlist();
         // load our scripts at the very end so we have overview of the page
         $output .= html_javascript("../.." . $smartysh->config["path_code"] . "/admin/scripts/externals/jquery") . "\n";
-        $output .= html_javascript("../.." . $smartysh->config["path_code"] . "/scripts/externals/jquery-ui") . "\n";
-        $output .= html_javascript("../.." . $smartysh->config["path_code"] . "/scripts/externals/jquery.cookie") . "\n";
+        $output .= html_javascript("../.." . $smartysh->config["path_code"] . "/admin/scripts/externals/jquery-ui") . "\n";
+        $output .= html_javascript("../.." . $smartysh->config["path_code"] . "/admin/scripts/externals/jquery.cookie") . "\n";
         $output .= html_javascript("../.." . $smartysh->config["path_code"] . "/scripts/psdOverlay") . "\n";
     }
 
