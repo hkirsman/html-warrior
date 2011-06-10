@@ -16,7 +16,7 @@
 function smarty_function_smartysh_init($params, &$smarty) {
     global $smartysh, $smarty, $debug;
 
-    if ($smarty->getTemplateVars("debug") != 1) {
+    if ($smartysh->config["live"]) {
         return "__smartysh_remove_line__";
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-require $config["code_path"] . '/externals/smarty/libs/Smarty.class.php';
+require $smartysh->config["code_path"] . '/externals/smarty/libs/Smarty.class.php';
 $smarty = new Smarty;
 $smarty->allow_php_tag = true;
 $smarty->error_reporting = ~E_NOTICE;

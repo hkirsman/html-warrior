@@ -384,8 +384,12 @@ function remove_bom($str="") {
 function get_page_template_path($url_path) {
     global $smartysh;
     $template_path = "";
+    $array_splice_offset = 2;
+    if ( $smartysh->config["frontpage_site"] ) {
+      $array_splice_offset = 1;
+    }
     $a_url_path = explode("/", $url_path);
-    $a_url_path_without_site = array_splice($a_url_path, 2, count($a_url_path));
+    $a_url_path_without_site = array_splice($a_url_path, $array_splice_offset , count($a_url_path));
     $url_path_without_site = join("/", $a_url_path_without_site);
 
     if (strlen($url_path_without_site)===0) {

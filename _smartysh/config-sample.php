@@ -11,6 +11,11 @@ $smartysh->config["baseurl"] = get_baseurl();
 $smartysh->config["code_path"] = $smartysh->config["basepath"] . $smartysh->config["path_code"];
 $smartysh->config["basepath"] = $smartysh->config["basepath"];
 
+$smartysh->config["frontpage_site"] = false; # example: "/example_site"
+$smartysh->config["build"] = true;
+$smartysh->config["log"] = true;
+$smartysh->config["live"] = false;
+
 $smartysh->config["indent"] = "spaces"; // or tabs
 $smartysh->config["indent_count"] = 2;
 $smartysh->config["debug"] = false;
