@@ -1,0 +1,8 @@
+{*
+
+.button1 span { line-height: 15px /* because .button1 can't have line-height. firefox uses its's own so better not touch it all */ }
+*}.button1{background:url("../images/base/button1.gif") 100% 0;color:#404040;float:left;height:31px;padding:0 13px 0 0}
+.button1 span{background:url("../images/base/button1.gif");display:block;padding:6px 0 10px 13px;line-height:15px;}
+/*Other stuff*/
+.rbutton{float:right;margin-left:10px;margin-right:0}
+.frmbuttons{margin:30px 0;overflow:hidden;width:391px}

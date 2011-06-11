@@ -1,0 +1,14 @@
+1.0 Windows
+
+1.0.1 Firefox
+
+Create user.js in c:\Users\USERNAME\AppData\Roaming\Mozilla\Firefox\Profiles\xxxxxxxxxxxxx\user.js
+
+Add
+user_pref("capability.policy.policynames", "localfilelinks");
+user_pref("capability.policy.localfilelinks.sites", "http://192.168.1.170:8080");
+user_pref("capability.policy.localfilelinks.checkloaduri.enabled", "allAccess");
+
+Change http://192.168.1.170:8080 to your Smartysh address
+
+Open tpl in browser from apache server.. do something here to simplify it.

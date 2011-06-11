@@ -1,0 +1,59 @@
+/* hide container until all is ready */
+.frontpageproducts { position: relative; z-index: 2; margin-top: 50px !important;  margin: 0 auto; height: 170px;}
+
+.frontpageproducts{
+	display: none;
+	color: #404040;
+	position: relative;
+	z-index: 2;
+	overflow: hidden;
+}
+
+.frontpageproducts h2 { line-height:20px; }
+
+/*Main Container*/
+.container {
+	margin: 0 0 0 120px;
+	position: relative;
+	z-index: 2;
+	overflow: hidden;
+}
+.container ul{
+	list-style-type: none;
+	margin: 0;
+	padding:0;	
+}
+.container li{
+	display: inline;
+	margin: 0px;
+	padding:0px;
+}
+/*Content Container*/
+.contentContainer {
+	padding-left: 0px;	
+	float: left;
+	width:0;
+	height: 170px;	
+	overflow:hidden;
+}
+.contentWrapper{	
+}
+.contentInnerWrapper{
+	padding: 36px 35px 0 17px;
+}
+.contentInnerWrapper .text { font-family:"PT Sans",sans-serif; }
+/* Handle*/
+.handle{
+	float: left;
+	width: 60px;
+	height: 170px;
+	margin: 0;
+	background:  url(../images/blade.png) no-repeat;
+}
+.handle img { display: block }
+.handleOver{	
+	background: url(../images/blade_sel.png) no-repeat;
+}
+.handleSelected{	
+	background: url(../images/blade_sel.png) no-repeat;
+}

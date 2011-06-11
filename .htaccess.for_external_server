@@ -1,0 +1,9 @@
+# There's a Apache web server for windows in _smartysh\servers\server2go
+# and it jus runs from there without configuration
+# If you have your own server, then rename this file to .htaccess
+
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ _smartysh/index.php/$1 [L]
