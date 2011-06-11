@@ -18,4 +18,4 @@ Smartysh uses 3 types of templates: layout - the outermost template (head, body)
 
 I like the image partial. It can take parameters like alt, width, height and ofcourse source. If you omit height and/or with, it outputs img tag with the correct dimensions.
 
-There's not limit to what kind of templates you want to have. Infact, you can use Smartysh and not use it's features at all which would be kind of silly :)
+Send me an e-mail for further instructions: hkirsman@gmail.com Just ask anything that's bothering you. We need to create an FAQ.. ;)
