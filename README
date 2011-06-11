@@ -1,10 +1,18 @@
-=Smartysh=
+.... how can I use wiki syntax here? anyways, lets get started
 
-Smartysh is a tool for building static websites with Smarty templating system. So if you're HTML/CSS developer, you have lot to win.
 
-There's little documentation for now. I'd gladly help by e-mail for now: hkirsman@gmail.com
+Intro
 
-Download Smartysh, unpack it to c:\www ( for example ), run c:\www\smartysh\servers\server2go\Server2Go?.exe and browse to http://127.0.0.1:8080/ or http://YOUR_IP:8080/ Choose example_site and start reading
+I'm a HTML/CSS expert. About an year ago I was working on 50+ page design ( yes, more than 50 pages of HTML ). This project needed constant changing so I was asked: "Can't I use javascript or something similar to replace that 1 thing repeating on all 50+ pages?" I sai: "No, there is no solution. It's static HTML."
+
+Today, I'm happy to announce Smartysh - tool that builds static HTML out of templates.
+
+
+More
+
+Smartysh is based on Smarty ( http://www.smarty.net/ ) templating system.
+
+Download Smartysh, unpack it to c:\www ( for example ), run c:\www\smartysh\servers\server2go\Server2Go.exe and browse to http://127.0.0.1:8080/ or http://YOUR_IP:8080/ Choose example_site and start reading
 
 Smartysh uses 3 types of templates: layout - the outermost template (head, body) page - html that gets wrapped inside layout partial - small (no size limit here :) ) template sniplets like youtube, form elements, images.
 
