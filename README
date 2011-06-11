@@ -4,7 +4,7 @@ Smartysh is a tool for building static websites with Smarty templating system. S
 
 There's little documentation for now. I'd gladly help by e-mail for now: hkirsman@gmail.com
 
-Download the executable, unpack it to c:\www ( for example ), run c:\www\smartysh\servers\server2go\Server2Go?.exe and browse to http://127.0.0.1:8080/ or http://YOUR_IP:8080/ Choose example_site and start reading
+Download Smartysh, unpack it to c:\www ( for example ), run c:\www\smartysh\servers\server2go\Server2Go?.exe and browse to http://127.0.0.1:8080/ or http://YOUR_IP:8080/ Choose example_site and start reading
 
 Smartysh uses 3 types of templates: layout - the outermost template (head, body) page - html that gets wrapped inside layout partial - small (no size limit here :) ) template sniplets like youtube, form elements, images.
 
