@@ -1,6 +1,10 @@
 <?php
 
-if ($db = new SQLiteDatabase($smartysh->config["path_db"])) {
+if (!is_dir($smartysh->config["path_db_dir"])) {
+    mkdir($smartysh->config["path_db_dir"]);
+}
+
+if ($db = new SQLiteDatabase($smartysh->config["path_db_dir"] . "/db")) {
     // create tables if these do not exist
     $q = @$db->query('SELECT id FROM access_log WHERE id = 1');
     if ($q === false) {

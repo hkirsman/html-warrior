@@ -29,7 +29,7 @@ $smartysh->config["path_style"] = "/style";
 $smartysh->config["path_scripts"] = "/scripts";
 
 // SQLite database files
-$smartysh->config["path_db"] = $smartysh->config["code_path"] . "/database/db";
+$smartysh->config["path_db_dir"] = $smartysh->config["code_path"] . "/database/";
 
 $smartysh->config["timeoffset"] = 3600;
 $smartysh->config["smartysh_prefix"] = "smartysh";
