@@ -1,8 +1,7 @@
 Smartysh
 ==============
 
-Smartysh generates HTML from Smarty templates. It does so without loosing the indent in the final output. Smarty includes helper tools like PSD overlay, temple listing and edit links right 
-in the browser ( in the site your're working with )
+Smartysh generates HTML from Smarty templates. It does so without loosing the indent in the final output. Smarty includes helper tools like PSD overlay, temple listing and edit links right in the browser ( in the site your're working with )
 
 ## Intro
 
@@ -15,9 +14,9 @@ One day, seeing StaticMatic, I started building my own system without HAML. So n
 Download Smartysh, unpack it to c:\www ( for example ), run c:\www\smartysh\servers\server2go\Server2Go.exe and browse to http://127.0.0.1:8080/ or http://YOUR_IP:8080/ Choose example_site and start reading
 
 Smartysh uses 3 types of templates:
-layout - the outermost template (head, body);
-page - html that gets wrapped inside layout;
-partial - template sniplets like youtube, form elements, images (but there's no size limit ofcourse)
+* layout - the outermost template (head, body);
+* page - html that gets wrapped inside layout;
+* partial - template sniplets like youtube, form elements, images (but there's no size limit ofcourse)
 
 I like the image partial. It can take parameters like alt, width, height and ofcourse source. If you omit height and/or with, it outputs img tag with the correct dimensions.
 
