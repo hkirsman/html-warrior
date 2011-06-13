@@ -101,11 +101,11 @@ if ($smartysh->config["live"]) {
 }
 
 if (isset($_GET["debug"])) {
-    $debug = $_GET["debug"];
+    $smartysh->config["debug"] = $_GET["debug"];
 } else {
-    $debug = 1;
+    $smartysh->config["debug"] = 1;
 }
-$smarty->assign("debug", $debug);
+$smarty->assign("debug", $smartysh->config["debug"]);
 
 $smarty->assign("page", $smartysh->page); // cool var; must stay in future code
 // shortcut for frontpage
