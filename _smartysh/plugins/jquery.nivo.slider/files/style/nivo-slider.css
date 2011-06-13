@@ -1,0 +1,18 @@
+/*[fmt]0000-000A-A*/
+/*=== Custom Slider Styles ===*/
+#slider-wrapper{background-image:url("../images/base/content.png");width:968px;height:347px;margin:0 auto;overflow:hidden;}
+#slider{position:relative;width:968px;height:347px;margin-left:4px;background:url(../images/nivo-slider/loading.gif) no-repeat 50% 50%;}
+#slider img{position:absolute;top:0px;left:0px;display:none;}
+#slider a{border:0;display:block;}
+.nivo-controlNav{position:absolute;left:0;bottom:0;}
+.nivo-controlNav a{width:29px;height:23px;border:0;margin-right:1px;float:left;font-size:11px;font-weight:bold;color:#FFFFFF;text-align:center;padding:7px 0 0;background-image:url("../images/base/nivoControlNavActive.png");background-color:transparent;cursor:pointer;}
+.nivo-controlNav a.active{background:#000000;cursor:default;}
+.nivo-directionNav a{display:block;width:30px;height:30px;background:url(../images/nivo-slider/arrows.png) no-repeat;text-indent:-9999px;border:0;}
+a.nivo-nextNav{background-position:-30px 0;right:15px;}
+a.nivo-prevNav{left:15px;}
+.nivo-caption{position:absolute;right:-1000px;bottom:-1000px;color:#FFFFFF;background-image:url("../images/base/nivoCaption.png");padding-left:10px;padding-bottom:8px;padding-top:8px;}
+.nivo-caption a{color:#EFE9D1;text-decoration:underline;}
+/*====================
+=== Other Styles ===
+====================*/
+.clear{clear:both;}

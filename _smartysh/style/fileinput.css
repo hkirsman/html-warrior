@@ -1,0 +1,9 @@
+.fileinput1{display:inline-block;position:relative;width:420px}
+.fileinput1 .frmcaption{padding-top:8px}
+.fileinput1 .finput{background:url("../images/base/fileinput1.gif");display:block;height:32px;overflow:hidden;position:relative;width:242px}
+.fileinput1 .input{background:url("../images/1x1.png");border:0;color:#999999;float:left;font-size:16px;font-weight:bold;height:20px;line-height:20px;margin:0 !important;padding:3px 8px 9px;width:116px}
+.fileinput1 .button{float:left;font-size:10px;height:20px;padding:5px;text-align:center;width:98px}
+.fileinput1 .overlay{display:inline-block;height:32px;left:0;position:absolute;top:0;vertical-align:middle;width:242px}
+.fileinput1 .overlay object{display:block}
+.fileinput1 .finputCurrentImage{float:right}
+.fileinput1 .finputnote{color:#454545;display:block;line-height:14px;padding:1px 0 0 5px}

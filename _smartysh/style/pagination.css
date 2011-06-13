@@ -1,0 +1,10 @@
+.pagination{clear:both;line-height:16px;overflow:hidden;margin:10px 0 30px 0;text-align:center;width:595px}
+.pagination a{background:white;border:1px solid #CCCCCC;color:#222222;text-decoration:none}
+.pagination a:hover{text-decoration:underline}
+.pagination a,.pagination span{-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;display:-moz-inline-stack;display:inline-block;font-size:14px;font-weight:bold;padding:4px 7px 3px 7px;vertical-align:middle}
+.pagination span{background:#599900;border:1px solid #599900;color:white}
+.pagination p{color:#999}
+.pagination .prev,
+.pagination .next{border:1px solid white;border-bottom:1px dotted #33BBFF;color:#0054A6;font-size:13px;padding:4px 0 0 0}
+.pagination .prev{float:left}
+.pagination .next{float:right}
