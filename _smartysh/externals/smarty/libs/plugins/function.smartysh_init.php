@@ -27,8 +27,8 @@ function smarty_function_smartysh_init($params, &$smarty) {
     $output = "";
 
     if ($params["position"] == "top") {
-        $output .= html_javascript("../.." . $smartysh->config["path_code"] . "/scripts/smartysh_helpers") . "\n";
-        $output .= html_javascript("../.." . $smartysh->config["path_code"] . "/scripts/smartysh_init.php") . "\n";
+        $output .= html_javascript($smartysh->config["path_code"] . "/scripts/smartysh_helpers", false) . "\n";
+        $output .= html_javascript($smartysh->config["path_code"] . "/scripts/smartysh_init.php", false) . "\n";
         $output .= '<link rel="stylesheet" type="text/css" href="' . $smartysh->config["path_code"] . '/admin/style/_style_site.css" media="screen, projection, print" title="" />';
     } elseif ($params["position"] == "bottom") {
         require_once("includes/pagelist.php");
@@ -36,10 +36,10 @@ function smarty_function_smartysh_init($params, &$smarty) {
         $output .= pagelist($_GET["template_list_opened"]);
         $output .= actionlist();
         // load our scripts at the very end so we have overview of the page
-        $output .= html_javascript("../.." . $smartysh->config["path_code"] . "/admin/scripts/externals/jquery") . "\n";
-        $output .= html_javascript("../.." . $smartysh->config["path_code"] . "/admin/scripts/externals/jquery-ui") . "\n";
-        $output .= html_javascript("../.." . $smartysh->config["path_code"] . "/admin/scripts/externals/jquery.cookie") . "\n";
-        $output .= html_javascript("../.." . $smartysh->config["path_code"] . "/scripts/psdOverlay") . "\n";
+        $output .= html_javascript($smartysh->config["path_code"] . "/admin/scripts/externals/jquery", false) . "\n";
+        $output .= html_javascript($smartysh->config["path_code"] . "/admin/scripts/externals/jquery-ui", false) . "\n";
+        $output .= html_javascript($smartysh->config["path_code"] . "/admin/scripts/externals/jquery.cookie", false) . "\n";
+        $output .= html_javascript($smartysh->config["path_code"] . "/scripts/psdOverlay", false) . "\n";
     }
 
     $a_output = explode("\n", $output);

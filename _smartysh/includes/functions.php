@@ -189,7 +189,7 @@ function dir_list($dir) {
  * extension can be used.
  * @return string <script> tag
  */
-function html_javascript($file) {
+function html_javascript($file, $scripts_as_root = true) {
     $a_file = explode("/", $file);
     $template_name = end($a_file);
     $file = str_replace($template_name, "", $file);
@@ -198,7 +198,7 @@ function html_javascript($file) {
     } else {
         $file .= $template_name;
     }
-    return '<script type="text/javascript" src="scripts/' . $file . '"></script>';
+    return '<script type="text/javascript" src="' . ($scripts_as_root ? 'scripts/' : '') . $file . '"></script>';
 }
 
 /**
@@ -385,14 +385,14 @@ function get_page_template_path($url_path) {
     global $smartysh;
     $template_path = "";
     $array_splice_offset = 2;
-    if ( $smartysh->config["frontpage_site"] ) {
-      $array_splice_offset = 1;
+    if ($smartysh->config["frontpage_site"]) {
+        $array_splice_offset = 1;
     }
     $a_url_path = explode("/", $url_path);
-    $a_url_path_without_site = array_splice($a_url_path, $array_splice_offset , count($a_url_path));
+    $a_url_path_without_site = array_splice($a_url_path, $array_splice_offset, count($a_url_path));
     $url_path_without_site = join("/", $a_url_path_without_site);
 
-    if (strlen($url_path_without_site)===0) {
+    if (strlen($url_path_without_site) === 0) {
         $url_path_without_site = "index";
     }
 
@@ -400,16 +400,16 @@ function get_page_template_path($url_path) {
     $replace = "";
 
     $template_path = $smartysh->config["basepath"] . "/" .
-    $smartysh->runtime["site_dir"] .
-    $smartysh->config["path_templates_pages"] . "/" .
-    str_replace($find, $replace, $url_path_without_site);
+            $smartysh->runtime["site_dir"] .
+            $smartysh->config["path_templates_pages"] . "/" .
+            str_replace($find, $replace, $url_path_without_site);
 
     $template_path_with_ext = $template_path . ".tpl";
 
     // if
-    if ( is_dir($template_path) ) {
+    if (is_dir($template_path)) {
         // check if index exists
-        if ( file_exists($template_path."/index.tpl") ) {
+        if (file_exists($template_path . "/index.tpl")) {
             return $template_path . "/index.tpl";
         }
     } else {
