@@ -1,6 +1,6 @@
 {strip}
   {php}
-  global $smartysh, $smarty;
+  global $htmlwarrior, $smarty;
 
   $width = $smarty->getTemplateVars("width");
   $height = $smarty->getTemplateVars("height");
@@ -12,7 +12,7 @@
   }
 
   if ( !isset($width) && !isset($height) ) {
-    $full_image_path = $smartysh->config["basepath"] . "/" . $smartysh->runtime["site_dir"] . "/images/".$src;
+    $full_image_path = $htmlwarrior->config["basepath"] . "/" . $htmlwarrior->runtime["site_dir"] . "/images/".$src;
     list($width, $height) = getimagesize($full_image_path);
   }
   $smarty->assign("width",$width);

@@ -452,4 +452,4 @@
         }
     })();
 
-})(jQuerySmartysh);
+})(jQueryHTMLWarrior);

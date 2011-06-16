@@ -3,12 +3,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="et">
   <head>
-    {smartysh_init}
+    {htmlwarrior_init}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="style/reset.css" media="all" />
     <link rel="stylesheet" type="text/css" href="style/_style.css" media="all" title="" />
     <link rel="stylesheet" type="text/css" href="style/print.css" media="print" title="" />
-    {smartysh_plugins indent="    "}
+    {htmlwarrior_plugins indent="    "}
     <title>{$title}</title>
     <!--[if lt IE 8]>
     <link href="style/style_lt_ie8.css" rel="stylesheet" type="text/css" media="screen" />
@@ -35,8 +35,8 @@
 
       </div><!-- #footer -->
     </div><!-- #wrapper -->
-    {smartysh_plugins position="bottom" indent="    "}
+    {htmlwarrior_plugins position="bottom" indent="    "}
     {partial tpl=script file="general"}
-    {smartysh_init position="bottom"}
+    {htmlwarrior_init position="bottom"}
   </body>
 </html>

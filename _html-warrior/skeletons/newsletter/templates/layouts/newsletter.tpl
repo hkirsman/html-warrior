@@ -2,12 +2,12 @@
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    {smartysh_init}
+    {htmlwarrior_init}
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title></title>
   </head>
   <body topmargin="0" leftmargin="0" marginwidth="0" marginheight="0" bgcolor="#FFFFFF">
     {$yield}
-    {smartysh_init position="bottom"}
+    {htmlwarrior_init position="bottom"}
   </body>
 </html>

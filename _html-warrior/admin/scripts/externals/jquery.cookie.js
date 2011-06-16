@@ -57,11 +57,11 @@
  * @cat Plugins/Cookie
  * @author Klaus Hartl/klaus.hartl@stilbuero.de
  */
-jQuerySmartysh.cookie = function (key, value, options) {
+jQueryHTMLWarrior.cookie = function (key, value, options) {
     
     // key and at least value given, set cookie...
     if (arguments.length > 1 && String(value) !== "[object Object]") {
-        options = jQuerySmartysh.extend({}, options);
+        options = jQueryHTMLWarrior.extend({}, options);
 
         if (value === null || value === undefined) {
             options.expires = -1;
