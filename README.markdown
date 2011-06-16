@@ -1,7 +1,7 @@
 HTML Warrior
 ==============
 
-HTML Warrior generates HTML from Smarty templates. It does so without loosing the indent in the final output. Smarty includes helper tools like PSD overlay, template listing and edit links right in the browser ( in the site your're working with )
+HTML Warrior generates HTML from Smarty templates. It does so without loosing the indent in the final output. HTML Warrior includes helper tools like image overlay, template listing and edit links right in the browser ( in the site your're working with )
 
 ## Intro
 
