@@ -1,19 +1,19 @@
-Smartysh
+HTML Warrior
 ==============
 
-Smartysh generates HTML from Smarty templates. It does so without loosing the indent in the final output. Smarty includes helper tools like PSD overlay, template listing and edit links right in the browser ( in the site your're working with )
+HTML Warrior generates HTML from Smarty templates. It does so without loosing the indent in the final output. Smarty includes helper tools like PSD overlay, template listing and edit links right in the browser ( in the site your're working with )
 
 ## Intro
 
 I'm a HTML/CSS expert. About an year ago I was working on 50+ page design ( yes, more than 50 pages of HTML ). This project needed constant changing so I was asked: "Can't I use javascript or something similar to replace that 1 thing repeating on all 50+ pages?" I said: "No, there is no solution. It's static HTML." So I constantly had to replace manually or do search and replace.
 
-One day, seeing StaticMatic, I started building my own system without HAML. So now here it - Smartysh.
+One day, seeing StaticMatic, I started building my own system without HAML. So now here it - HTML Warrior.
 
 ## Install ( there's php+apache included for windows )
 
-Download Smartysh, unpack it to c:\www ( for example ), run c:\www\smartysh\servers\server2go\Server2Go.exe and browse to http://127.0.0.1:8080/ or http://YOUR_IP:8080/ Choose example_site and start reading
+Download HTML Warrior, unpack it to c:\www ( for example ), run c:\www\_html-warrior\servers\server2go\Server2Go.exe and browse to http://127.0.0.1:8080/ or http://YOUR_IP:8080/ Choose example_site and start reading
 
-Smartysh uses 3 types of templates:
+HTML Warrior uses 3 types of templates:
 
 1. layout - the outermost template (head, body);
 2. page - html that gets wrapped inside layout;
