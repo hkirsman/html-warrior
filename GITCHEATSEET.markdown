@@ -12,3 +12,6 @@ commit to local repository
 
 git gommit origin master
 commit to github
+
+reset to last commit
+git reset --hard HEAD
