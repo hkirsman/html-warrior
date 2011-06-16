@@ -13,5 +13,20 @@ commit to local repository
 git gommit origin master
 commit to github
 
-reset to last commit
 git reset --hard HEAD
+reset to last commit
+
+git diff --check
+Check if files about the committed don't have trailing white-space
+
+git config --list
+Checking Your Settings
+
+git help config
+Git help example
+
+Changing Your Last Commit
+git commit --amend
+
+git checkout -- <file>
+Unmodifying a Modified File. Example git checkout -- benchmarks.rb. git status tells that too.
