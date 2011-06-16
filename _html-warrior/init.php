@@ -3,7 +3,8 @@
 require $htmlwarrior->config["code_path"] . '/externals/smarty/libs/Smarty.class.php';
 $smarty = new Smarty;
 $smarty->allow_php_tag = true;
-$smarty->error_reporting = ~E_NOTICE;
+$smarty->error_reporting = $smartysh->config["php_error_reporting"];
+error_reporting($smartysh->config["php_error_reporting"]);
 
 require_once("includes/db.php");
 

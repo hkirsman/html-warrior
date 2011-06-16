@@ -15,6 +15,7 @@ $htmlwarrior->config["frontpage_site"] = false; # example: "/example_site"
 $htmlwarrior->config["build"] = true;
 $htmlwarrior->config["log"] = true;
 $htmlwarrior->config["live"] = false;
+$htmlwarrior->config["error_page"] = false; # example "error" - which means error.tpl in templates/pages
 
 $htmlwarrior->config["indent"] = "spaces"; // or tabs
 $htmlwarrior->config["indent_count"] = 2;
@@ -38,4 +39,7 @@ $htmlwarrior->config["show_partial_edit_links"] = false;
 $htmlwarrior->config["hidden_file_prefix"] = "__";
 // use this to popup firefoxes browser download dialog to save default setting
 $htmlwarrior->config["template_edit_links_downloadable"] = false;
+
+// PHP
+$smartysh->config["php_error_reporting"] = false; # example "E_ALL ^ E_NOTICE ^ E_WARNING"
 ?>
