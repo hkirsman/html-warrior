@@ -113,12 +113,12 @@ function get_site_access_log($arr=array()) {
 }
 
 function datetime($timestamp=false) {
-    global $smartysh;
+    global $htmlwarrior;
 
     if ($timestamp) {
-        $date = date("Y-m-d H:M:s", $timestamp + $smartysh->config["timeoffset"]);
+        $date = date("Y-m-d H:M:s", $timestamp + $htmlwarrior->config["timeoffset"]);
     } else {
-        $date = date("Y-m-d H:i:s", time() + $smartysh->config["timeoffset"]);
+        $date = date("Y-m-d H:i:s", time() + $htmlwarrior->config["timeoffset"]);
     }
     return $date;
 }
@@ -286,7 +286,7 @@ function indent($content, $indent, $ignore_first_row=true, $char="  ") {
 
 // todo: ($pos-1)/2; --> calculate real indent with help of config
 function get_indents_for_variables($content) {
-    global $smartysh;
+    global $htmlwarrior;
     $indents = array();
     $file = explode("\n", $content);
     for ($i = 0; $i < count($file); $i++) {
@@ -317,14 +317,14 @@ function get_first_tag_name($subject) {
 
 /**
  *
- * @global array $smartysh->config required Smartysh config
+ * @global array $htmlwarrior->config required htmlwarrior config
  * @global string $site_dir required Currently active site name (directory)
  * @param <type> $tpl_name
  * @return <type>
  */
 function mk_partial_edit_link($tpl_name) {
-    global $smartysh;
-    return (!$smartysh->config["template_edit_links_downloadable"] ? $smartysh->config["basepath_local"] : "") . "/" . $smartysh->runtime["site_dir"] . $smartysh->config["path_templates_partials"] . "/" . $tpl_name;
+    global $htmlwarrior;
+    return (!$htmlwarrior->config["template_edit_links_downloadable"] ? $htmlwarrior->config["basepath_local"] : "") . "/" . $htmlwarrior->runtime["site_dir"] . $htmlwarrior->config["path_templates_partials"] . "/" . $tpl_name;
 }
 
 /**
@@ -382,10 +382,10 @@ function remove_bom($str="") {
  * @return string
  */
 function get_page_template_path($url_path) {
-    global $smartysh;
+    global $htmlwarrior;
     $template_path = "";
     $array_splice_offset = 2;
-    if ($smartysh->config["frontpage_site"]) {
+    if ($htmlwarrior->config["frontpage_site"]) {
         $array_splice_offset = 1;
     }
     $a_url_path = explode("/", $url_path);
@@ -399,9 +399,9 @@ function get_page_template_path($url_path) {
     $find = array("__logged", ".html");
     $replace = "";
 
-    $template_path = $smartysh->config["basepath"] . "/" .
-            $smartysh->runtime["site_dir"] .
-            $smartysh->config["path_templates_pages"] . "/" .
+    $template_path = $htmlwarrior->config["basepath"] . "/" .
+            $htmlwarrior->runtime["site_dir"] .
+            $htmlwarrior->config["path_templates_pages"] . "/" .
             str_replace($find, $replace, $url_path_without_site);
 
     $template_path_with_ext = $template_path . ".tpl";

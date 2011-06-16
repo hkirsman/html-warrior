@@ -4,18 +4,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="et">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="/_smartysh/admin/style/reset.css" media="all" />
-    <link rel="stylesheet" type="text/css" href="/_smartysh/admin/style/_style.css" media="all" title="" />
-    <link rel="stylesheet" type="text/css" href="/_smartysh/admin/style/jquery-ui.css" media="all" title="" />
+    <link rel="stylesheet" type="text/css" href="{$config.path_code}/admin/style/reset.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{$config.path_code}/admin/style/_style.css" media="all" title="" />
+    <link rel="stylesheet" type="text/css" href="{$config.path_code}/admin/style/jquery-ui.css" media="all" title="" />
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="icon" href="favicon.png" type="image/png" />
-    <!--[if lt IE 8]>
-    <link href="/_smartysh/admin/style/style_lt_ie8.css" rel="stylesheet" type="text/css" media="screen" />
-    <![endif]-->
-    <!--[if IE 6]>
-    <link href="/_smartysh/admin/style/style_ie6.css" rel="stylesheet" type="text/css" media="screen" />
-    <![endif]-->
-    <title>Smartysh</title>
+    <title>HTML Warrior</title>
   </head>
   <body>
 
@@ -29,7 +23,7 @@
           filter.focus();
         </script>
       </div>
-      <h1 class="logo sidefloat">Smartysh</h1>
+      <h1 class="logo sidefloat">HTML Warrior</h1>
     </div>
 
     <div id="content">
@@ -58,8 +52,8 @@
       </div>
     </div>
 
-    <script type="text/javascript" src="/_smartysh/admin/scripts/externals/jquery.js"></script>
-    <script type="text/javascript" src="/_smartysh/admin/scripts/externals/jquery-ui.js"></script>
-    <script type="text/javascript" src="/_smartysh/admin/scripts/general.js"></script>
+    <script type="text/javascript" src="{$config.path_code}/admin/scripts/externals/jquery.js"></script>
+    <script type="text/javascript" src="{$config.path_code}/admin/scripts/externals/jquery-ui.js"></script>
+    <script type="text/javascript" src="{$config.path_code}/admin/scripts/general.js"></script>
   </body>
 </html>

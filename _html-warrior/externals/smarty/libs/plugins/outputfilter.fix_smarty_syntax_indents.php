@@ -14,7 +14,7 @@ function smarty_outputfilter_fix_smarty_syntax_indents($source, &$smarty) {
     $a_source = explode("\n", $source);
 
     foreach ($a_source as $key => $var) {
-        if (strpos($var, "__smartysh_remove_line__") !== false) {
+        if (strpos($var, "__" . $htmlwarrior->config["htmlwarrior_prefix"] . "_remove_line__") !== false) {
             unset($a_source[$key]);
         }
     }

@@ -76,9 +76,9 @@ Other
 .hidden2{position:absolute;top:-2000px;}
 .lfloat{float:left;}
 .rfloat{float:right;}
-.lfloat2,.rfloat2{display:table-cell;vertical-align:top;width:10000px;}
+.lfloat2,.rfloat2,.sidefloat{display:table-cell;vertical-align:top;width:10000px;=display:block;=zoom:1;=width:auto;}
 .aleft{text-align:left;}
-.aright{text-align:right;}
+.aright,.latest-offers .aright{text-align:right;}
 .clear{clear:both;display:block;height:0;overflow:hidden;width:0;visibility:hidden;}
 .clearfix:after{clear:both;content:' ';display:block;font-size:0;height:0;line-height:0;width:0;visibility:hidden;}
 .clearfix{display:inline-block;}

@@ -7,37 +7,37 @@ error_reporting(~E_NOTICE);
 
 header('Content-Type: text/html; charset=utf-8');
 
-// init empty Smartysh class to add variables. Todo: create some method etc.
-class Smartysh {
+// init empty htmlwarrior class to add variables. Todo: create some method etc.
+class htmlwarrior {
 
 }
 
-$smartysh = new Smartysh();
+$htmlwarrior = new htmlwarrior();
 
 require_once("includes/functions.php");
 if (!file_exists("config.php")) {
     copy("config-sample.php", "config.php");
 }
 require "config.php";
-require $smartysh->config["code_path"] . '/init.php';
+require $htmlwarrior->config["code_path"] . '/init.php';
 
-if ($smartysh->config["frontpage_site"]) {
-    $smartysh->runtime["site_dir"] = trim($smartysh->config["frontpage_site"], "/");
+if ($htmlwarrior->config["frontpage_site"]) {
+    $htmlwarrior->runtime["site_dir"] = trim($htmlwarrior->config["frontpage_site"], "/");
 } else {
-    $site_dir = explode("/", trim($smartysh->runtime["parsed_url"]["path"], "/"));
-    $smartysh->runtime["site_dir"] = current($site_dir);
+    $site_dir = explode("/", trim($htmlwarrior->runtime["parsed_url"]["path"], "/"));
+    $htmlwarrior->runtime["site_dir"] = current($site_dir);
     unset($site_dir);
 }
 
-$smarty->assign("config", $smartysh->config);
+$smarty->assign("config", $htmlwarrior->config);
 
 $smarty->loadFilter("pre", "fix_smarty_syntax_indents");
 $smarty->loadFilter("pre", "add_partial_indents");
 $smarty->loadFilter("output", "fix_smarty_syntax_indents");
 
 // admin
-if ($smartysh->config["frontpage_site"] === false) {
-    if ($smartysh->runtime["site_dir"] == "") {
+if ($htmlwarrior->config["frontpage_site"] === false) {
+    if ($htmlwarrior->runtime["site_dir"] == "") {
         if (isset($_GET["action"])) {
             if ($_GET["action"] == "new_project") {
                 if (isset($_GET["name"])) {
@@ -48,12 +48,12 @@ if ($smartysh->config["frontpage_site"] === false) {
             }
         }
 
-        $smarty->template_dir = $smartysh->config["code_path"] . "/admin/templates";
+        $smarty->template_dir = $htmlwarrior->config["code_path"] . "/admin/templates";
         $smarty->assign("access_log", get_access_log(array("limit" => 10)));
 
         $smarty->assign("access_log_site", get_site_access_log(array("limit" => 10)));
 
-        $files = dir_list($smartysh->config["basepath"]);
+        $files = dir_list($htmlwarrior->config["basepath"]);
         foreach ($files as &$ma)
             $tmp[] = &$ma["timestamp"];
         array_multisort($tmp, SORT_DESC, $files, SORT_DESC);
@@ -64,52 +64,52 @@ if ($smartysh->config["frontpage_site"] === false) {
 }
 
 // load custom site functions
-if (file_exists($smartysh->config["basepath"] . "/" . $smartysh->runtime["site_dir"] . "/functions.php")) {
-    require_once($smartysh->config["basepath"] . "/" . $smartysh->runtime["site_dir"] . "/functions.php");
+if (file_exists($htmlwarrior->config["basepath"] . "/" . $htmlwarrior->runtime["site_dir"] . "/functions.php")) {
+    require_once($htmlwarrior->config["basepath"] . "/" . $htmlwarrior->runtime["site_dir"] . "/functions.php");
 }
 
 
 // build all templates
 // todo build also logged templates
-if ($smartysh->config["build"]) {
+if ($htmlwarrior->config["build"]) {
     if (isset($_GET["build"])) {
         if ($_GET["build"] == 1) {
-            require_once($smartysh->config["code_path"] . '/includes/build.php');
+            require_once($htmlwarrior->config["code_path"] . '/includes/build.php');
             die("Site build done... go to <a href=\"index.html\">frontpage</a>");
         }
     }
 }
 
-$smarty->template_dir = $smartysh->config["basepath"] . "/" . $smartysh->runtime["site_dir"] . "/templates";
+$smarty->template_dir = $htmlwarrior->config["basepath"] . "/" . $htmlwarrior->runtime["site_dir"] . "/templates";
 
-$request_uri = explode("/", trim($smartysh->runtime["parsed_url"]["path"], "/"));
+$request_uri = explode("/", trim($htmlwarrior->runtime["parsed_url"]["path"], "/"));
 
-if ($smartysh->config["live"]) {
+if ($htmlwarrior->config["live"]) {
     if (!isset($request_uri[0]) || $request_uri[0] == "") {
-        $smartysh->page = "index";
+        $htmlwarrior->page = "index";
     } else {
         $request_uri[0] = str_replace(".html", "", end($request_uri));
-        $smartysh->page = $request_uri[0];
+        $htmlwarrior->page = $request_uri[0];
     }
 } else {
     if (!isset($request_uri[1])) {
-        $smartysh->page = "index";
+        $htmlwarrior->page = "index";
     } else {
         $request_uri[1] = str_replace(".html", "", end($request_uri));
-        $smartysh->page = $request_uri[1];
+        $htmlwarrior->page = $request_uri[1];
     }
 }
 
 if (isset($_GET["debug"])) {
-    $smartysh->config["debug"] = $_GET["debug"];
+    $htmlwarrior->config["debug"] = $_GET["debug"];
 } else {
-    $smartysh->config["debug"] = 1;
+    $htmlwarrior->config["debug"] = 1;
 }
-$smarty->assign("debug", $smartysh->config["debug"]);
+$smarty->assign("debug", $htmlwarrior->config["debug"]);
 
-$smarty->assign("page", $smartysh->page); // cool var; must stay in future code
+$smarty->assign("page", $htmlwarrior->page); // cool var; must stay in future code
 // shortcut for frontpage
-if ($smartysh->page == "index" || $smartysh->page == "index__logged") {
+if ($htmlwarrior->page == "index" || $htmlwarrior->page == "index__logged") {
     $smarty->assign("frontpage", true);
 } else {
     $smarty->assign("frontpage", false);
@@ -117,13 +117,13 @@ if ($smartysh->page == "index" || $smartysh->page == "index__logged") {
 
 /*
   // template copy if not exists
-  if (!file_exists($smarty->template_dir . "/pages/" . $smartysh->page . ".tpl") && !strpos($request_uri[1], "__logged")) {
+  if (!file_exists($smarty->template_dir . "/pages/" . $htmlwarrior->page . ".tpl") && !strpos($request_uri[1], "__logged")) {
   echo '<div style="background: red">Templatet ei ole olemas. Kopeerin uue?. <a href="?copy=yes">jah</a></div>';
   if (@$_GET["copy"] == "yes") {
-  if (copy($smarty->template_dir . "/pages/" . $smartysh->page . ".tpl", $smartysh->config["basepath"] . "/" . $smarty->template_dir . "/pages/" . $smartysh->page . ".tpl")) {
+  if (copy($smarty->template_dir . "/pages/" . $htmlwarrior->page . ".tpl", $htmlwarrior->config["basepath"] . "/" . $smarty->template_dir . "/pages/" . $htmlwarrior->page . ".tpl")) {
   echo "done";
   } else {
-  echo $smarty->template_dir . "/pages/" . $smartysh->page . ".tpl does not exist!";
+  echo $smarty->template_dir . "/pages/" . $htmlwarrior->page . ".tpl does not exist!";
   }
   }
   die();
@@ -133,27 +133,27 @@ if ($smartysh->page == "index" || $smartysh->page == "index__logged") {
 // logged and not logged switching
 if (@strpos($request_uri[1], "__logged")) {
     $smarty->assign("logged_sufix", "__logged");
-    $smartysh->logged_sufix = "__logged";
+    $htmlwarrior->logged_sufix = "__logged";
     $smarty->assign("logged", true);
-    $smartysh->logged = true;
+    $htmlwarrior->logged = true;
 } else {
     $smarty->assign("logged_sufix", "");
-    $smartysh->logged_sufix = "";
+    $htmlwarrior->logged_sufix = "";
     $smarty->assign("logged", false);
-    $smartysh->logged = false;
+    $htmlwarrior->logged = false;
 }
-$page_content = $smarty->fetch(get_page_template_path($smartysh->runtime["parsed_url"]["path"]));
-if ($smartysh->config["build"]) {
-    $template_filetime = filemtime(get_page_template_path($smartysh->runtime["parsed_url"]["path"]));
+$page_content = $smarty->fetch(get_page_template_path($htmlwarrior->runtime["parsed_url"]["path"]));
+if ($htmlwarrior->config["build"]) {
+    $template_filetime = filemtime(get_page_template_path($htmlwarrior->runtime["parsed_url"]["path"]));
 }
 $page_variables = parse_variables($page_content);
 
 if (!isset($page_variables["layout"])) {
-    $smartysh->layout = "default";
+    $htmlwarrior->layout = "default";
 } else {
-    $smartysh->layout = $page_variables["layout"];
+    $htmlwarrior->layout = $page_variables["layout"];
 }
-$layout_path = "layouts/" . $smartysh->layout . ".tpl";
+$layout_path = "layouts/" . $htmlwarrior->layout . ".tpl";
 $variable_indents = get_indents_for_variables(file_get_contents($smarty->template_dir . "/" . $layout_path));
 
 if (isset($page_variables["title"]))
@@ -169,14 +169,14 @@ else
 $smarty->assign("yield", indent(remove_variables($page_content), $variable_indents["yield"]));
 
 // add access log; must be after frontpage so we don't log that
-if ($smartysh->config["log"]) {
+if ($htmlwarrior->config["log"]) {
     add_access_log(array(
-        "site_dir" => $smartysh->runtime["site_dir"],
+        "site_dir" => $htmlwarrior->runtime["site_dir"],
         "url" => $_SERVER["REQUEST_URI"]
     ));
 }
 
-require_once($smartysh->config["basepath"] . "/" . $smartysh->runtime["site_dir"] . "/cfg/config.php");
+require_once($htmlwarrior->config["basepath"] . "/" . $htmlwarrior->runtime["site_dir"] . "/cfg/config.php");
 
 //require_once("filelist.php");
 
@@ -186,11 +186,11 @@ $smarty->assign("debug", 0);
 $content = $smarty->fetch($layout_path);
 @ob_end_flush();
 
-if ($smartysh->config["build"]) {
-    build_template($smartysh->config["basepath"] . "/" . $smartysh->runtime["site_dir"] . "/" . $smartysh->config["build_dir"] . "/" . $smartysh->page . ".html", $content, $template_filetime);
+if ($htmlwarrior->config["build"]) {
+    build_template($htmlwarrior->config["basepath"] . "/" . $htmlwarrior->runtime["site_dir"] . "/" . $htmlwarrior->config["build_dir"] . "/" . $htmlwarrior->page . ".html", $content, $template_filetime);
 }
 
-if ($smartysh->config["debug"]) {
+if ($htmlwarrior->config["debug"]) {
     $time_end = microtime(1) - $time_start;
     echo "<!--";
     echo("Script load time: " . $time_end);
