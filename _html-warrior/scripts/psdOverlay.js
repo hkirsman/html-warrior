@@ -1,14 +1,14 @@
-// Smartysh
+// HTML Warrior
 (function($) {
 
     var
-    smartysh__mouse_x,
-    smartysh__mouse_y,
-    smartysh__body = $("body");
+    htmlwarrior__mouse_x,
+    htmlwarrior__mouse_y,
+    htmlwarrior__body = $("body");
 
     $(document).mousemove(function(e) {
-        smartysh_mouse_x = e.pageX;
-        smartysh_mouse_y = e.pageY;
+        htmlwarrior_mouse_x = e.pageX;
+        htmlwarrior_mouse_y = e.pageY;
     });
 
     /**
@@ -44,7 +44,7 @@
         });
 
         // drag the overlay via small div under cursor
-        var draggable_handle = $('<div id="smartysh_draggable_handle"></div>');
+        var draggable_handle = $('<div id="htmlwarrior_draggable_handle"></div>');
         draggable_handle.css({
             "position": "absolute",
             "z-index" : 99999,
@@ -52,7 +52,7 @@
             "cursor": "move",
             "width": "50px",
             "height": "50px",
-            "background":"url('/_smartysh/admin/images/trans.gif')"
+            "background":"url('/_htmlwarrior/admin/images/trans.gif')"
         });
         draggable_handle.draggable({
             start: function(e, ui) {
@@ -94,15 +94,15 @@
         });
 
         var controlsHTML = "<div>";
-        controlsHTML += '<div id="smartyshOverlayMove" style="position:relative;width: 140px;height:80px;">';
-        controlsHTML += '   <div id="smartyshOverlayMoveUp" style="position:absolute;top:0;left:40%;cursor:pointer;">up</div>';
-        controlsHTML += '   <div id="smartyshOverlayMoveUpRight" style="position:absolute;top:0;right:0%;cursor:pointer;">ur</div>';
-        controlsHTML += '   <div id="smartyshOverlayMoveRight" style="position:absolute;top:40%;right:0;cursor:pointer;">right</div>';
-        controlsHTML += '   <div id="smartyshOverlayMoveBottomRight" style="position:absolute;bottom:0;right:0%;cursor:pointer;">br</div>';
-        controlsHTML += '   <div id="smartyshOverlayMoveLeft" style="position:absolute;top:40%;left:0;cursor:pointer;">left</div>';
-        controlsHTML += '   <div id="smartyshOverlayMoveBottom" style="position:absolute;bottom:0;left:40%;cursor:pointer;">bottom</div>';
-        controlsHTML += '   <div id="smartyshOverlayMoveBottomLeft" style="position:absolute;bottom:0;left:0;cursor:pointer;">bl</div>';
-        controlsHTML += '   <div id="smartyshOverlayMoveUpLeft" style="position:absolute;top:0;left:0;cursor:pointer;">tl</div>';
+        controlsHTML += '<div id="htmlwarriorOverlayMove" style="position:relative;width: 140px;height:80px;">';
+        controlsHTML += '   <div id="htmlwarriorOverlayMoveUp" style="position:absolute;top:0;left:40%;cursor:pointer;">up</div>';
+        controlsHTML += '   <div id="htmlwarriorOverlayMoveUpRight" style="position:absolute;top:0;right:0%;cursor:pointer;">ur</div>';
+        controlsHTML += '   <div id="htmlwarriorOverlayMoveRight" style="position:absolute;top:40%;right:0;cursor:pointer;">right</div>';
+        controlsHTML += '   <div id="htmlwarriorOverlayMoveBottomRight" style="position:absolute;bottom:0;right:0%;cursor:pointer;">br</div>';
+        controlsHTML += '   <div id="htmlwarriorOverlayMoveLeft" style="position:absolute;top:40%;left:0;cursor:pointer;">left</div>';
+        controlsHTML += '   <div id="htmlwarriorOverlayMoveBottom" style="position:absolute;bottom:0;left:40%;cursor:pointer;">bottom</div>';
+        controlsHTML += '   <div id="htmlwarriorOverlayMoveBottomLeft" style="position:absolute;bottom:0;left:0;cursor:pointer;">bl</div>';
+        controlsHTML += '   <div id="htmlwarriorOverlayMoveUpLeft" style="position:absolute;top:0;left:0;cursor:pointer;">tl</div>';
         controlsHTML += '</div>';
         controlsHTML += "<label style=\"display: block; padding: 5px 0;\">Opacity: <input id=\"overlayOpacity\" style=\"width: 20px\" type=\"text\" value=\""+opacity+"\" /></label>";
         controlsHTML += "<label style=\"display: block; padding: 5px 0 ;\">File: <input id=\"overlayFile\" style=\"width: 80px\" type=\"text\" value=\""+file+"\" /></label>";
@@ -118,10 +118,10 @@
             "right"   : "10px"
         });
 
-        smartysh__body.after(controls);
-        smartysh_disable_select(document.getElementById("smartyshOverlayMove"));
-        smartysh__body.after(draggable_handle);
-        smartysh__body.after(overlay);
+        htmlwarrior__body.after(controls);
+        htmlwarrior_disable_select(document.getElementById("htmlwarriorOverlayMove"));
+        htmlwarrior__body.after(draggable_handle);
+        htmlwarrior__body.after(overlay);
 
         $("#resetToggle").click(function() {
             top = left = 0;
@@ -136,12 +136,12 @@
         $("#overlayToggle").click(function() {
             if (overlay_visible) {
                 overlay_visible = false;
-                smartysh__body.css({
+                htmlwarrior__body.css({
                     "opacity": 1
                 })
             } else {
                 overlay_visible = true;
-                smartysh__body.css({
+                htmlwarrior__body.css({
                     "opacity": opacity
                 })
             }
@@ -169,7 +169,7 @@
             $.cookie("psdOverlayOpacity", opacity);
 
             $("#overlayOpacity").val(opacity);
-            smartysh__body.css({
+            htmlwarrior__body.css({
                 "opacity": opacity
             });
         });
@@ -233,8 +233,8 @@
             if (e.ctrlKey && !dragging && overlay_visible ) {
                 draggable_handle.css({
                     "display" : "block",
-                    "left": smartysh_mouse_x-25+"px",
-                    "top" : smartysh_mouse_y-25+"px"
+                    "left": htmlwarrior_mouse_x-25+"px",
+                    "top" : htmlwarrior_mouse_y-25+"px"
                 });
             }
             if (e.shiftKey) {
@@ -259,14 +259,14 @@
         });
 
         // overlay move
-        var overlay_mover_jquery_selector = "#smartyshOverlayMoveUpRight, "+
-        "#smartyshOverlayMoveRight, "+
-        "#smartyshOverlayMoveBottomRight, "+
-        "#smartyshOverlayMoveBottom, "+
-        "#smartyshOverlayMoveBottomLeft, "+
-        "#smartyshOverlayMoveLeft, "+
-        "#smartyshOverlayMoveUpLeft, "+
-        "#smartyshOverlayMoveUp";
+        var overlay_mover_jquery_selector = "#htmlwarriorOverlayMoveUpRight, "+
+        "#htmlwarriorOverlayMoveRight, "+
+        "#htmlwarriorOverlayMoveBottomRight, "+
+        "#htmlwarriorOverlayMoveBottom, "+
+        "#htmlwarriorOverlayMoveBottomLeft, "+
+        "#htmlwarriorOverlayMoveLeft, "+
+        "#htmlwarriorOverlayMoveUpLeft, "+
+        "#htmlwarriorOverlayMoveUp";
         $(overlay_mover_jquery_selector).click(function(e) {
 
             if (lock) {
@@ -282,25 +282,25 @@
                 movestep = 1;
             }
             
-            if (this.id=="smartyshOverlayMoveUpRight") {
+            if (this.id=="htmlwarriorOverlayMoveUpRight") {
                 overlay_position_x = overlay_position_x + movestep;
                 overlay_position_y = overlay_position_y - movestep;
-            } else if (this.id=="smartyshOverlayMoveRight") {
+            } else if (this.id=="htmlwarriorOverlayMoveRight") {
                 overlay_position_x = overlay_position_x + movestep;
-            } else if (this.id=="smartyshOverlayMoveBottomRight") {
+            } else if (this.id=="htmlwarriorOverlayMoveBottomRight") {
                 overlay_position_x = overlay_position_x + movestep;
                 overlay_position_y = overlay_position_y + movestep;
-            } else if (this.id=="smartyshOverlayMoveBottom") {
+            } else if (this.id=="htmlwarriorOverlayMoveBottom") {
                 overlay_position_y = overlay_position_y + movestep;
-            } else if (this.id=="smartyshOverlayMoveBottomLeft") {
+            } else if (this.id=="htmlwarriorOverlayMoveBottomLeft") {
                 overlay_position_x = overlay_position_x - movestep;
                 overlay_position_y = overlay_position_y + movestep;
-            } else if (this.id=="smartyshOverlayMoveLeft") {
+            } else if (this.id=="htmlwarriorOverlayMoveLeft") {
                 overlay_position_x = overlay_position_x - movestep;
-            } else if (this.id=="smartyshOverlayMoveUpLeft") {
+            } else if (this.id=="htmlwarriorOverlayMoveUpLeft") {
                 overlay_position_x = overlay_position_x - movestep;
                 overlay_position_y = overlay_position_y - movestep;
-            } else if (this.id=="smartyshOverlayMoveUp") {
+            } else if (this.id=="htmlwarriorOverlayMoveUp") {
                 overlay_position_y = overlay_position_y - movestep;
             }
             overlay.css({
@@ -318,14 +318,14 @@
      * of the output. Not in built html
      */
     (function() {
-        var pagelist = $("#smartysh__pagelist"),
-        actionlist = $("#smartysh__actionlist"),
+        var pagelist = $("#htmlwarrior__pagelist"),
+        actionlist = $("#htmlwarrior__actionlist"),
         pagelistWidth = pagelist.width(),
         pagelistHeight = pagelist.height(),
         hovering_pagelist,
         hovering_actionlist;
 
-        if ( smartysh_gup("template_list_opened")==1 ) {
+        if ( htmlwarrior_gup("template_list_opened")==1 ) {
             hovering_pagelist = true;
         } else {
             hovering_pagelist = false;
@@ -357,7 +357,7 @@
             }
 
             if ( ( e.pageX < 5 && e.pageY > $(window).height() / 2 ) || hovering_actionlist) {
-                $("#smartysh__actionlist-inner").css("min-width", $("#smartysh__pagelist-inner", pagelist).width());
+                $("#htmlwarrior__actionlist-inner").css("min-width", $("#htmlwarrior__pagelist-inner", pagelist).width());
                 actionlist.css("left", "-200px");
             } else {
                 actionlist.css("left", "-2000px");
@@ -368,9 +368,9 @@
     /**
      * Partial edit links
      */
-    if (smartysh_config["show_partial_edit_links"]) {
+    if (htmlwarrior_config["show_partial_edit_links"]) {
         (function() {
-            var partial_placeholder_prefix = smartysh_config["smartysh_prefix"]+"_placeholder";
+            var partial_placeholder_prefix = htmlwarrior_config["htmlwarrior_prefix"]+"_placeholder";
             var partial_placeholders = new Array;
             var overlays_active = false;
 
@@ -400,7 +400,7 @@
             });
 
             function draw_partial_overlays() {
-                var partial_overlay_class = smartysh_config["smartysh_prefix"]+"_partial_overlay";
+                var partial_overlay_class = htmlwarrior_config["htmlwarrior_prefix"]+"_partial_overlay";
                 var zIndex = 99999;
                 for(key in partial_placeholders) {
                     var partial_start = partial_placeholders[key]["begin"];
@@ -420,7 +420,7 @@
                     var width = next_from_partial_start.width();
                     //var height = prev_from_partial_end.top-top + prev_from_partial_end.height();
                     var height = prev_from_partial_end_offsets.top-top+prev_from_partial_end.height()-1;
-                    var partial_overlay = $('<a href="'+smartysh_partial_edit_links[id].path_edit+'" class="'+partial_overlay_class+'" style="position:absolute;top:'+top+'px;left:'+left+'px;width:'+width+'px;height:'+height+'px;background:red;z-index:'+zIndex+';opacity:0.8;">'+smartysh_partial_edit_links[id].name+'</a>');
+                    var partial_overlay = $('<a href="'+htmlwarrior_partial_edit_links[id].path_edit+'" class="'+partial_overlay_class+'" style="position:absolute;top:'+top+'px;left:'+left+'px;width:'+width+'px;height:'+height+'px;background:red;z-index:'+zIndex+';opacity:0.8;">'+htmlwarrior_partial_edit_links[id].name+'</a>');
                     $("body").append(partial_overlay);
                     zIndex++;
                 }
@@ -428,7 +428,7 @@
             }
 
             function remove_partial_overlays() {
-                $(".smartysh_partial_overlay").remove();
+                $(".htmlwarrior_partial_overlay").remove();
                 overlays_active = false;
             }
 
@@ -437,14 +437,14 @@
 
     // double text
     (function() {
-        if (smartysh_gup("multiply")) {
+        if (htmlwarrior_gup("multiply")) {
             $("body *").filter(function()
             {
                 var $this = $(this);
                 return $this.children().length == 0 && $.trim($this.text()).length > 0;
             }).each(function() {
                 var newtext = "";
-                for(i=0;i<smartysh_gup("multiply");i++) {
+                for(i=0;i<htmlwarrior_gup("multiply");i++) {
                     newtext = ' '+ newtext + $(this).text();
                 }
                 $(this).text($(this).text() + newtext);

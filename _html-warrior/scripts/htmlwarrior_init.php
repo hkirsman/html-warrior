@@ -3,11 +3,11 @@
 header("Content-type: text/javascript");
 require_once("../includes/functions.php");
 require_once("../config.php");
-echo "var smartysh_config = new Array();\n";
-foreach ($smartysh->config as $key => $var) {
-    echo 'smartysh_config["' . $key . '"] = "' . $var . '";' . "\n";
+echo "var htmlwarrior_config = new Array();\n";
+foreach ($htmlwarrior->config as $key => $var) {
+    echo 'htmlwarrior_config["' . $key . '"] = "' . $var . '";' . "\n";
 }
-if ( $smartysh->config["show_partial_edit_links"] ) {
-    echo "var smartysh_partial_edit_links = new Array();\n";
+if ( $htmlwarrior->config["show_partial_edit_links"] ) {
+    echo "var htmlwarrior_partial_edit_links = new Array();\n";
 }
 ?>

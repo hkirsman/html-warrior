@@ -65,7 +65,7 @@ function round (value, precision, mode) {
  * Get url property
  * @param string name parameter name to get from url
  */
-function smartysh_gup( name )
+function htmlwarrior_gup( name )
 {
     name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
     var regexS = "[\\?&]"+name+"=([^&#]*)";
@@ -81,7 +81,7 @@ function smartysh_gup( name )
  * Disable text selectt
  * @param dom target object to disable
  */
-function smartysh_disable_select( target ) {
+function htmlwarrior_disable_select( target ) {
     if (typeof target.onselectstart!="undefined") { //IE route
         target.onselectstart=function(){
             return false;

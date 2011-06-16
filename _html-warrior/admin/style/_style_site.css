@@ -1,4 +1,4 @@
-#smartysh__pagelist, #smartysh__actionlist {
+#htmlwarrior__pagelist, #htmlwarrior__actionlist {
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
@@ -31,14 +31,14 @@
     z-index: 10000;
 }
 
-#smartysh__pagelist table,
-#smartysh__actionlist table{border-collapse:collapse;border-spacing:0;font-size:inherit}
+#htmlwarrior__pagelist table,
+#htmlwarrior__actionlist table{border-collapse:collapse;border-spacing:0;font-size:inherit}
 
-#smartysh__pagelist td,
-#smartysh__actionlist td {padding: 0; margin: 0;}
+#htmlwarrior__pagelist td,
+#htmlwarrior__actionlist td {padding: 0; margin: 0;}
 
 
-#smartysh__pagelist-inner, #smartysh__actionlist-inner {
+#htmlwarrior__pagelist-inner, #htmlwarrior__actionlist-inner {
   padding: 210px 20px 15px 207px;
   filter:alpha(opacity=100);
     -ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
@@ -46,7 +46,7 @@
     opacity:1;
  }
 
- #smartysh__actionlist {
+ #htmlwarrior__actionlist {
     -moz-border-radius:0 5px 0 0;
     -webkit-border-radius:0 5px 0 0;
     -khtml-border-radius:0 5px 0 0;
@@ -54,11 +54,11 @@
     bottom: -210px;
     top:auto;
  }
- #smartysh__actionlist-inner {
+ #htmlwarrior__actionlist-inner {
   padding-top: 15px;
   padding-bottom: 210px;
  }
 
-.smartysh_templatelist a { text-decoration: none !important; color:white;font-family:Verdana,serif; font-size:11px; color: #404040; line-height:20px; text-align:left; }
-.smartysh_templatelist a:hover { text-decoration: underline !important; }
-.smartysh_templatelist_active { color:red !important;font-weight:bold !important; }
+.htmlwarrior_templatelist a { text-decoration: none !important; color:white;font-family:Verdana,serif; font-size:11px; color: #404040; line-height:20px; text-align:left; }
+.htmlwarrior_templatelist a:hover { text-decoration: underline !important; }
+.htmlwarrior_templatelist_active { color:red !important;font-weight:bold !important; }
