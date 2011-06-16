@@ -8,7 +8,10 @@ Undo add
 git rm -r --cached .
 
 git commit
-commit to local repository
+commit to local repository (only staged files)
+
+git commit -a
+commit to local repository (automatically stage tracked files)
 
 git gommit origin master
 commit to github
@@ -30,3 +33,12 @@ git commit --amend
 
 git checkout -- <file>
 Unmodifying a Modified File. Example git checkout -- benchmarks.rb. git status tells that too.
+
+git tag -a v1.4 -m 'my version 1.4'
+Add annotated tags
+
+git push origin v1.4
+Transfter tag to server
+
+git push origin --tags
+Transfer all tags to server
