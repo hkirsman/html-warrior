@@ -32,8 +32,10 @@ function smarty_function_htmlwarrior_init($params, &$smarty) {
         $output .= '<link rel="stylesheet" type="text/css" href="' . $htmlwarrior->config["path_code"] . '/admin/style/_style_site.css" media="screen, projection, print" title="" />';
     } elseif ($params["position"] == "bottom") {
         require_once("includes/pagelist.php");
+        require_once("includes/imageoverlay.php");
         require_once("includes/actionlist.php");
         $output .= pagelist($_GET["template_list_opened"]);
+        $output .= imageoverlay();
         $output .= actionlist();
         // load our scripts at the very end so we have overview of the page
         $output .= html_javascript($htmlwarrior->config["path_code"] . "/admin/scripts/externals/jquery", false) . "\n";

@@ -41,5 +41,5 @@ $htmlwarrior->config["hidden_file_prefix"] = "__";
 $htmlwarrior->config["template_edit_links_downloadable"] = false;
 
 // PHP
-$smartysh->config["php_error_reporting"] = false; # example "E_ALL ^ E_NOTICE ^ E_WARNING"
+$htmlwarrior->config["php_error_reporting"] = 1; # example "E_ALL ^ E_NOTICE ^ E_WARNING"
 ?>
