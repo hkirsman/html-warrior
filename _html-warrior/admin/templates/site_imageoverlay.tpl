@@ -1,5 +1,5 @@
 <div id="htmlwarrior__imageoverlay" class="htmlwarrior" style="right: -200px;">
-  <div id="htmlwarrior__imageoverlay-inner" style="width: 150px; height: 200px">
+  <div id="htmlwarrior__imageoverlay-inner">
     
     <div class="htmlwarrior__imageoverlay-row">
       <div class="htmlwarrior__imageoverlay-caption">
@@ -10,24 +10,24 @@
     
     <div class="htmlwarrior__imageoverlay-row">
       <div class="htmlwarrior__imageoverlay-caption">
-        Position x
+        Position X
       </div>
-      <div class="htmlwarrior__imageoverlay_mover htmlwarrior__imageoverlay_xmover">
-        <div class="htmlwarrior__imageoverlay_mover-decrease"></div>
-        <input class="htmlwarrior__" type="text" value="center" />
-        <div class="htmlwarrior__imageoverlay_mover-increase"></div>
+      <div class="htmlwarrior__imageoverlay-mover htmlwarrior__imageoverlay-xmover">
+        <div class="htmlwarrior__imageoverlay-mover-decrease"></div>
+        <input class="htmlwarrior__imageoverlay-mover-input" type="text" value="center" />
+        <div class="htmlwarrior__imageoverlay-mover-increase"></div>
       </div>
     </div>
 
     <div class="htmlwarrior__imageoverlay-row">
       
       <div class="htmlwarrior__imageoverlay-caption">
-        Position y
+        Position Y
       </div>
-      <div class="htmlwarrior__imageoverlay_mover htmlwarrior__imageoverlay_ymover">
-        <div class="htmlwarrior__imageoverlay_mover-decrease"></div>
-        <input class="htmlwarrior__" type="text" value="center" />
-        <div class="htmlwarrior__imageoverlay_mover-increase"></div>
+      <div class="htmlwarrior__imageoverlay-mover htmlwarrior__imageoverlay-ymover">
+        <div class="htmlwarrior__imageoverlay-mover-decrease"></div>
+        <input class="htmlwarrior__imageoverlay-mover-input" type="text" value="top" />
+        <div class="htmlwarrior__imageoverlay-mover-increase"></div>
       </div>
     </div>
 
@@ -48,6 +48,5 @@
   </div>
 </div>
 <!--
-.htmlwarrior__imageoverlay-row {}
-.htmlwarrior__imageoverlay-caption {}
+
 -->

@@ -74,6 +74,7 @@
 .htmlwarrior_templatelist_active { color:red !important;font-weight:bold !important; }
 
 
+/* Image overlay */
 #htmlwarrior__imageoverlay {
 	left: auto;
 	right: -210px;
@@ -84,13 +85,33 @@
 }
 
 #htmlwarrior__imageoverlay-inner {
-  padding: 210px 207px 15px 20px;
+  padding: 220px 220px 10px 20px;
   filter:alpha(opacity=100);
     -ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
     -moz-opacity:1;
     opacity:1;
 }
-
+.htmlwarrior__imageoverlay-row { padding: 5px 0 !important; }
+.htmlwarrior__imageoverlay-caption { font-weight: bold !important; }
+.htmlwarrior__imageoverlay-mover { overflow: hidden !important; }
+.htmlwarrior__imageoverlay-mover-input {
+  background: #F9F9F9 !important;
+  border: 1px solid #CCCCCC !important;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1) inset !important;
+  line-height: 14px !important;
+  height: 14px !important;
+  padding: 2px !important;
+  width: 106px !important;
+  float: left !important;
+  margin: 0 3px !important;
+}
+#htmlwarrior__imageoverlay .htmlwarrior__imageoverlay-mover-input { text-align: center !important; }
+.htmlwarrior__imageoverlay-mover-decrease,
+.htmlwarrior__imageoverlay-mover-increase{ width: 16px !important; height: 20px !important; background-position: 50% 50% !important; background-repeat: no-repeat !important; float:left !important; cursor: pointer !important; }
+.htmlwarrior__imageoverlay-xmover .htmlwarrior__imageoverlay-mover-decrease { background-image:url('/_html-warrior/admin/images/arrow-left.png') !important }
+.htmlwarrior__imageoverlay-xmover .htmlwarrior__imageoverlay-mover-increase { background-image:url('/_html-warrior/admin/images/arrow-right.png') !important }
+.htmlwarrior__imageoverlay-ymover .htmlwarrior__imageoverlay-mover-decrease { background-image:url('/_html-warrior/admin/images/arrow-down.png') !important }
+.htmlwarrior__imageoverlay-ymover .htmlwarrior__imageoverlay-mover-increase { background-image:url('/_html-warrior/admin/images/arrow-up.png') !important }
 
 
 
