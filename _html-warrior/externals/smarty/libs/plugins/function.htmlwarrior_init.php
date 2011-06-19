@@ -41,7 +41,7 @@ function smarty_function_htmlwarrior_init($params, &$smarty) {
         $output .= html_javascript($htmlwarrior->config["path_code"] . "/admin/scripts/externals/jquery", false) . "\n";
         $output .= html_javascript($htmlwarrior->config["path_code"] . "/admin/scripts/externals/jquery-ui", false) . "\n";
         $output .= html_javascript($htmlwarrior->config["path_code"] . "/admin/scripts/externals/jquery.cookie", false) . "\n";
-        $output .= html_javascript($htmlwarrior->config["path_code"] . "/scripts/psdOverlay", false) . "\n";
+        $output .= html_javascript($htmlwarrior->config["path_code"] . "/scripts/htmlwarrior", false) . "\n";
     }
 
     $a_output = explode("\n", $output);
