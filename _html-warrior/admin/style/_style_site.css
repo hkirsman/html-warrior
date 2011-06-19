@@ -86,10 +86,10 @@
 
 #htmlwarrior__imageoverlay-inner {
   padding: 220px 220px 10px 20px;
-  filter:alpha(opacity=100);
-    -ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-    -moz-opacity:1;
-    opacity:1;
+  filter:alpha(opacity=100) !important;
+    -ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=100) !important;
+    -moz-opacity:1 !important;
+    opacity:1 !important;
 }
 .htmlwarrior__imageoverlay-row { padding: 5px 0 !important; }
 .htmlwarrior__imageoverlay-caption { font-weight: bold !important; }
@@ -101,7 +101,7 @@
   line-height: 14px !important;
   height: 14px !important;
   padding: 2px !important;
-  width: 106px !important;
+  width: 70px !important;
   float: left !important;
   margin: 0 3px !important;
 }

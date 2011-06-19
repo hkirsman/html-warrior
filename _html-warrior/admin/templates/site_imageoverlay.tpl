@@ -13,9 +13,9 @@
         Position X
       </div>
       <div class="htmlwarrior__imageoverlay-mover htmlwarrior__imageoverlay-xmover">
-        <div class="htmlwarrior__imageoverlay-mover-decrease"></div>
-        <input class="htmlwarrior__imageoverlay-mover-input" type="text" value="center" />
-        <div class="htmlwarrior__imageoverlay-mover-increase"></div>
+        <div id="htmlwarrior__xmover-left" class="htmlwarrior__imageoverlay-mover-decrease"></div>
+        <input id="htmlwarrior__imageoverlay-xmover-input" class="htmlwarrior__imageoverlay-mover-input" type="text" value="0" />
+        <div id="htmlwarrior__xmover-right" class="htmlwarrior__imageoverlay-mover-increase"></div>
       </div>
     </div>
 
@@ -25,9 +25,9 @@
         Position Y
       </div>
       <div class="htmlwarrior__imageoverlay-mover htmlwarrior__imageoverlay-ymover">
-        <div class="htmlwarrior__imageoverlay-mover-decrease"></div>
-        <input class="htmlwarrior__imageoverlay-mover-input" type="text" value="top" />
-        <div class="htmlwarrior__imageoverlay-mover-increase"></div>
+        <div id="htmlwarrior__ymover-down" class="htmlwarrior__imageoverlay-mover-decrease"></div>
+        <input id="htmlwarrior__imageoverlay-ymover-input" class="htmlwarrior__imageoverlay-mover-input" type="text" value="0" />
+        <div id="htmlwarrior__ymover-up" class="htmlwarrior__imageoverlay-mover-increase"></div>
       </div>
     </div>
 
@@ -42,7 +42,7 @@
     </div>
 
     <div class="htmlwarrior__imageoverlay-row-buttons">
-      <a href="javascript:void(0)"><span>toggle</span></button>
+      <a id="htmlwarrior__imageoverlay_toggle" href="javascript:void(0)"><span>toggle</span></button>
       <a href="javascript:void(0)"><span>reset</span></button>
     </div>
   </div>
