@@ -1,3 +1,16 @@
+.htmlwarrior,
+.htmlwarrior input,
+.htmlwarrior textarea,
+.htmlwarrior select,
+.htmlwarrior button {
+	font-family: Verdana, Arial, serif !important;
+	line-height: 20px !important;
+	text-align: left !important;
+	font-size: 11px !important
+}
+.htmlwarrior a { color: #0066CC !important; text-decoration: none !important   }
+.htmlwarrior a:hover { text-decoration: underline !important }
+
 #htmlwarrior__pagelist, #htmlwarrior__actionlist, #htmlwarrior__imageoverlay {
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
@@ -14,9 +27,6 @@
     -webkit-box-shadow:5px 5px 100px rgba(0, 0, 0, 1);
     -o-box-shadow:5px 5px 100px rgba(0, 0, 0, 1);
     box-shadow:5px 5px 100px rgba(0, 0, 0, 1);
-    line-height: 20px !important;
-    font-size: 11px !important;
-    text-align:left !important;
     filter:alpha(opacity=95);
     -ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=95);
     -moz-opacity:0.95;
@@ -25,7 +35,6 @@
     -webkit-border-radius:0 0 5px 0;
     -khtml-border-radius:0 0 5px 0;
     border-radius:0 0 5px 0;
-    font-family: Verdana, Arial, serif !important;
     position: fixed;
     top:-210px;
     left:-2000px;
@@ -60,7 +69,7 @@
   padding-bottom: 210px;
  }
 
-.htmlwarrior_templatelist a { text-decoration: none !important; color:white;font-family:Verdana,serif; font-size:11px; color: #404040; line-height:20px; text-align:left; }
+.htmlwarrior_templatelist a { text-decoration: none !important; color:white; line-height:20px; text-align:left; }
 .htmlwarrior_templatelist a:hover { text-decoration: underline !important; }
 .htmlwarrior_templatelist_active { color:red !important;font-weight:bold !important; }
 
@@ -97,12 +106,7 @@
     border: 1px solid #AAAAAA;
     color: #222222;
     font-family: Verdana,Arial,sans-serif;
-    font-size: 1.1em;
 }
-
-
-
-
 #htmlwarrior__imageoverlay-opacity-slider .ui-slider-handle {
     margin-left: -0.6em;
     top: -0.3em;
@@ -122,5 +126,4 @@
     font-weight: normal;
 
 }
-
 #htmlwarrior__imageoverlay-opacity-slider .ui-state-hover, #htmlwarrior__imageoverlay-opacity-slider .ui-state-focus{ border: 1px solid #999999; background: #dadada url(/_html-warrior/admin/images/jquery-ui/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x; font-weight: normal; color: #212121; } 

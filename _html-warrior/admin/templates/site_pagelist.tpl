@@ -1,4 +1,4 @@
-<div id="htmlwarrior__pagelist" style="left: {if $template_list_opened}-200{else}-2000{/if}px;">
+<div id="htmlwarrior__pagelist" class="htmlwarrior" style="left: {if $template_list_opened}-200{else}-2000{/if}px;">
   <div id="htmlwarrior__pagelist-inner">
     <div style="padding: 2px 0;">
       <a href="/" style="font-size: 14px; color: #404040; text-decoration: none; font-weight: bold;">HTML Warrior</a>
