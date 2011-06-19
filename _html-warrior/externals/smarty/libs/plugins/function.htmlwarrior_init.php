@@ -27,8 +27,8 @@ function smarty_function_htmlwarrior_init($params, &$smarty) {
     $output = "";
 
     if ($params["position"] == "top") {
-        $output .= html_javascript($htmlwarrior->config["path_code"] . "/scripts/htmlwarrior_helpers", false) . "\n";
-        $output .= html_javascript($htmlwarrior->config["path_code"] . "/scripts/htmlwarrior_init.php", false) . "\n";
+        $output .= html_javascript($htmlwarrior->config["path_code"] . "/admin/scripts/htmlwarrior_site_helpers", false) . "\n";
+        $output .= html_javascript($htmlwarrior->config["path_code"] . "/admin/scripts/htmlwarrior_site_init.php", false) . "\n";
         $output .= '<link rel="stylesheet" type="text/css" href="' . $htmlwarrior->config["path_code"] . '/admin/style/_style_site.css" media="screen, projection, print" title="" />';
     } elseif ($params["position"] == "bottom") {
         require_once("includes/pagelist.php");
@@ -41,7 +41,7 @@ function smarty_function_htmlwarrior_init($params, &$smarty) {
         $output .= html_javascript($htmlwarrior->config["path_code"] . "/admin/scripts/externals/jquery", false) . "\n";
         $output .= html_javascript($htmlwarrior->config["path_code"] . "/admin/scripts/externals/jquery-ui", false) . "\n";
         $output .= html_javascript($htmlwarrior->config["path_code"] . "/admin/scripts/externals/jquery.cookie", false) . "\n";
-        $output .= html_javascript($htmlwarrior->config["path_code"] . "/scripts/htmlwarrior", false) . "\n";
+        $output .= html_javascript($htmlwarrior->config["path_code"] . "/admin/scripts/htmlwarrior_site", false) . "\n";
     }
 
     $a_output = explode("\n", $output);
