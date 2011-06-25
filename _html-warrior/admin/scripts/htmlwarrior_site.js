@@ -21,7 +21,7 @@
         imageoverlaycontrols_mousehook = $("#htmlwarrior__imageoverlaycontrols_mousehook"),
         page = (document.location+"").split("/")[4].split(".")[0].split("?")[0],
         site = (document.location+"").split("/")[3],
-        opacity = $.cookie("psdOverlayOpacity")?$.cookie("psdOverlayOpacity"):0.4,
+        opacity = $.cookie("htmlwarrior__imageoverlaycontrols_opacity")?$.cookie("htmlwarrior__imageoverlaycontrols_opacity"):0.4,
         top = $.cookie("overlay_position_y")?$.cookie("overlay_position_y"):0,
         left = $.cookie("overlay_position_x")?$.cookie("overlay_position_x"):0,
         lock = false,
@@ -30,7 +30,7 @@
         overlay_position_y,
         drag_start_x,
         drag_start_y,
-        overlay_visible = false, // from cookie and save on refresh?
+        overlay_visible = $.cookie("htmlwarrior__imageoverlaycontrols_visible")?$.cookie("htmlwarrior__imageoverlaycontrols_visible"):'false',
         move10px = false;
 
         if (page.length==0) {
@@ -45,7 +45,7 @@
             "top"     : top+"px",
             "left"     : left+"px",
             "opacity" : opacity,
-            "display" : "none"
+            "display" : overlay_visible==='true'?'block':'none'
         });
 
         // drag the overlay via small div under cursor
@@ -95,7 +95,7 @@
             max: 1,
             step: 0.1,
             slide: function( event, ui ) {
-                $.cookie("psdOverlayOpacity", ui.value);
+                $.cookie("htmlwarrior__imageoverlaycontrols_opacity", ui.value);
 
                 //$("#overlayOpacity").val(ui.value);
                 htmlwarrior__body.css({
@@ -119,24 +119,32 @@
             });
         });
 
+        if (overlay_visible==="true") {
+            htmlwarrior__body.css({
+                "opacity": opacity
+            });
+        }
+
         $("#htmlwarrior__imageoverlaycontrols_toggle").click(function() {
-            if (overlay_visible) {
-                overlay_visible = false;
+            if (overlay_visible==="true") {
+                overlay_visible = "false";
                 htmlwarrior__body.css({
                     "opacity": 1
                 })
             } else {
-                overlay_visible = true;
+                overlay_visible = "true";
                 htmlwarrior__body.css({
                     "opacity": opacity
                 })
             }
+            $.cookie("htmlwarrior__imageoverlaycontrols_visible", overlay_visible);
 
-            if (opacity != 0) {
+            /*if (opacity != 0) {
                 opacity = 0;
             } else {
                 opacity = $("#overlayOpacity").val();
             }
+            */
             $("#htmlwarrior__imageoverlaycontrols_img").toggle();
             $(this).blur();
         });
@@ -273,9 +281,12 @@
                 });
             },
             mouseleave: function() {
-                imageoverlaycontrols.css({
-                    "display": "none"
-                });
+                if (overlay_visible!=="true") {
+                    imageoverlaycontrols.css({
+                        "display": "none"
+                    });
+                }
+                
             }
         })
 

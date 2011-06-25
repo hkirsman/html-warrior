@@ -74,6 +74,11 @@
 
 
 /* Image overlay */
+#htmlwarrior__imageoverlaycontrols_wrap {
+	position: fixed;
+	top: 0;
+	right: 0;
+}
 #htmlwarrior__imageoverlaycontrols_mousehook {
     background:url('/_htmlwarrior/admin/images/trans.gif');
 	position: absolute;
