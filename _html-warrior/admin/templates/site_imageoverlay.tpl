@@ -1,3 +1,4 @@
+<div id="htmlwarrior__imageoverlay_hook"><!-- --></div>
 <div id="htmlwarrior__imageoverlay" class="htmlwarrior" style="right: -200px;">
   <div id="htmlwarrior__imageoverlay-inner">
     

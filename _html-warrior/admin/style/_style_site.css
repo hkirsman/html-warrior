@@ -38,7 +38,6 @@
     position: fixed;
     top:-210px;
     left:-2000px;
-    z-index: 10000;
 }
 
 #htmlwarrior__pagelist table,
@@ -75,6 +74,15 @@
 
 
 /* Image overlay */
+#htmlwarrior__imageoverlay_hook {
+	background: red;
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 5px;
+	width: 155px;
+
+}
 #htmlwarrior__imageoverlay {
 	left: auto;
 	right: -210px;
@@ -148,3 +156,23 @@
 
 }
 #htmlwarrior__imageoverlay-opacity-slider .ui-state-hover, #htmlwarrior__imageoverlay-opacity-slider .ui-state-focus{ border: 1px solid #999999; background: #dadada url(/_html-warrior/admin/images/jquery-ui/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x; font-weight: normal; color: #212121; } 
+
+
+/*
+Z-indexes
+*/
+#htmlwarrior__pagelist, #htmlwarrior__actionlist, #htmlwarrior__imageoverlay {
+    z-index: 99997;
+}
+#htmlwarrior__imageoverlay_hook {
+	z-index: 99998;
+}
+#htmlwarrior_draggable_handle {
+	position: absolute;
+    z-index : 99999;
+    display : block;
+    cursor: move;
+    width: 50px;
+    height: 50px;
+    background:url('/_htmlwarrior/admin/images/trans.gif');
+}

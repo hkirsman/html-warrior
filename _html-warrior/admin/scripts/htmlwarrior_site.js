@@ -47,15 +47,6 @@
 
         // drag the overlay via small div under cursor
         var draggable_handle = $('<div id="htmlwarrior_draggable_handle"></div>');
-        draggable_handle.css({
-            "position": "absolute",
-            "z-index" : 99999,
-            "display" : "block",
-            "cursor": "move",
-            "width": "50px",
-            "height": "50px",
-            "background":"url('/_htmlwarrior/admin/images/trans.gif')"
-        });
         draggable_handle.draggable({
             start: function(e, ui) {
                 drag_start_y = ui.position.top;
