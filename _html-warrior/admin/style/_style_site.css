@@ -85,7 +85,7 @@
 	top: 0;
 	right: 0;
 	height: 5px;
-	width: 155px;
+	width: 170px;
 
 }
 #htmlwarrior__imageoverlaycontrols {
@@ -103,6 +103,7 @@
     -ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=100) !important;
     -moz-opacity:1 !important;
     opacity:1 !important;
+  width: 130px;
 }
 .htmlwarrior__imageoverlaycontrols-row { padding: 5px 0 !important; }
 .htmlwarrior__imageoverlaycontrols-caption { font-weight: bold !important; }
@@ -114,7 +115,7 @@
   line-height: 14px !important;
   height: 14px !important;
   padding: 2px !important;
-  width: 70px !important;
+  width: 86px !important;
   float: left !important;
   margin: 0 3px !important;
 }
@@ -180,4 +181,29 @@ Z-indexes
     width: 50px;
     height: 50px;
     background:url('/_htmlwarrior/admin/images/trans.gif');
+}
+
+/*
+Buttons
+*/
+.htmlwarrior__imageoverlaycontrols-row-buttons { overflow: hidden; padding: 5px 0; }
+.htmlwarrior__imageoverlaycontrols-row-buttons .htmlwarrior__imageoverlaycontrols-row-button {
+	background: #2DAEBF !important;
+	float: left !important;
+	padding: 5px 10px 6px !important;
+	color: #FFFFFF !important;
+	text-decoration: none;
+	font-weight: bold;
+	line-height: 1 !important;
+	-moz-border-radius: 5px !important;
+	-webkit-border-radius: 5px !important;
+	text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25) !important;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.25) !important;
+	position: relative !important;
+	cursor: pointer !important;
+	margin-right: 5px !important;
+}
+.htmlwarrior__imageoverlaycontrols-row-buttons .htmlwarrior__imageoverlaycontrols-row-button:hover {
+	background-color: #007d9a !important;
+	text-decoration: none !important;
 }

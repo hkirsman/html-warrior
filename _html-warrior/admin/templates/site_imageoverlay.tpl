@@ -1,4 +1,3 @@
-{$smarty.cookies.htmlwarrior__imageoverlaycontrols_visible}
 <div id="htmlwarrior__imageoverlaycontrols_wrap">
   <div id="htmlwarrior__imageoverlaycontrols_mousehook"><!-- --></div>
   <div id="htmlwarrior__imageoverlaycontrols" class="htmlwarrior" style="display: {if $smarty.cookies.htmlwarrior__imageoverlaycontrols_visible==='true'}block{else}none{/if}">
@@ -45,8 +44,8 @@
       </div>
 
       <div class="htmlwarrior__imageoverlaycontrols-row-buttons">
-        <a id="htmlwarrior__imageoverlaycontrols_toggle" href="javascript:void(0)"><span>toggle</span></button>
-        <a href="javascript:void(0)"><span>reset</span></button>
+        <a id="htmlwarrior__imageoverlaycontrols_toggle" class="htmlwarrior__imageoverlaycontrols-row-button" href="javascript:void(0)">toggle</a>
+        <a id="htmlwarrior__imageoverlaycontrols_reset" class="htmlwarrior__imageoverlaycontrols-row-button" href="javascript:void(0)">reset</a>
       </div>
     </div>
   </div>
