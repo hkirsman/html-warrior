@@ -16,6 +16,7 @@
      */
     (function() {
         var
+        imageoverlay_wrap = $("#htmlwarrior__imageoverlaycontrols_wrap"), // the image over
         page = (document.location+"").split("/")[4].split(".")[0].split("?")[0],
         site = (document.location+"").split("/")[3],
         opacity = $.cookie("psdOverlayOpacity")?$.cookie("psdOverlayOpacity"):0.4,
@@ -35,7 +36,7 @@
         }
         var file = page+".png";
 
-        var overlay = $("<img id=\"htmlwarrior__imageoverlay_img\" src=\"/"+site+"/overlays/"+file+"\" alt=\"\" />");
+        var overlay = $("<img id=\"htmlwarrior__imageoverlaycontrols_img\" src=\"/"+site+"/overlays/"+file+"\" alt=\"\" />");
         overlay.css({
             "position": "absolute",
             "z-index" : -99999,
@@ -86,7 +87,7 @@
             }
         });
 
-        jQueryHTMLWarrior( "#htmlwarrior__imageoverlay-opacity-slider" ).slider({
+        jQueryHTMLWarrior( "#htmlwarrior__imageoverlaycontrols-opacity-slider" ).slider({
             value:opacity,
             min: 0,
             max: 1,
@@ -101,9 +102,8 @@
             }
         });
 
-        var controls = $("#htmlwarrior__imageoverlay");
-        htmlwarrior__body.after(controls);
-        htmlwarrior_disable_select(document.getElementById("htmlwarrior__imageoverlay"));
+        htmlwarrior__body.after(imageoverlay_wrap);
+        htmlwarrior_disable_select(document.getElementById("htmlwarrior__imageoverlaycontrols"));
         htmlwarrior__body.after(draggable_handle);
         htmlwarrior__body.after(overlay);
 
@@ -117,7 +117,7 @@
             });
         });
 
-        $("#htmlwarrior__imageoverlay_toggle").click(function() {
+        $("#htmlwarrior__imageoverlaycontrols_toggle").click(function() {
             if (overlay_visible) {
                 overlay_visible = false;
                 htmlwarrior__body.css({
@@ -135,7 +135,7 @@
             } else {
                 opacity = $("#overlayOpacity").val();
             }
-            $("#htmlwarrior__imageoverlay_img").toggle();
+            $("#htmlwarrior__imageoverlaycontrols_img").toggle();
             $(this).blur();
         });
 
@@ -245,16 +245,16 @@
 
             if (this.id=="htmlwarrior__xmover-left") {
                 overlay_position_x = overlay_position_x - movestep;
-                $("#htmlwarrior__imageoverlay-xmover-input").val(overlay_position_x);
+                $("#htmlwarrior__imageoverlaycontrols-xmover-input").val(overlay_position_x);
             } else if (this.id=="htmlwarrior__xmover-right") {
                 overlay_position_x = overlay_position_x + movestep;
-                $("#htmlwarrior__imageoverlay-xmover-input").val(overlay_position_x);
+                $("#htmlwarrior__imageoverlaycontrols-xmover-input").val(overlay_position_x);
             } else if (this.id=="htmlwarrior__ymover-up") {
                 overlay_position_y = overlay_position_y - movestep;
-                $("#htmlwarrior__imageoverlay-ymover-input").val(overlay_position_y);
+                $("#htmlwarrior__imageoverlaycontrols-ymover-input").val(overlay_position_y);
             } else if (this.id=="htmlwarrior__ymover-down") {
                 overlay_position_y = overlay_position_y + movestep;
-                $("#htmlwarrior__imageoverlay-ymover-input").val(overlay_position_y);
+                $("#htmlwarrior__imageoverlaycontrols-ymover-input").val(overlay_position_y);
             }
             overlay.css({
                 "top": overlay_position_y+"px",
@@ -263,6 +263,15 @@
             $.cookie("overlay_position_y", overlay_position_y);
             $.cookie("overlay_position_x", overlay_position_x);
         });
+
+        $("#htmlwarrior__imageoverlaycontrols_wrap").bind({
+            mouseenter: function() {
+                log("In");
+            },
+            mouseleave: function() {
+                log("Out");
+            }
+        })
 
     })();
 

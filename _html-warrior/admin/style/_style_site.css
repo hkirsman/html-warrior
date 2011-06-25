@@ -11,7 +11,7 @@
 .htmlwarrior a { color: #0066CC !important; text-decoration: none !important   }
 .htmlwarrior a:hover { text-decoration: underline !important }
 
-#htmlwarrior__pagelist, #htmlwarrior__actionlist, #htmlwarrior__imageoverlay {
+#htmlwarrior__pagelist, #htmlwarrior__actionlist, #htmlwarrior__imageoverlaycontrols {
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* Chrome,Safari4+ */
@@ -74,7 +74,7 @@
 
 
 /* Image overlay */
-#htmlwarrior__imageoverlay_hook {
+#htmlwarrior__imageoverlaycontrols_mousehook {
 	background: red;
 	position: absolute;
 	top: 0;
@@ -83,26 +83,26 @@
 	width: 155px;
 
 }
-#htmlwarrior__imageoverlay {
+#htmlwarrior__imageoverlaycontrols {
 	left: auto;
-	right: -210px;
+	right: -200px;
 	-moz-border-radius:0 0 0 5px;
     -webkit-border-radius:0 0 0 5px;
     -khtml-border-radius:0 0 0 5px;
     border-radius:0 0 0 5px;
 }
 
-#htmlwarrior__imageoverlay-inner {
+#htmlwarrior__imageoverlaycontrols-inner {
   padding: 220px 220px 10px 20px;
   filter:alpha(opacity=100) !important;
     -ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=100) !important;
     -moz-opacity:1 !important;
     opacity:1 !important;
 }
-.htmlwarrior__imageoverlay-row { padding: 5px 0 !important; }
-.htmlwarrior__imageoverlay-caption { font-weight: bold !important; }
-.htmlwarrior__imageoverlay-mover { overflow: hidden !important; }
-.htmlwarrior__imageoverlay-mover-input {
+.htmlwarrior__imageoverlaycontrols-row { padding: 5px 0 !important; }
+.htmlwarrior__imageoverlaycontrols-caption { font-weight: bold !important; }
+.htmlwarrior__imageoverlaycontrols-mover { overflow: hidden !important; }
+.htmlwarrior__imageoverlaycontrols-mover-input {
   background: #F9F9F9 !important;
   border: 1px solid #CCCCCC !important;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1) inset !important;
@@ -113,20 +113,20 @@
   float: left !important;
   margin: 0 3px !important;
 }
-#htmlwarrior__imageoverlay .htmlwarrior__imageoverlay-mover-input { text-align: center !important; }
-.htmlwarrior__imageoverlay-mover-decrease,
-.htmlwarrior__imageoverlay-mover-increase{ width: 16px !important; height: 20px !important; background-position: 50% 50% !important; background-repeat: no-repeat !important; float:left !important; cursor: pointer !important; }
-.htmlwarrior__imageoverlay-xmover .htmlwarrior__imageoverlay-mover-decrease { background-image:url('/_html-warrior/admin/images/arrow-left.png') !important }
-.htmlwarrior__imageoverlay-xmover .htmlwarrior__imageoverlay-mover-increase { background-image:url('/_html-warrior/admin/images/arrow-right.png') !important }
-.htmlwarrior__imageoverlay-ymover .htmlwarrior__imageoverlay-mover-decrease { background-image:url('/_html-warrior/admin/images/arrow-down.png') !important }
-.htmlwarrior__imageoverlay-ymover .htmlwarrior__imageoverlay-mover-increase { background-image:url('/_html-warrior/admin/images/arrow-up.png') !important }
+#htmlwarrior__imageoverlaycontrols .htmlwarrior__imageoverlaycontrols-mover-input { text-align: center !important; }
+.htmlwarrior__imageoverlaycontrols-mover-decrease,
+.htmlwarrior__imageoverlaycontrols-mover-increase{ width: 16px !important; height: 20px !important; background-position: 50% 50% !important; background-repeat: no-repeat !important; float:left !important; cursor: pointer !important; }
+.htmlwarrior__imageoverlaycontrols-xmover .htmlwarrior__imageoverlaycontrols-mover-decrease { background-image:url('/_html-warrior/admin/images/arrow-left.png') !important }
+.htmlwarrior__imageoverlaycontrols-xmover .htmlwarrior__imageoverlaycontrols-mover-increase { background-image:url('/_html-warrior/admin/images/arrow-right.png') !important }
+.htmlwarrior__imageoverlaycontrols-ymover .htmlwarrior__imageoverlaycontrols-mover-decrease { background-image:url('/_html-warrior/admin/images/arrow-down.png') !important }
+.htmlwarrior__imageoverlaycontrols-ymover .htmlwarrior__imageoverlaycontrols-mover-increase { background-image:url('/_html-warrior/admin/images/arrow-up.png') !important }
 
 
 
 /*
  * jQuery UI Slider 1.8.13 
  */
-#htmlwarrior__imageoverlay-opacity-slider{
+#htmlwarrior__imageoverlaycontrols-opacity-slider{
     height: 0.8em;
     position: relative;
     text-align: left;
@@ -136,7 +136,7 @@
     color: #222222;
     font-family: Verdana,Arial,sans-serif;
 }
-#htmlwarrior__imageoverlay-opacity-slider .ui-slider-handle {
+#htmlwarrior__imageoverlaycontrols-opacity-slider .ui-slider-handle {
     margin-left: -0.6em;
     top: -0.3em;
     cursor: default;
@@ -155,16 +155,16 @@
     font-weight: normal;
 
 }
-#htmlwarrior__imageoverlay-opacity-slider .ui-state-hover, #htmlwarrior__imageoverlay-opacity-slider .ui-state-focus{ border: 1px solid #999999; background: #dadada url(/_html-warrior/admin/images/jquery-ui/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x; font-weight: normal; color: #212121; } 
+#htmlwarrior__imageoverlaycontrols-opacity-slider .ui-state-hover, #htmlwarrior__imageoverlaycontrols-opacity-slider .ui-state-focus{ border: 1px solid #999999; background: #dadada url(/_html-warrior/admin/images/jquery-ui/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x; font-weight: normal; color: #212121; } 
 
 
 /*
 Z-indexes
 */
-#htmlwarrior__pagelist, #htmlwarrior__actionlist, #htmlwarrior__imageoverlay {
+#htmlwarrior__pagelist, #htmlwarrior__actionlist, #htmlwarrior__imageoverlaycontrols {
     z-index: 99997;
 }
-#htmlwarrior__imageoverlay_hook {
+#htmlwarrior__imageoverlaycontrols_mousehook {
 	z-index: 99998;
 }
 #htmlwarrior_draggable_handle {
