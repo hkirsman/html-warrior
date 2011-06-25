@@ -17,6 +17,8 @@
     (function() {
         var
         imageoverlay_wrap = $("#htmlwarrior__imageoverlaycontrols_wrap"), // the image over
+        imageoverlaycontrols = $("#htmlwarrior__imageoverlaycontrols"),
+        imageoverlaycontrols_mousehook = $("#htmlwarrior__imageoverlaycontrols_mousehook"),
         page = (document.location+"").split("/")[4].split(".")[0].split("?")[0],
         site = (document.location+"").split("/")[3],
         opacity = $.cookie("psdOverlayOpacity")?$.cookie("psdOverlayOpacity"):0.4,
@@ -36,7 +38,7 @@
         }
         var file = page+".png";
 
-        var overlay = $("<img id=\"htmlwarrior__imageoverlaycontrols_img\" src=\"/"+site+"/overlays/"+file+"\" alt=\"\" />");
+        var overlay = $('<img id="htmlwarrior__imageoverlaycontrols_img" src="/'+site+'/overlays/'+file+'" alt="" />');
         overlay.css({
             "position": "absolute",
             "z-index" : -99999,
@@ -264,12 +266,16 @@
             $.cookie("overlay_position_x", overlay_position_x);
         });
 
-        $("#htmlwarrior__imageoverlaycontrols_wrap").bind({
+        imageoverlay_wrap.bind({
             mouseenter: function() {
-                log("In");
+                imageoverlaycontrols.css({
+                    "display": "block"
+                });
             },
             mouseleave: function() {
-                log("Out");
+                imageoverlaycontrols.css({
+                    "display": "none"
+                });
             }
         })
 

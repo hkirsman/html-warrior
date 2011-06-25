@@ -1,6 +1,6 @@
 <div id="htmlwarrior__imageoverlaycontrols_wrap">  
   <div id="htmlwarrior__imageoverlaycontrols_mousehook"><!-- --></div>
-  <div id="htmlwarrior__imageoverlaycontrols" class="htmlwarrior">
+  <div id="htmlwarrior__imageoverlaycontrols" class="htmlwarrior" style="display: none">
     <div id="htmlwarrior__imageoverlaycontrols-inner">
       
       <div class="htmlwarrior__imageoverlaycontrols-row">
