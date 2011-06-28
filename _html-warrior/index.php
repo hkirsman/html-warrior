@@ -48,7 +48,7 @@ if ($htmlwarrior->config["frontpage_site"] === false) {
             }
         }
 
-        $smarty->template_dir = $htmlwarrior->config["code_path"] . "/admin/templates";
+        $smarty->setTemplateDir($htmlwarrior->config["code_path"] . "/admin/templates");
         $smarty->assign("access_log", get_access_log(array("limit" => 10)));
 
         $smarty->assign("access_log_site", get_site_access_log(array("limit" => 10)));
@@ -80,7 +80,7 @@ if ($htmlwarrior->config["build"]) {
     }
 }
 
-$smarty->template_dir = $htmlwarrior->config["basepath"] . "/" . $htmlwarrior->runtime["site_dir"] . "/templates";
+$smarty->setTemplateDir($htmlwarrior->config["basepath"] . "/" . $htmlwarrior->runtime["site_dir"] . "/templates");
 
 $request_uri = explode("/", trim($htmlwarrior->runtime["parsed_url"]["path"], "/"));
 
@@ -154,7 +154,7 @@ if (!isset($page_variables["layout"])) {
     $htmlwarrior->layout = $page_variables["layout"];
 }
 $layout_path = "layouts/" . $htmlwarrior->layout . ".tpl";
-$variable_indents = get_indents_for_variables(file_get_contents($smarty->template_dir . "/" . $layout_path));
+$variable_indents = get_indents_for_variables(file_get_contents($smarty->getTemplateDir(0) . "/" . $layout_path));
 
 if (isset($page_variables["title"]))
     $smarty->assign("title", $page_variables["title"]);

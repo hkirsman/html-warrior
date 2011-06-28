@@ -2,7 +2,7 @@
 
 require $htmlwarrior->config["code_path"] . '/externals/smarty/libs/Smarty.class.php';
 $smarty = new Smarty;
-$smarty->allow_php_tag = true;
+#$smarty->allow_php_tag = true;
 $smarty->error_reporting = $smartysh->config["php_error_reporting"];
 error_reporting($htmlwarrior->config["php_error_reporting"]);
 

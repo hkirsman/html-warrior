@@ -33,10 +33,10 @@ function smarty_function_partial($params, &$smarty) {
     }
 
     // copy template from code to site if template does not exist
-    if (!file_exists($smarty->template_dir . "/partials/" . $params["template"] . ".tpl")) {
+    if (!file_exists($smarty->getTemplateDir(0) . "/partials/" . $params["template"] . ".tpl")) {
         echo '<div style="background: red">Templatet ei ole olemas. Kopeerin uue?. <a href="?copy=yes">jah</a></div>';
         if (@$_GET["copy"] == "yes") {
-            if (copy($htmlwarrior->config["code_path"] . "/templates/partials/" . $params["template"] . ".tpl", $smarty->template_dir . "/partials/" . $params["template"] . ".tpl")) {
+            if (copy($htmlwarrior->config["code_path"] . "/templates/partials/" . $params["template"] . ".tpl", $smarty->getTemplateDir(0) . "/partials/" . $params["template"] . ".tpl")) {
                 echo "done";
             } else {
                 echo $htmlwarrior->config["code_path"] . "/templates/partials/" . $params["template"] . ".tpl does not exist!";
