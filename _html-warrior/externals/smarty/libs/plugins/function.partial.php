@@ -10,7 +10,7 @@
  * -------------------------------------------------------------
  */
 
-function smarty_function_partial($params, &$smarty) {
+function smarty_function_partial($params, $template) {
     global $smarty, $htmlwarrior;
 
     if (isset($params["tpl"])) {
@@ -69,7 +69,7 @@ function smarty_function_partial($params, &$smarty) {
     // reset vars
     foreach ($params as $key => $var) {
         if ($key != "template" && $key != "indent") {
-            $smarty->clearAssign($key);
+            $template->clearAssign($key);
         }
     }
     $a_output = explode("\n", $output);
