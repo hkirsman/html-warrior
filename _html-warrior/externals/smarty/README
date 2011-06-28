@@ -1,9 +1,13 @@
-Smarty 3.0.8
+Smarty 3.1 RC1
 
 Author: Monte Ohrt <monte at ohrt dot com >
 Author: Uwe Tews
 
 AN INTRODUCTION TO SMARTY 3
+
+NOTICE for 3.1 release:
+
+Please see the SMARTY_3.1_NOTES.txt file for details.
 
 NOTICE for 3.0.5 release:
 
