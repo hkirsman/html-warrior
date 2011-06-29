@@ -121,6 +121,8 @@
       Scripts partial. Just adds extension and scripts folder in path.
     *}
     {partial tpl=script file="general"}
+    {partial tpl=script file="general"}
+    {partial tpl=script file="general"}
     {*
       Rest of the htmlwarrior extras we see on example site.
     *}

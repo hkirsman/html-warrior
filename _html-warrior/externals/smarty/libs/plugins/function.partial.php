@@ -13,37 +13,48 @@
 function smarty_function_partial($params, $template) {
     global $smarty, $htmlwarrior;
 
-    if (isset($params["tpl"])) {
-        $params["template"] = $params["tpl"];
-    } elseif (isset($params["name"])) {
-        $params["template"] = $params["name"];
+    if (empty($params['tpl'])) {
+        trigger_error("[plugin] fetch parameter 'tpl' cannot be empty", E_USER_NOTICE);
+        return;
     }
 
-    foreach ($params as $key => $var) {
-        if ($key != "template") {
-            $smarty->assign($key, $var);
-        }
+    $path_partial_helper = $htmlwarrior->config["basepath"] . "/" .
+            $htmlwarrior->runtime["site_dir"] .
+            $htmlwarrior->config["path_templates_partials"] . "/" .
+            $params["tpl"] . ".php";
+
+    if (file_exists($path_partial_helper)) {
+        require_once($path_partial_helper);
+        $partial_helper_func = "partial_helper_".$params["tpl"];
+        $partial_helper_func($params);
     }
 
     if ($params["showcss"]) {
         echo '<script type="text/javascript" src="http://www.google.com/jsapi"></script>';
         echo '<script type="text/javascript" src="' . $htmlwarrior->config["path_code"] . '/core/js/general.js"></script>';
-        echo '<script type="text/javascript">var partialName = "' . $params["template"] . '";</script>';
+        echo '<script type="text/javascript">var partialName = "' . $params["tpl"] . '";</script>';
         echo '<script type="text/javascript" src="' . $htmlwarrior->config["path_code"] . '/core/js/showcss.js"></script>';
     }
 
     // copy template from code to site if template does not exist
-    if (!file_exists($smarty->getTemplateDir(0) . "/partials/" . $params["template"] . ".tpl")) {
+    if (!file_exists($smarty->getTemplateDir(0) . "/partials/" . $params["tpl"] . ".tpl")) {
         echo '<div style="background: red">Templatet ei ole olemas. Kopeerin uue?. <a href="?copy=yes">jah</a></div>';
         if (@$_GET["copy"] == "yes") {
-            if (copy($htmlwarrior->config["code_path"] . "/templates/partials/" . $params["template"] . ".tpl", $smarty->getTemplateDir(0) . "/partials/" . $params["template"] . ".tpl")) {
+            if (copy($htmlwarrior->config["code_path"] . "/templates/partials/" . $params["tpl"] . ".tpl", $smarty->getTemplateDir(0) . "/partials/" . $params["template"] . ".tpl")) {
                 echo "done";
             } else {
-                echo $htmlwarrior->config["code_path"] . "/templates/partials/" . $params["template"] . ".tpl does not exist!";
+                echo $htmlwarrior->config["code_path"] . "/templates/partials/" . $params["tpl"] . ".tpl does not exist!";
             }
         }
     }
-    $output = $smarty->fetch("partials/" . $params["template"] . ".tpl");
+
+    $tpl = $smarty->createTemplate('partials/' . $params['tpl'] . '.tpl', $smarty);
+    foreach ($params as $key => $var) {
+        if ($key != "tpl") {
+            $tpl->assign($key, $var);
+        }
+    }
+    $output = $smarty->fetch($tpl);
     $output = remove_bom($output);
 
     $page_variables = parse_variables($output);
@@ -66,12 +77,6 @@ function smarty_function_partial($params, $template) {
         // get help if exists? todo
     }
 
-    // reset vars
-    foreach ($params as $key => $var) {
-        if ($key != "template" && $key != "indent") {
-            $template->clearAssign($key);
-        }
-    }
     $a_output = explode("\n", $output);
     $first_line = true;
     foreach ($a_output as $key => $var) {
@@ -93,7 +98,7 @@ function smarty_function_partial($params, $template) {
     $s_outputFinal = implode("\n", $a_outputFinal);
     // write placeholders with script tag so they don't mess up the docs
     // validity
-    if ($htmlwarrior->config["show_partial_edit_links"] && $params["template"] != "script") {
+    if ($htmlwarrior->config["show_partial_edit_links"] && $params["tpl"] != "script") {
         $s_outputFinal = trim($s_outputFinal);
         if (strlen($s_outputFinal)) {
             if (!isset($smarty->partial_index)) {
@@ -106,14 +111,14 @@ function smarty_function_partial($params, $template) {
             $placeholder_params_end = 'id="' . $htmlwarrior->config["htmlwarrior_prefix"] . '_placeholder_end__' . $smarty->partial_index . '"';
             if (get_first_tag_name($s_outputFinal) == "li") {
                 $s_outputFinal = '<li ' . $placeholder_params_begin . ' style="display:none"><script type="text/javascript">htmlwarrior_partial_edit_links[' . $smarty->partial_index .
-                        ']={"name":"' . $params["template"] . '", "path_edit":"' . mk_partial_edit_link($params["template"] . ".tpl") . '"}</script></li>' .
+                        ']={"name":"' . $params["tpl"] . '", "path_edit":"' . mk_partial_edit_link($params["tpl"] . ".tpl") . '"}</script></li>' .
                         $s_outputFinal .
                         '<li ' . $placeholder_params_end . ' style="display:none"></li>';
             } else {
                 $s_outputFinal = '
                     <script type="text/javascript" ' . $placeholder_params_begin .
                         '>htmlwarrior_partial_edit_links[' . $smarty->partial_index .
-                        ']={"name":"' . $params["template"] . '", "path_edit":"' . mk_partial_edit_link($params["template"] . ".tpl") . '"}</script>' .
+                        ']={"name":"' . $params["tpl"] . '", "path_edit":"' . mk_partial_edit_link($params["tpl"] . ".tpl") . '"}</script>' .
                         $s_outputFinal .
                         '<script type="text/javascript" ' . $placeholder_params_end .
                         '></script>';
@@ -122,5 +127,3 @@ function smarty_function_partial($params, $template) {
     }
     return $s_outputFinal;
 }
-
-?>
