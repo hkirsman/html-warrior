@@ -10,4 +10,3 @@ foreach ($htmlwarrior->config as $key => $var) {
 if ( $htmlwarrior->config["show_partial_edit_links"] ) {
     echo "var htmlwarrior_partial_edit_links = new Array();\n";
 }
-?>

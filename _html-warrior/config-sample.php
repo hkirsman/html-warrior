@@ -42,4 +42,3 @@ $htmlwarrior->config["template_edit_links_downloadable"] = false;
 
 // PHP
 $htmlwarrior->config["php_error_reporting"] = 1; # example "E_ALL ^ E_NOTICE ^ E_WARNING"
-?>

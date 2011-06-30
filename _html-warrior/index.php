@@ -196,4 +196,3 @@ if ($htmlwarrior->config["debug"]) {
     echo("Script load time: " . $time_end);
     echo "-->";
 }
-?>

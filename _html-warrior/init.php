@@ -12,4 +12,3 @@ $htmlwarrior->runtime = array(
     "url" => get_cur_page_url(),
     "parsed_url" => parse_url(get_cur_page_url()),
 );
-?>

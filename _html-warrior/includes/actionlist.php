@@ -5,5 +5,3 @@ function actionlist($actionlist_opened=false) {
 
     return $smarty->fetch("admin/templates/site_actionlist.tpl");
 }
-
-?>

@@ -65,5 +65,3 @@ function smarty_function_htmlwarrior_init($params, &$smarty) {
 
     return implode("\n", $a_outputFinal);
 }
-
-?>

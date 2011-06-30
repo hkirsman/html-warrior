@@ -28,4 +28,3 @@ full_copy($htmlwarrior->config["basepath"] . "/" . $htmlwarrior->runtime["site_d
 full_copy($htmlwarrior->config["basepath"] . "/" . $htmlwarrior->runtime["site_dir"] . "/style",
         $htmlwarrior->config["basepath"] . "/" . $htmlwarrior->runtime["site_dir"] . "/" . $htmlwarrior->config["build_dir"] . "/style"
 );
-?>

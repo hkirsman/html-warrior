@@ -77,5 +77,3 @@ function pagelist($template_list_opened=false) {
 
     return $smarty->fetch("admin/templates/site_pagelist.tpl");
 }
-
-?>

@@ -21,5 +21,3 @@ function smarty_block_fixurl($params, $content, $template, &$repeat) {
     $content = str_replace("&", "&amp;", $content);
     return $content;
 }
-
-?>

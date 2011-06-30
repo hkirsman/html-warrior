@@ -25,5 +25,3 @@ function smarty_prefilter_add_partial_indents($source, &$smarty) {
 
     return implode("\n", $a_source);
 }
-
-?>

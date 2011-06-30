@@ -16,4 +16,3 @@ $plugin[] = "jquery";
 #$plugin[] = "jquery.nivo.slider";
 #$plugin[] = "jquery.swfupload";
 #$plugin[] = "favicon";
-?>

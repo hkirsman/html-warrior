@@ -51,5 +51,3 @@ function smarty_prefilter_fix_smarty_syntax_indents($source, &$smarty) {
     }
     return implode("\n", $a_source);
 }
-
-?>

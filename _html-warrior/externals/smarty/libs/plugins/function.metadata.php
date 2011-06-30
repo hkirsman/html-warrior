@@ -24,5 +24,3 @@ function smarty_function_metadata($params, $smarty = NULL, $repeat = NULL) {
             break;
     }
 }
-
-?>

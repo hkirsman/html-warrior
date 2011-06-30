@@ -416,5 +416,3 @@ function get_page_template_path($url_path) {
         return $template_path_with_ext;
     }
 }
-
-?>
