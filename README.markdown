@@ -11,7 +11,7 @@ One day, seeing StaticMatic, I started building my own system without HAML. So n
 
 ## Install ( there's php+apache included for windows )
 
-Download HTML Warrior, unpack it to c:\www ( for example ), run c:\www\_html-warrior\servers\server2go\Server2Go.exe and browse to http://127.0.0.1:8080/ or http://YOUR_IP:8080/ Choose example_site and start reading
+Download HTML Warrior, unpack it to c:\www ( for example ), run c:\www\\_html-warrior\servers\server2go\Server2Go.exe and browse to http://127.0.0.1:8080/ or http://YOUR_IP:8080/ Choose example_site and start reading
 
 HTML Warrior uses 3 types of templates:
 
