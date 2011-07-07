@@ -43,8 +43,8 @@ Transfter tag to server
 git push origin --tags
 Transfer all tags to server
 
-delete remote branch named imageoverlay. It will push nothing to imageoverlay branch and thus deletes it
 git push origin :imageoverlay
+Delete remote branch named imageoverlay. It will push nothing to imageoverlay branch and thus deletes it
 
 git reset HEAD^ --hard
 git push mathnet -f
