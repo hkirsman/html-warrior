@@ -25,6 +25,20 @@
       </div>
       <h1 class="logo sidefloat">HTML Warrior</h1>
     </div>
+    
+    <div id="newsite">
+      Create site:
+      <select>
+        <option>default</option>
+        <option>newsletter</option>
+      </select>
+      
+      <input type="text" value="New site name"
+              onclick="if(this.value=='New site name'){ this.value=''; }"
+              onblur="if(this.value==''){ this.value='New site name'; }" />
+              
+      <button><span>Create</span></button>
+    </div>    
 
     <div id="content">
       <div class="col col01">

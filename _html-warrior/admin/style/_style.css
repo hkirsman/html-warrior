@@ -7,13 +7,14 @@ body,input,textarea,select,button{font:12px/18px Verdana, Arial, sans-serif;}
 a{color:#1259C7;text-decoration:none;}
 a:hover{text-decoration:underline;}
 h1{color:#082320;font-size:1.3em;font-weight:bold;}
-#header,#content{width:960px;margin:0 auto;}
+#header,#newsite,#content{width:960px;margin:0 auto;}
 /*
 Header
 */
-#header{padding-bottom:20px;padding:10px;overflow:hidden;background-color:#F2F2F2;/*+border-radius:5px 5px 0 0;*/-moz-border-radius:5px 5px 0 0;-webkit-border-radius:5px 5px 0 0;-khtml-border-radius:5px 5px 0 0;border-radius:5px 5px 0 0;margin-top:10px;margin-bottom:8px;}
+#header{padding-bottom:20px;padding:10px;overflow:hidden;background-color:#F2F2F2;/*+border-radius:5px 5px 0 0;*/-moz-border-radius:5px 5px 0 0;-webkit-border-radius:5px 5px 0 0;-khtml-border-radius:5px 5px 0 0;border-radius:5px 5px 0 0;margin-top:10px;}
 #header .logo{font-size:20px;/*+text-shadow:-1px -1px #FFFFFF;*/-moz-text-shadow:-1px -1px #FFFFFF;-webkit-text-shadow:-1px -1px #FFFFFF;-o-text-shadow:-1px -1px #FFFFFF;text-shadow:-1px -1px #FFFFFF;padding-top:5px;}
 #filter{width:300px;border:1px solid #808080;padding:3px 5px;}
+#newsite{background-color:#CCCCCC;padding:5px 10px;margin-bottom:8px;}
 /*
 Content
 */
