@@ -2,7 +2,7 @@
 
 require_once("init.php");
 
-$args = $_GET;
+$args = $_REQUEST;
 
 // load class
 if (isset($args["class"])) {

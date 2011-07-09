@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<skeletons>
+  <skeleton>
+    <directory>default</directory>
+    <default_page>index</default_page>
+  </skeleton>
+  <skeleton>
+    <directory>newsletter</directory>
+    <default_page>newsletter</default_page>
+  </skeleton>
+</skeletons>

@@ -13,7 +13,8 @@ class gensite {
 
         $source = $htmlwarrior->config["basepath"] .
                 $htmlwarrior->config["path_code"] .
-                "/skeletons/default";
+                "/skeletons/" .
+                $arr["skeleton"];
 
         $target = $htmlwarrior->config["basepath"] .
                 "/" . $arr["site_name"];

@@ -27,17 +27,25 @@
     </div>
     
     <div id="newsite">
-      Create site:
-      <select>
-        <option>default</option>
-        <option>newsletter</option>
-      </select>
-      
-      <input type="text" value="New site name"
-              onclick="if(this.value=='New site name'){ this.value=''; }"
-              onblur="if(this.value==''){ this.value='New site name'; }" />
-              
-      <button><span>Create</span></button>
+      <form action="{$config.path_code}/orb.php">
+        <input type="hidden" name="class" value="gensite" />
+        <input type="hidden" name="action" value="generate" />
+        <input type="hidden" name="redirect" value="1" />
+
+        <div>
+          Create site:
+          <select name="skeleton">
+            <option value="default">default</option>
+            <option value="newsletter">newsletter</option>
+          </select>
+          
+          <input type="text" name="site_name" value="New site name"
+                  onclick="if(this.value=='New site name'){ this.value=''; }"
+                  onblur="if(this.value==''){ this.value='New site name'; }" />
+                  
+          <button><span>Create</span></button>
+        </div>
+      </form>
     </div>    
 
     <div id="content">
