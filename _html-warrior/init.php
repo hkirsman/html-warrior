@@ -1,9 +1,22 @@
 <?php
 
+// init empty htmlwarrior class to add variables. Todo: create some method etc.
+class htmlwarrior {
+
+}
+
+$htmlwarrior = new htmlwarrior();
+
+require_once("includes/functions.php");
+if (!file_exists("config.php")) {
+    copy("config-sample.php", "config.php");
+}
+require "config.php";
+
 require $htmlwarrior->config["code_path"] . '/externals/smarty/libs/Smarty.class.php';
 $smarty = new Smarty;
 #$smarty->allow_php_tag = true;
-$smarty->error_reporting = $smartysh->config["php_error_reporting"];
+$smarty->error_reporting = $htmlwarrior->config["php_error_reporting"];
 error_reporting($htmlwarrior->config["php_error_reporting"]);
 
 require_once("includes/db.php");

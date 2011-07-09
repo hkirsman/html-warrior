@@ -416,3 +416,11 @@ function get_page_template_path($url_path) {
         return $template_path_with_ext;
     }
 }
+
+function classload($classname) {
+    global $htmlwarrior;
+
+    require_once($htmlwarrior->config["basepath"] . $htmlwarrior->config["path_code"] . "/classes/" . $classname .".php");
+    $instance = new $classname();
+    return $instance;
+}

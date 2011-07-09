@@ -7,18 +7,6 @@ error_reporting(~E_NOTICE);
 
 header('Content-Type: text/html; charset=utf-8');
 
-// init empty htmlwarrior class to add variables. Todo: create some method etc.
-class htmlwarrior {
-
-}
-
-$htmlwarrior = new htmlwarrior();
-
-require_once("includes/functions.php");
-if (!file_exists("config.php")) {
-    copy("config-sample.php", "config.php");
-}
-require "config.php";
 require $htmlwarrior->config["code_path"] . '/init.php';
 
 if ($htmlwarrior->config["frontpage_site"]) {
