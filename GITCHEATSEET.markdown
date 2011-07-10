@@ -49,3 +49,6 @@ Delete remote branch named imageoverlay. It will push nothing to imageoverlay br
 git reset HEAD^ --hard
 git push mathnet -f
 Remove/revert the last commit
+
+git checkout -b iss53
+Create branch for iss53. Another point is how to branch issues in a short name.
