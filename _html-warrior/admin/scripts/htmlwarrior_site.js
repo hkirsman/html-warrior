@@ -50,6 +50,7 @@
 
         // drag the overlay via small div under cursor
         var draggable_handle = $('<div id="htmlwarrior_draggable_handle"></div>');
+        draggable_handle.css("position", "absolute"); // chrome fix
         draggable_handle.draggable({
             start: function(e, ui) {
                 drag_start_y = ui.position.top;
