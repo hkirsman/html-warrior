@@ -1,14 +1,14 @@
 <?php
 
 // todo: get from here http://127.0.0.1:8080/_html-warrior/orb.php?class=gensite&action=generate&site_name=foo&redirect=1
-class gensite {
+class site {
 
     /**
      * Create new site and redirect to it ( optional )
      * @global <type> $htmlwarrior
      * @param string site_name
      */
-    public function generate($arr = array()) {
+    public function create($arr = array()) {
         global $htmlwarrior, $txt;
 
         $source = $htmlwarrior->config['basepath'] .
@@ -36,6 +36,10 @@ class gensite {
         if ($arr['redirect']) {
             header('Location:/' . $arr['site_name'] . '/');
         }
+    }
+
+    public function build($arr = array()) {
+        
     }
 
 }

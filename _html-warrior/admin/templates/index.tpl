@@ -28,8 +28,8 @@
     
     <div id="newsite">
       <form action="{$config.path_code}/orb.php">
-        <input type="hidden" name="class" value="gensite" />
-        <input type="hidden" name="action" value="generate" />
+        <input type="hidden" name="class" value="site" />
+        <input type="hidden" name="action" value="create" />
         <input type="hidden" name="redirect" value="1" />
 
         <div>
