@@ -60,6 +60,14 @@ if (file_exists($htmlwarrior->config["basepath"] . "/" . $htmlwarrior->runtime["
 // build all templates
 // todo build also logged templates
 if ($htmlwarrior->config["build"]) {
+    if (!is_dir($htmlwarrior->config['basepath'] . '/' .
+                    $htmlwarrior->runtime['site_dir'] . '/' .
+                    $htmlwarrior->config["build_dir"])) {
+        mkdir($htmlwarrior->config['basepath'] . '/' .
+                    $htmlwarrior->runtime['site_dir'] . '/' .
+                    $htmlwarrior->config["build_dir"]);
+    }
+
     if (isset($_GET["build"])) {
         if ($_GET["build"] == 1) {
             require_once($htmlwarrior->config["code_path"] . '/includes/build.php');
@@ -91,7 +99,7 @@ if ($htmlwarrior->config["live"]) {
 if (isset($_GET["debug"])) {
     $htmlwarrior->config["debug"] = $_GET["debug"];
 } else {
-    $htmlwarrior->config["debug"] = 1;
+    //$htmlwarrior->config["debug"] = 1;
 }
 $smarty->assign("debug", $htmlwarrior->config["debug"]);
 

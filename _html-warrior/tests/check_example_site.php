@@ -7,13 +7,14 @@ $pages = array(
 );
 
 $pages_hashes = array(
-    'index' => 'ce6888f594bcdf6d366d4bd10ffb0db6',
-    'partials' => 'dbcc92e4f9a63218ea3f168285b6c0e7',
-    'about' => 'e63d06d40ad0e3f26d8733cc30114a22',
+    'index' => '648585c16903b904c15dc5b6df32d156',
+    'partials' => 'f482ad1c529459a794b8d023e40110a8',
+    'about' => '95f560c3b31674d7a4657e2df719f0c3',
 );
 
 foreach($pages as $key=>$var) {
    $hash = md5(file_get_contents($var));
+   //echo $hash . "\n";
    echo $pages[$key] . ' ... ';
    if ($hash == $pages_hashes[$key]) {
        echo "ok\n";
