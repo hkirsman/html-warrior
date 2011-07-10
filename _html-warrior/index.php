@@ -64,8 +64,8 @@ if ($htmlwarrior->config["build"]) {
                     $htmlwarrior->runtime['site_dir'] . '/' .
                     $htmlwarrior->config["build_dir"])) {
         mkdir($htmlwarrior->config['basepath'] . '/' .
-                    $htmlwarrior->runtime['site_dir'] . '/' .
-                    $htmlwarrior->config["build_dir"]);
+                $htmlwarrior->runtime['site_dir'] . '/' .
+                $htmlwarrior->config["build_dir"]);
     }
 
     if (isset($_GET["build"])) {
@@ -178,12 +178,15 @@ require_once($htmlwarrior->config["basepath"] . "/" . $htmlwarrior->runtime["sit
 
 ob_start("callback");
 $smarty->display($layout_path);
-$smarty->assign("debug", 0);
+$htmlwarrior->config["devmode"] = false;
 $content = $smarty->fetch($layout_path);
 @ob_end_flush();
 
 if ($htmlwarrior->config["build"]) {
-    build_template($htmlwarrior->config["basepath"] . "/" . $htmlwarrior->runtime["site_dir"] . "/" . $htmlwarrior->config["build_dir"] . "/" . $htmlwarrior->page . ".html", $content, $template_filetime);
+    build_template($htmlwarrior->config["basepath"] . "/" .
+            $htmlwarrior->runtime["site_dir"] . "/" .
+            $htmlwarrior->config["build_dir"] . "/" .
+            $htmlwarrior->page . ".html", $content, $template_filetime);
 }
 
 if ($htmlwarrior->config["debug"]) {

@@ -1,7 +1,7 @@
 <?php
 
 function pagelist($template_list_opened=false) {
-    global $htmlwarrior, $smarty, $debug;
+    global $htmlwarrior, $smarty;
 
     $files = array();
     $files_out = array();

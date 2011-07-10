@@ -20,6 +20,7 @@ $htmlwarrior->config["error_page"] = false; # example "error" - which means erro
 $htmlwarrior->config["indent"] = "spaces"; // or tabs
 $htmlwarrior->config["indent_count"] = 2;
 $htmlwarrior->config["debug"] = false;
+$htmlwarrior->config["devmode"] = true; # shov layer overlay, pagelist etc
 $htmlwarrior->config["build_dir"] = "build";
 $htmlwarrior->config["path_build"] = $htmlwarrior->config["build_dir"];
 $htmlwarrior->config["path_templates_layouts"] = "/templates/layouts";

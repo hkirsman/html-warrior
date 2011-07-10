@@ -14,9 +14,9 @@
  */
 
 function smarty_function_htmlwarrior_init($params, &$smarty) {
-    global $htmlwarrior, $smarty, $debug;
+    global $htmlwarrior, $smarty;
 
-    if ($htmlwarrior->config["live"] || $smarty->getTemplateVars("debug") != 1) {
+    if ($htmlwarrior->config["live"] || !$htmlwarrior->config["devmode"]) {
         return "__htmlwarrior_remove_line__";
     }
 
