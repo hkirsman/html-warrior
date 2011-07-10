@@ -7,21 +7,21 @@ error_reporting(~E_NOTICE);
 
 header('Content-Type: text/html; charset=utf-8');
 
-require $htmlwarrior->config["code_path"] . '/init.php';
+require $htmlwarrior->config['code_path'] . '/init.php';
 
-if ($htmlwarrior->config["frontpage_site"]) {
-    $htmlwarrior->runtime["site_dir"] = trim($htmlwarrior->config["frontpage_site"], "/");
+if ($htmlwarrior->config['frontpage_site']) {
+    $htmlwarrior->runtime['site_dir'] = trim($htmlwarrior->config['frontpage_site'], '/');
 } else {
-    $site_dir = explode("/", trim($htmlwarrior->runtime["parsed_url"]["path"], "/"));
-    $htmlwarrior->runtime["site_dir"] = current($site_dir);
+    $site_dir = explode('/', trim($htmlwarrior->runtime['parsed_url']['path'], '/'));
+    $htmlwarrior->runtime['site_dir'] = current($site_dir);
     unset($site_dir);
 }
 
-$smarty->assign("config", $htmlwarrior->config);
+$smarty->assign('config', $htmlwarrior->config);
 
-$smarty->loadFilter("pre", "fix_smarty_syntax_indents");
-$smarty->loadFilter("pre", "add_partial_indents");
-$smarty->loadFilter("output", "fix_smarty_syntax_indents");
+$smarty->loadFilter('pre', 'fix_smarty_syntax_indents');
+$smarty->loadFilter('pre', 'add_partial_indents');
+$smarty->loadFilter('output', 'fix_smarty_syntax_indents');
 
 // admin
 if ($htmlwarrior->config["frontpage_site"] === false) {

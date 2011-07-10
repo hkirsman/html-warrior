@@ -420,10 +420,45 @@ function get_page_template_path($url_path) {
     }
 }
 
+/**
+ * Include class file and return an object
+ * @global object $htmlwarrior
+ * @param string $classname
+ * @return instance
+ */
 function classload($classname) {
     global $htmlwarrior;
 
     require_once($htmlwarrior->config['basepath'] . $htmlwarrior->config['path_code'] . '/classes/' . $classname . '.php');
     $instance = new $classname();
     return $instance;
+}
+
+/**
+ * Create orb url
+ * @global object $htmlwarrior
+ * @param string $class
+ * @param string $action
+ * @param array $arr
+ * @return string orb link
+ */
+function mk_orb($class, $action, $arr = array()) {
+    global $htmlwarrior;
+
+    $orb = $htmlwarrior->config["path_code"] .
+            '/orb.php?class=' . $class .
+            '&amp;action=' . $action;
+
+    if (isset($arr["return_url"])) {
+        $ru = $arr["return_url"];
+        unset($arr["return_url"]); 
+    }
+
+    foreach ($arr as $key => $var) {
+        $orb .= '&amp;' . $key . '=' . $var;
+    }
+
+    $orb .= '&amp;return_url='.urlencode($ru);
+
+    return $orb;
 }
