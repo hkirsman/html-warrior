@@ -7,9 +7,9 @@ $pages = array(
 );
 
 $pages_hashes = array(
-    'index' => '648585c16903b904c15dc5b6df32d156',
-    'partials' => 'f482ad1c529459a794b8d023e40110a8',
-    'about' => '95f560c3b31674d7a4657e2df719f0c3',
+    'index' => '1c74c8c9ef6b040269cbf9cfc6ae820c',
+    'partials' => '99ef6c189be0e626777076232fbfb724',
+    'about' => '05e7d0045b563462fe7f57be1dfd8e4a',
 );
 
 foreach($pages as $key=>$var) {
