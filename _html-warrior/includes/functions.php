@@ -301,7 +301,7 @@ function get_indents_for_variables($content) {
 }
 
 function url_remove_parameters($uri) {
-    $uri_new = explode("?", $uri);
+    $uri_new = explode('?', $uri);
     return $uri_new[0];
 }
 
@@ -324,7 +324,10 @@ function get_first_tag_name($subject) {
  */
 function mk_partial_edit_link($tpl_name) {
     global $htmlwarrior;
-    return (!$htmlwarrior->config["template_edit_links_downloadable"] ? $htmlwarrior->config["basepath_local"] : "") . "/" . $htmlwarrior->runtime["site_dir"] . $htmlwarrior->config["path_templates_partials"] . "/" . $tpl_name;
+    return (!$htmlwarrior->config['template_edit_links_downloadable'] ?
+            $htmlwarrior->config['basepath_local'] : '') .
+    '/' . $htmlwarrior->runtime['site_dir'] .
+    $htmlwarrior->config['path_templates_partials'] . '/' . $tpl_name;
 }
 
 /**
@@ -333,14 +336,14 @@ function mk_partial_edit_link($tpl_name) {
  */
 function get_cur_page_url() {
     $pageurl = 'http';
-    if ($_SERVER["HTTPS"] == "on") {
-        $pageurl .= "s";
+    if ($_SERVER['HTTPS'] == 'on') {
+        $pageurl .= 's';
     }
-    $pageurl .= "://";
-    if ($_SERVER["SERVER_PORT"] != "80") {
-        $pageurl .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
+    $pageurl .= '://';
+    if ($_SERVER['SERVER_PORT'] != '80') {
+        $pageurl .= $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . $_SERVER['REQUEST_URI'];
     } else {
-        $pageurl .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+        $pageurl .= $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
     }
     return $pageurl;
 }
@@ -351,14 +354,14 @@ function get_cur_page_url() {
  */
 function get_baseurl() {
     $baseurl = 'http';
-    if (@$_SERVER["HTTPS"] == "on") {
-        $baseurl .= "s";
+    if (@$_SERVER['HTTPS'] == 'on') {
+        $baseurl .= 's';
     }
-    $baseurl .= "://";
-    if ($_SERVER["SERVER_PORT"] != "80") {
-        $baseurl .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"];
+    $baseurl .= '://';
+    if ($_SERVER['SERVER_PORT'] != '80') {
+        $baseurl .= $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'];
     } else {
-        $baseurl .= $_SERVER["SERVER_NAME"];
+        $baseurl .= $_SERVER['SERVER_NAME'];
     }
     return $baseurl;
 }
@@ -369,8 +372,8 @@ function get_baseurl() {
  * @param string $str
  * @return string
  */
-function remove_bom($str="") {
-    if (substr($str, 0, 3) == pack("CCC", 0xef, 0xbb, 0xbf)) {
+function remove_bom($str='') {
+    if (substr($str, 0, 3) == pack('CCC', 0xef, 0xbb, 0xbf)) {
         $str = substr($str, 3);
     }
     return $str;
@@ -383,34 +386,34 @@ function remove_bom($str="") {
  */
 function get_page_template_path($url_path) {
     global $htmlwarrior;
-    $template_path = "";
+    $template_path = '';
     $array_splice_offset = 2;
-    if ($htmlwarrior->config["frontpage_site"]) {
+    if ($htmlwarrior->config['frontpage_site']) {
         $array_splice_offset = 1;
     }
-    $a_url_path = explode("/", $url_path);
+    $a_url_path = explode('/', $url_path);
     $a_url_path_without_site = array_splice($a_url_path, $array_splice_offset, count($a_url_path));
-    $url_path_without_site = join("/", $a_url_path_without_site);
+    $url_path_without_site = join('/', $a_url_path_without_site);
 
     if (strlen($url_path_without_site) === 0) {
-        $url_path_without_site = "index";
+        $url_path_without_site = 'index';
     }
 
-    $find = array("__logged", ".html");
-    $replace = "";
+    $find = array('__logged', '.html');
+    $replace = '';
 
-    $template_path = $htmlwarrior->config["basepath"] . "/" .
-            $htmlwarrior->runtime["site_dir"] .
-            $htmlwarrior->config["path_templates_pages"] . "/" .
+    $template_path = $htmlwarrior->config['basepath'] . '/' .
+            $htmlwarrior->runtime['site_dir'] .
+            $htmlwarrior->config['path_templates_pages'] . '/' .
             str_replace($find, $replace, $url_path_without_site);
 
-    $template_path_with_ext = $template_path . ".tpl";
+    $template_path_with_ext = $template_path . '.tpl';
 
     // if
     if (is_dir($template_path)) {
         // check if index exists
-        if (file_exists($template_path . "/index.tpl")) {
-            return $template_path . "/index.tpl";
+        if (file_exists($template_path . '/index.tpl')) {
+            return $template_path . '/index.tpl';
         }
     } else {
         return $template_path_with_ext;
@@ -420,7 +423,7 @@ function get_page_template_path($url_path) {
 function classload($classname) {
     global $htmlwarrior;
 
-    require_once($htmlwarrior->config["basepath"] . $htmlwarrior->config["path_code"] . "/classes/" . $classname .".php");
+    require_once($htmlwarrior->config['basepath'] . $htmlwarrior->config['path_code'] . '/classes/' . $classname . '.php');
     $instance = new $classname();
     return $instance;
 }

@@ -9,24 +9,23 @@ class gensite {
      * @param string site_name
      */
     public function generate($arr = array()) {
-        global $htmlwarrior;
+        global $htmlwarrior, $txt;
 
-        $source = $htmlwarrior->config["basepath"] .
-                $htmlwarrior->config["path_code"] .
-                "/skeletons/" .
-                $arr["skeleton"];
+        $source = $htmlwarrior->config['basepath'] .
+                $htmlwarrior->config['path_code'] .
+                '/skeletons/' .
+                $arr['skeleton'];
 
-        $target = $htmlwarrior->config["basepath"] .
-                "/" . $arr["site_name"];
+        $target = $htmlwarrior->config['basepath'] .
+                '/' . $arr['site_name'];
 
-        $target_build = $target . "/" . $htmlwarrior->config["path_build"];
+        $target_build = $target . '/' . $htmlwarrior->config['path_build'];
 
         // copy
         if (!is_dir($target)) {
             full_copy($source, $target);
         } else {
-            die("error. dir allready exists! continue to
-                <a href=\"/" . $arr["site_name"] . "/\">site</a>");
+            die(printf($txt['gensite_site_exists'], $arr['site_name']));
         }
 
         // create build dir if it does not exists. Happens in GIT
@@ -34,8 +33,8 @@ class gensite {
             mkdir($target_build);
         }
 
-        if ($arr["redirect"]) {
-            header("Location:/" . $arr["site_name"] . "/");
+        if ($arr['redirect']) {
+            header('Location:/' . $arr['site_name'] . '/');
         }
     }
 

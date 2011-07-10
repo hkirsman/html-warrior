@@ -29,6 +29,8 @@ $htmlwarrior->config["path_images"] = "/images";
 $htmlwarrior->config["path_style"] = "/style";
 $htmlwarrior->config["path_scripts"] = "/scripts";
 
+$htmlwarrior->config["locale"] = "english-utf8.php";
+
 // SQLite database files
 $htmlwarrior->config["path_db_dir"] = $htmlwarrior->config["code_path"] . "/database/";
 

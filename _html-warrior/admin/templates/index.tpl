@@ -15,9 +15,9 @@
 
     <div id="header">
       <div class="rfloat">
-        <div><input type="text" id="filter" class="filter" value="Search"
-              onclick="if(this.value=='Search'){ this.value=''; }"
-              onblur="if(this.value==''){ this.value='Search'; }" /></div>
+        <div><input type="text" id="filter" class="filter" value="{$txt.admin_search}"
+              onclick="if(this.value=='{$txt.admin_search}'){ this.value=''; }"
+              onblur="if(this.value==''){ this.value='{$txt.admin_search}'; }" /></div>
         <script type="text/javascript">
           var filter = document.getElementById("filter");
           filter.focus();
@@ -33,38 +33,38 @@
         <input type="hidden" name="redirect" value="1" />
 
         <div>
-          Create site:
+          {$txt.admin_create_site}:
           <select name="skeleton">
             <option value="default">default</option>
             <option value="newsletter">newsletter</option>
           </select>
           
-          <input type="text" name="site_name" value="New site name"
-                  onclick="if(this.value=='New site name'){ this.value=''; }"
-                  onblur="if(this.value==''){ this.value='New site name'; }" />
+          <input type="text" name="site_name" value="{$txt.admin_new_site_name}"
+                  onclick="if(this.value=='{$txt.admin_new_site_name}'){ this.value=''; }"
+                  onblur="if(this.value==''){ this.value='{$txt.admin_new_site_name}'; }" />
                   
-          <button><span>Create</span></button>
+          <button><span>{$txt.admin_create}</span></button>
         </div>
       </form>
     </div>    
 
     <div id="content">
       <div class="col col01">
-        <h1>Page access log</h1>
+        <h1>{$txt.admin_page_access_log}</h1>
         {foreach $access_log as $key=>$var}
           <div class="item"><a href="{$var.url}" project="{$var.name}">{$var.url_wo_slash}</a></div>
         {/foreach}
       </div>
 
       <div class="col col01">
-         <h1>Site access log</h1>
+         <h1>{$txt.admin_site_access_log}</h1>
         {foreach $access_log_site as $key=>$var}
           <div class="item"><a href="{$var}" project="{$var}">{$var}</a></div>
         {/foreach}
       </div>
 
       <div class="col col01">
-         <h1>All sites (newer first)</h1>
+         <h1>{$txt.admin_all_sites}</h1>
 
         {foreach $files as $key=>$var}
           {if strpos($var["name"], "_")!==0 && $var["type"]=="dir" && strpos($var["name"], "-files")===false && strpos($var["name"], "-failid")===false && strpos($var["name"], ".")===false}
