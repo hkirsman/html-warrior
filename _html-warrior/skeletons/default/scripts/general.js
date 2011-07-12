@@ -63,3 +63,12 @@ function getOffsets(el) {
   }
   //makeMenuWork(".catlist .item");
 })(jQuery); 
+
+// Disable empty links
+$("a").each(function() {
+  if (!$(this).attr('href')) {
+    $(this).click(function() {
+      return false;
+    });
+  }
+});
