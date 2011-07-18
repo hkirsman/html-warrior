@@ -19,8 +19,10 @@ function smarty_function_htmlwarrior_init($params, &$smarty) {
     $output = '';
 
     if ($htmlwarrior->config['live'] || $htmlwarrior->config['devmode']) {
-        $bu = $htmlwarrior->config['baseurl'] . '/';
-        $output = '<base href="' . $bu . '" />' . "\n";
+        if ($params['position'] == 'top') {
+            $bu = $htmlwarrior->config['baseurl'] . '/';
+            $output = '<base href="' . $bu . '" />' . "\n";
+        }
     }
 
     if ($htmlwarrior->config['live'] || !$htmlwarrior->config['devmode']) {

@@ -80,6 +80,11 @@ $smarty->setTemplateDir($htmlwarrior->config["basepath"] . "/" . $htmlwarrior->r
 
 $request_uri = explode("/", trim($htmlwarrior->runtime["parsed_url"]["path"], "/"));
 
+// delete lang part of request_uri
+if ( $htmlwarrior->config['multilingual'] ) {
+    $request_uri = array_splice ($request_uri, 1 );
+}
+
 if ($htmlwarrior->config["live"]) {
     if (!isset($request_uri[0]) || $request_uri[0] == "") {
         $htmlwarrior->page = "index";
