@@ -206,7 +206,7 @@
         // This creates little draggable div under cursor when ctrl key is held
         // down. Firefox can't move it fast enough thoug.
         $(window).keydown( function(e) {
-            if (e.ctrlKey && !dragging && overlay_visible ) {
+            if (e.ctrlKey && !dragging && overlay_visible=='true' ) {
                 draggable_handle.css({
                     "display" : "block",
                     "left": htmlwarrior_mouse_x-25+"px",
