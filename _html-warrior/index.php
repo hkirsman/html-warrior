@@ -85,19 +85,21 @@ if ( $htmlwarrior->config['multilingual'] ) {
     $request_uri = array_splice ($request_uri, 1 );
 }
 
-if ($htmlwarrior->config["live"]) {
-    if (!isset($request_uri[0]) || $request_uri[0] == "") {
-        $htmlwarrior->page = "index";
+if ($htmlwarrior->config['live']) {
+    if (!isset($request_uri[0]) || $request_uri[0] == '') {
+        $htmlwarrior->page = 'index';
     } else {
-        $request_uri[0] = str_replace(".html", "", end($request_uri));
+        $request_uri[0] = str_replace('.html', '', end($request_uri));
         $htmlwarrior->page = $request_uri[0];
     }
 } else {
     if (!isset($request_uri[1])) {
-        $htmlwarrior->page = "index";
+        $htmlwarrior->page = 'index';
     } else {
-        $request_uri[1] = str_replace(".html", "", end($request_uri));
-        $htmlwarrior->page = $request_uri[1];
+        $page = end($request_uri);
+        $page = str_replace('.html', '', $page);
+        $page = str_replace('__logged', '', $page);
+        $htmlwarrior->page = $page;
     }
 }
 
