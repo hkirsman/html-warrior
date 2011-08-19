@@ -100,6 +100,7 @@ if ($htmlwarrior->config['live']) {
         $page = str_replace('.html', '', $page);
         $page = str_replace('__logged', '', $page);
         $htmlwarrior->page = $page;
+        unset($page);
     }
 }
 
@@ -145,10 +146,25 @@ if (@strpos($request_uri[1], "__logged")) {
     $smarty->assign("logged", false);
     $htmlwarrior->logged = false;
 }
-$page_content = $smarty->fetch(get_page_template_path($htmlwarrior->runtime["parsed_url"]["path"]));
-if ($htmlwarrior->config["build"]) {
-    $template_filetime = filemtime(get_page_template_path($htmlwarrior->runtime["parsed_url"]["path"]));
+// how to limit scope of $params, $page_template_php_path, $page_object etc
+{
+    $page_template_path = get_page_template_path($htmlwarrior->runtime["parsed_url"]["path"]);
+    $page_template_php_path = str_replace('.tpl', '.php', $page_template_path);
+    // load page php
+    if (file_exists($page_template_php_path)) {
+        require_once($page_template_php_path);
+    }
+    $page_object = $smarty->createTemplate($page_template_path);
+    foreach($params as $key=>$val) {
+        $page_object->assign($key,$val);
+    }
+    $page_content = $smarty->fetch($page_object);
+    if ($htmlwarrior->config["build"]) {
+        $template_filetime = filemtime($page_template_path);
+    }
+    unset($page_template_path, $page_object, $params);
 }
+
 $page_variables = parse_variables($page_content);
 
 if (!isset($page_variables["layout"])) {
@@ -169,7 +185,10 @@ if (isset($page_variables["custom1"]))
 else
     $smarty->assign("custom1", "");
 
-$smarty->assign("yield", indent(remove_variables($page_content), $variable_indents["yield"]));
+$yield = indent(remove_variables($page_content), $variable_indents["yield"]);
+$yield = ltrim($yield);
+$smarty->assign("yield", $yield);
+unset($yield);
 
 // add access log; must be after frontpage so we don't log that
 if ($htmlwarrior->config["log"]) {
@@ -184,6 +203,11 @@ require_once($htmlwarrior->config["basepath"] . "/" . $htmlwarrior->runtime["sit
 //require_once("filelist.php");
 
 ob_start("callback");
+// i'm using this solution to have page without layout.. but should this be solved differently?
+// maby define @layout = false
+if ($page_variables['layout'] === 'empty') {
+    $layout_path = $htmlwarrior->config["code_path"] . $htmlwarrior->config["path_templates_layouts"] . '/' . 'empty.tpl';
+}
 $smarty->display($layout_path);
 $htmlwarrior->config["devmode"] = false;
 $content = $smarty->fetch($layout_path);

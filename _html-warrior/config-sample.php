@@ -19,7 +19,7 @@ $htmlwarrior->config["error_page"] = false; # example "error" - which means erro
 
 $htmlwarrior->config["htmlwarrior_prefix"] = "htmlwarrior";
 
-$htmlwarrior->config['multilingual'] = true;
+$htmlwarrior->config['multilingual'] = false;
 $htmlwarrior->config['lang_default'] = 'en';
 $htmlwarrior->config['lang_cookie_name'] = $htmlwarrior->config["htmlwarrior_prefix"] . 'lang_default';
 $htmlwarrior->config['langs_used'] = array('et'=>'eesti keeles', 'en'=>'in english');
