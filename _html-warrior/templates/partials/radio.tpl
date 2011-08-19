@@ -1,1 +1,1 @@
-<label class="{if $class}{$class}{else}radio{/if}"><input class="input" type="radio" name="" /><span class="caption">{if $label_caption}{$label_caption}{else}{literal}label_caption{/literal}{/if}</span></label>
+<label class="{if $class}{$class}{else}radio{/if}"><input class="checker" type="radio" name="" /><span class="caption">{if $label_caption}{$label_caption}{else}{literal}label_caption{/literal}{/if}</span></label>

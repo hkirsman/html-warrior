@@ -16,21 +16,21 @@
      */
     (function() {
         var
-        imageoverlay_wrap = $("#htmlwarrior__imageoverlaycontrols_wrap"), // the image over
-        imageoverlaycontrols = $("#htmlwarrior__imageoverlaycontrols"),
-        imageoverlaycontrols_mousehook = $("#htmlwarrior__imageoverlaycontrols_mousehook"),
-        page = (document.location+"").split("/")[4].split(".")[0].split("?")[0],
-        site = (document.location+"").split("/")[3],
-        opacity = $.cookie("htmlwarrior__imageoverlaycontrols_opacity")?$.cookie("htmlwarrior__imageoverlaycontrols_opacity"):0.4,
-        top = $.cookie("overlay_position_y")?$.cookie("overlay_position_y"):0,
-        left = $.cookie("overlay_position_x")?$.cookie("overlay_position_x"):0,
+        imageoverlay_wrap = $('#htmlwarrior__imageoverlaycontrols_wrap'), // the image over
+        imageoverlaycontrols = $('#htmlwarrior__imageoverlaycontrols'),
+        imageoverlaycontrols_mousehook = $('#htmlwarrior__imageoverlaycontrols_mousehook'),
+        page = (document.location+'').split('/')[4].replace('.html', '').split('?')[0],
+        site = (document.location+'').split('/')[3],
+        opacity = $.cookie('htmlwarrior__imageoverlaycontrols_opacity')?$.cookie('htmlwarrior__imageoverlaycontrols_opacity'):0.4,
+        top = $.cookie('overlay_position_y')?$.cookie('overlay_position_y'):0,
+        left = $.cookie('overlay_position_x')?$.cookie('overlay_position_x'):0,
         lock = false,
         dragging = false,
         overlay_position_x,
         overlay_position_y,
         drag_start_x,
         drag_start_y,
-        overlay_visible = $.cookie("htmlwarrior__imageoverlaycontrols_visible")?$.cookie("htmlwarrior__imageoverlaycontrols_visible"):'false',
+        overlay_visible = $.cookie('htmlwarrior__imageoverlaycontrols_visible')?$.cookie('htmlwarrior__imageoverlaycontrols_visible'):'false',
         move10px = false;
 
         if (page.length==0) {
@@ -206,7 +206,7 @@
         // This creates little draggable div under cursor when ctrl key is held
         // down. Firefox can't move it fast enough thoug.
         $(window).keydown( function(e) {
-            if (e.ctrlKey && !dragging && overlay_visible ) {
+            if (e.ctrlKey && !dragging && overlay_visible=='true' ) {
                 draggable_handle.css({
                     "display" : "block",
                     "left": htmlwarrior_mouse_x-25+"px",

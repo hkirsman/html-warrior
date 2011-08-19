@@ -387,11 +387,14 @@ function remove_bom($str='') {
 function get_page_template_path($url_path) {
     global $htmlwarrior;
     $template_path = '';
-    $array_splice_offset = 2;
+    $array_splice_offset = 1;
     if ($htmlwarrior->config['frontpage_site']) {
-        $array_splice_offset = 1;
+        $array_splice_offset = 0;
     }
-    $a_url_path = explode('/', $url_path);
+    if ($htmlwarrior->config['multilingual']) {
+        $array_splice_offset++;
+    }
+    $a_url_path = explode('/', trim($url_path, "/"));
     $a_url_path_without_site = array_splice($a_url_path, $array_splice_offset, count($a_url_path));
     $url_path_without_site = join('/', $a_url_path_without_site);
 
@@ -451,14 +454,35 @@ function mk_orb($class, $action, $arr = array()) {
 
     if (isset($arr["return_url"])) {
         $ru = $arr["return_url"];
-        unset($arr["return_url"]); 
+        unset($arr["return_url"]);
     }
 
     foreach ($arr as $key => $var) {
         $orb .= '&amp;' . $key . '=' . $var;
     }
 
-    $orb .= '&amp;return_url='.urlencode($ru);
+    $orb .= '&amp;return_url=' . urlencode($ru);
 
     return $orb;
+}
+
+function get_cur_lang() {
+    global $htmlwarrior;
+    $out = false;
+    $prefix = $htmlwarrior->config['htmlwarrior_prefix'];
+    $cookie_name = $htmlwarrior->config['lang_cookie_name'];
+    $path = $htmlwarrior->runtime['parsed_url']['path'];
+    $pathtrimmed = trim($path, "/");
+
+    $a_path = explode('/', $pathtrimmed);
+    $possible_lang = $a_path[0];
+
+    if ($_COOKIE[$cookie_name]) {
+        $out = $_COOKIE[$cookie_name];
+    } elseif (strlen($possible_lang) == 2) {
+        $out = $possible_lang;
+    } else {
+        $out = $htmlwarrior->config['lang_default'];
+    }
+    return $out;
 }

@@ -24,7 +24,7 @@ function smarty_function_partial($params, $template) {
             $params["tpl"] . ".php";
 
     if (file_exists($path_partial_helper)) {
-        require_once($path_partial_helper);
+        require($path_partial_helper);
     }
 
     if ($params["showcss"]) {

@@ -17,6 +17,13 @@ $htmlwarrior->config["log"] = true;
 $htmlwarrior->config["live"] = false;
 $htmlwarrior->config["error_page"] = false; # example "error" - which means error.tpl in templates/pages
 
+$htmlwarrior->config["htmlwarrior_prefix"] = "htmlwarrior";
+
+$htmlwarrior->config['multilingual'] = true;
+$htmlwarrior->config['lang_default'] = 'en';
+$htmlwarrior->config['lang_cookie_name'] = $htmlwarrior->config["htmlwarrior_prefix"] . 'lang_default';
+$htmlwarrior->config['langs_used'] = array('et'=>'eesti keeles', 'en'=>'in english');
+
 $htmlwarrior->config["indent"] = "spaces"; // or tabs
 $htmlwarrior->config["indent_count"] = 2;
 $htmlwarrior->config["debug"] = false;
