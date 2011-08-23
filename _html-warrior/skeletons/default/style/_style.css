@@ -38,7 +38,7 @@ Def
 * html .def ol { margin-left: 25px; }
 .def ul ol, .def ol ol, .def ul ul, .def ol ul { margin-bottom: 0px; }
 .def ul li, .def ol li { line-height: 18px; }
-.def img { margin: 20px }
+.def img { margin: 20px;display: inline; }
 .def blockquote { padding: 0 0 0 20px; margin:0 0 10px 0; }
 /*
 Columns
