@@ -43,17 +43,6 @@ $("input.placeholder").placeholder();
  }
 })(jQuery); 
 
-// Get element coordinates
-function getOffsets(el) {        
-    var o = {x : el.offsetLeft, y : el.offsetTop};        
-    if (el.offsetParent != null) {
-        var po = getOffsets(el.offsetParent);
-        o.x += po.x;
-        o.y += po.y;              
-    }
-    return o;
-}
-
 // Test menu .active class
 (function($) {
   function makeMenuWork(clickableSelector) { 
@@ -75,3 +64,25 @@ $("a").each(function() {
     });
   }
 });
+
+/**
+ * Get url property
+ * @param string name parameter name to get from url
+ */
+function gup( name ) {
+    name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+    var regexS = "[\\?&]"+name+"=([^&#]*)";
+    var regex = new RegExp( regexS );
+    var results = regex.exec( window.location.href );
+    if( results == null )
+        return "";
+    else
+        return results[1];
+}
+
+// change to print.css when ?print=1 in url
+(function($) {
+    if (gup('print')=='1') {
+        $('link[media=print]').attr('media', 'all')
+    }
+})(jQuery);
