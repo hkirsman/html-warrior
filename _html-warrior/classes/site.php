@@ -11,10 +11,18 @@ class site {
     public function create($arr = array()) {
         global $htmlwarrior, $txt;
 
+        if (!isset($arr['donor'])) {
+            die('donor parameter missing');
+        }
+
+        if (!isset($arr['site_name'])) {
+            die('site_name parameter missing');
+        }
+
         $source = $htmlwarrior->config['basepath'] .
                 $htmlwarrior->config['path_code'] .
                 '/skeletons/' .
-                $arr['skeleton'];
+                $arr['donor'];
 
         $target = $htmlwarrior->config['basepath'] .
                 '/' . $arr['site_name'];
