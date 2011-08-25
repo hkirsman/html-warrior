@@ -1,1 +1,1 @@
-<label class="{if $class}{$class}{else}checkbox{/if}"><input class="checker" type="checkbox" name="" /><span class="caption">{if $label_caption}{$label_caption}{else}{literal}label_caption{/literal}{/if}</span></label>
+<label class="{if $class}{$class}{else}checkbox{/if}"><input class="checker" type="checkbox" name="" />{if $label_caption!==false}<span class="caption">{if $label_caption}{$label_caption}{else}{literal}label_caption{/literal}{/if}</span>{/if}</label>
