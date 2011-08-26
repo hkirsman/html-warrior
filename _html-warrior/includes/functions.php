@@ -486,3 +486,39 @@ function get_cur_lang() {
     }
     return $out;
 }
+
+/**
+ * This PHP function scans a given directory and deletes all files and
+ * subdirectories it finds and has permission to delete.
+ * http://lixlpixel.org/recursive_function/php/recursive_directory_delete/
+ * @param string $directory
+ * @param bool $empty remove only stuff inside directory or remove dir also
+ * @return bool
+ */
+function recursive_remove_directory($directory, $empty=false) {
+    if (substr($directory, -1) == '/') {
+        $directory = substr($directory, 0, -1);
+    }
+    if (!file_exists($directory) || !is_dir($directory)) {
+        return false;
+    } elseif (is_readable($directory)) {
+        $handle = opendir($directory);
+        while (false !== ($item = readdir($handle))) {
+            if ($item != '.' && $item != '..') {
+                $path = $directory . '/' . $item;
+                if (is_dir($path)) {
+                    recursive_remove_directory($path);
+                } else {
+                    unlink($path);
+                }
+            }
+        }
+        closedir($handle);
+        if ($empty == false) {
+            if (!rmdir($directory)) {
+                return false;
+            }
+        }
+    }
+    return true;
+}

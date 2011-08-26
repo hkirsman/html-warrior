@@ -81,6 +81,7 @@ class site {
                     $arr['site_name'] . '/' .
                     $htmlwarrior->config['build_dir'] .
                     $htmlwarrior->config['path_images'];
+            recursive_remove_directory($target);
             full_copy($source, $target);
         }
 
@@ -93,6 +94,7 @@ class site {
                     $arr['site_name'] . '/' .
                     $htmlwarrior->config['build_dir'] .
                     $htmlwarrior->config['path_scripts'];
+            recursive_remove_directory($target);
             full_copy($source, $target);
         }
 
@@ -105,9 +107,11 @@ class site {
                     $arr['site_name'] . '/' .
                     $htmlwarrior->config['build_dir'] .
                     $htmlwarrior->config['path_style'];
+            recursive_remove_directory($target);
             full_copy($source, $target);
         }
 
         printf($txt['site_build_done'], $arr['site_name'], $arr['return_url']);
     }
+
 }
