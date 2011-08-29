@@ -6,7 +6,7 @@
     {htmlwarrior_init}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" type="text/css" href="style/reset.css" media="all" />
-    <link rel="stylesheet" type="text/css" href="style/_style.css" media="all" title="" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" media="all" title="" />
     <link rel="stylesheet" type="text/css" href="style/print.css" media="print" title="" />
     {htmlwarrior_plugins indent="    "}
     <title>{$title}</title>
