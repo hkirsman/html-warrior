@@ -4,23 +4,23 @@ Change Log
 HTML Warrior 0.4.11
 -------------------
 
-2011/08/31
-- Skeleton: remove estonian text and obsolete variable
+2011/08/31  
+- Skeleton: remove estonian text and obsolete variable  
 
 
-2011/08/29
-- Default skeleton: New css and structure for style.css
-- Skeleton: move _style.css to style.css
-- Skeleton: 1x1.png to trans.png
+2011/08/29  
+- Default skeleton: New css and structure for style.css  
+- Skeleton: move _style.css to style.css  
+- Skeleton: 1x1.png to trans.png  
 
 
-2011/08/26
-- Site build cleans images, style, scripts
+2011/08/26  
+- Site build cleans images, style, scripts  
 
 
-2011/08/25
-- Checkbox and radio partials fix - if label_caption===false, don't show captions span
-- Default skeleton - reset form elements
+2011/08/25  
+- Checkbox and radio partials fix - if label_caption===false, don't show captions span  
+- Default skeleton - reset form elements  
 
 
 2011/08/24
