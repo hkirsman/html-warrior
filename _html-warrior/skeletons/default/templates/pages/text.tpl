@@ -1,7 +1,7 @@
-@title = "Tekstivaade"
-@isSubpage = true
+@title = "Textpage"
+
 <div id="sideContent">
-  
+
   {partial template="sidenav" indent="  "}
 
 </div>
