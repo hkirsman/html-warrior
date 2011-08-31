@@ -25,7 +25,7 @@
       </div>
       <h1 class="logo sidefloat">HTML Warrior</h1>
     </div>
-    
+
     <div id="newsite">
       <form action="{$config.path_code}/orb.php">
         <input type="hidden" name="class" value="site" />
@@ -34,19 +34,19 @@
 
         <div>
           {$txt.admin_create_site}:
-          <select name="skeleton">
+          <select name="donor">
             <option value="default">default</option>
             <option value="newsletter">newsletter</option>
           </select>
-          
+
           <input type="text" name="site_name" value="{$txt.admin_new_site_name}"
                   onclick="if(this.value=='{$txt.admin_new_site_name}'){ this.value=''; }"
                   onblur="if(this.value==''){ this.value='{$txt.admin_new_site_name}'; }" />
-                  
+
           <button><span>{$txt.admin_create}</span></button>
         </div>
       </form>
-    </div>    
+    </div>
 
     <div id="content">
       <div class="col col01">
