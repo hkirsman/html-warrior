@@ -81,8 +81,8 @@ $smarty->setTemplateDir($htmlwarrior->config["basepath"] . "/" . $htmlwarrior->r
 $request_uri = explode("/", trim($htmlwarrior->runtime["parsed_url"]["path"], "/"));
 
 // delete lang part of request_uri
-if ( $htmlwarrior->config['multilingual'] ) {
-    $request_uri = array_splice ($request_uri, 1 );
+if ($htmlwarrior->config['multilingual']) {
+    $request_uri = array_splice($request_uri, 1);
 }
 
 if ($htmlwarrior->config['live']) {
@@ -148,24 +148,35 @@ if (@strpos($request_uri[1], "__logged")) {
 }
 // how to limit scope of $params, $page_template_php_path, $page_object etc
 {
-    $page_template_path = get_page_template_path($htmlwarrior->runtime["parsed_url"]["path"]);
-    $page_template_php_path = str_replace('.tpl', '.php', $page_template_path);
+    $page_tpl_path = get_page_template_path($htmlwarrior->runtime["parsed_url"]["path"]);
+    $page_object = $smarty->createTemplate($page_tpl_path);
+    $page_content_before_assigns = $smarty->fetch($page_object);
+    $page_variables = parse_variables($page_content_before_assigns);
+    if (isset($page_variables['php'])) {
+        $page_template_php_path = $htmlwarrior->config['basepath'] . '/' .
+                $htmlwarrior->runtime['site_dir'] .
+                $htmlwarrior->config['path_templates_pages'] . '/' .
+                $page_variables['php'];
+    } else {
+        $page_template_php_path = str_replace('.tpl', '.php', $page_tpl_path);
+    }
     // load page php
     if (file_exists($page_template_php_path)) {
         require_once($page_template_php_path);
     }
-    $page_object = $smarty->createTemplate($page_template_path);
-    foreach($params as $key=>$val) {
-        $page_object->assign($key,$val);
+    $page_object = $smarty->createTemplate($page_tpl_path);
+    foreach ($params as $key => $val) {
+        $page_object->assign($key, $val);
     }
     $page_content = $smarty->fetch($page_object);
     if ($htmlwarrior->config["build"]) {
-        $template_filetime = filemtime($page_template_path);
+        $template_filetime = filemtime($page_tpl_path);
     }
-    unset($page_template_path, $page_object, $params);
+    unset($page_content_before_assigns,
+            $page_tpl_path,
+            $page_object,
+            $params);
 }
-
-$page_variables = parse_variables($page_content);
 
 if (!isset($page_variables["layout"])) {
     $htmlwarrior->layout = "default";
