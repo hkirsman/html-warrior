@@ -148,7 +148,7 @@ if (@strpos($request_uri[1], '__logged')) {
 }
 
 
-// load page template and extract both its source and variables
+// Load page template and extract both its source and variables
 // templates and php are written to separate files. If page is named
 // pages/foo.tpl then pages/foo.php is also checked and included if
 // available.
@@ -157,23 +157,28 @@ if (@strpos($request_uri[1], '__logged')) {
 list($page_content, $page_variables) = $htmlwarrior->load_page();
 
 
+// Set default template if not set from page template
 if (!isset($page_variables['layout'])) {
     $htmlwarrior->layout = 'default';
 } else {
     $htmlwarrior->layout = $page_variables['layout'];
 }
-$layout_path = 'layouts/' . $htmlwarrior->layout . '.tpl';
-$variable_indents = get_indents_for_variables(file_get_contents($smarty->getTemplateDir(0) . '/' . $layout_path));
 
-if (isset($page_variables['title']))
-    $smarty->assign('title', $page_variables['title']);
-else
-    $smarty->assign('title', '');
+// Get full layout path
+$layout_path = $htmlwarrior->config['basepath'] . '/' .
+        $htmlwarrior->runtime['site_dir'] .
+        $htmlwarrior->config["path_templates_layouts"] . '/' .
+        $htmlwarrior->layout . '.tpl';
 
-if (isset($page_variables['custom1']))
-    $smarty->assign('custom1', $page_variables['custom1']);
-else
-    $smarty->assign('custom1', '');
+// Get all indents from variables.
+// We're after the $yield variable indent
+$variable_indents = get_indents_for_variables(file_get_contents($layout_path));
+
+// set variables
+// should these be added to layout template object (which we don't have yet)
+foreach ($page_variables as $key=>$var) {
+    $smarty->assign($key, $var);
+}
 
 $yield = indent(remove_variables($page_content), $variable_indents['yield']);
 $yield = ltrim($yield);
