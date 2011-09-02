@@ -146,37 +146,16 @@ if (@strpos($request_uri[1], '__logged')) {
     $smarty->assign('logged', false);
     $htmlwarrior->logged = false;
 }
-// how to limit scope of $params, $page_template_php_path, $page_object etc
-{
-    $page_tpl_path = get_page_template_path($htmlwarrior->runtime['parsed_url']['path']);
-    $page_object = $smarty->createTemplate($page_tpl_path);
-    $page_content_before_assigns = $smarty->fetch($page_object);
-    $page_variables = parse_variables($page_content_before_assigns);
-    if (isset($page_variables['php'])) {
-        $page_template_php_path = $htmlwarrior->config['basepath'] . '/' .
-                $htmlwarrior->runtime['site_dir'] .
-                $htmlwarrior->config['path_templates_pages'] . '/' .
-                $page_variables['php'];
-    } else {
-        $page_template_php_path = str_replace('.tpl', '.php', $page_tpl_path);
-    }
-    // load page php
-    if (file_exists($page_template_php_path)) {
-        require_once($page_template_php_path);
-    }
-    $page_object = $smarty->createTemplate($page_tpl_path);
-    foreach ($params as $key => $val) {
-        $page_object->assign($key, $val);
-    }
-    $page_content = $smarty->fetch($page_object);
-    if ($htmlwarrior->config['build']) {
-        $template_filetime = filemtime($page_tpl_path);
-    }
-    unset($page_content_before_assigns,
-            $page_tpl_path,
-            $page_object,
-            $params);
-}
+
+
+// load page template and extract both its source and variables
+// templates and php are written to separate files. If page is named
+// pages/foo.tpl then pages/foo.php is also checked and included if
+// available.
+// write all the variables that you want to be added to the template to a
+// variable called $params;
+list($page_content, $page_variables) = $htmlwarrior->load_page();
+
 
 if (!isset($page_variables['layout'])) {
     $htmlwarrior->layout = 'default';

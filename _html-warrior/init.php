@@ -1,10 +1,6 @@
 <?php
 
-// init empty htmlwarrior class to add variables. Todo: create some method etc.
-class htmlwarrior {
-
-}
-
+require_once('classes/htmlwarrior.php');
 $htmlwarrior = new htmlwarrior();
 
 require_once('includes/functions.php');
