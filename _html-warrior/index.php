@@ -170,8 +170,8 @@ $layout_path = $htmlwarrior->config['basepath'] . '/' .
         $htmlwarrior->config["path_templates_layouts"] . '/' .
         $htmlwarrior->layout . '.tpl';
 
-// Get all indents from variables.
-// We're after the $yield variable indent
+// Get all variables indents so we can indent the content right
+// We're after the $yield variable indent now
 $variable_indents = get_indents_for_variables(file_get_contents($layout_path));
 
 // set variables
