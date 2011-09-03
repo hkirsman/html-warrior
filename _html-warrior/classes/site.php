@@ -54,9 +54,16 @@ class site {
     public function build($arr = array()) {
         global $htmlwarrior, $txt;
 
+        $site_path = $htmlwarrior->config['basepath'] . '/' . $arr['site_name'];
+
+        // cleanup - delete contents of build dir prior to copy and compile
+        recursive_remove_directory($site_path . '/' .
+                $htmlwarrior->config['build_dir'], true);
+
+        // compile templates
+        // todo: also compile loggedin templates
         $files = array();
-        if ($handle = opendir($htmlwarrior->config['basepath'] . '/' .
-                        $arr['site_name'] . '/templates/pages')) {
+        if ($handle = opendir($site_path . '/templates/pages')) {
             while (false !== ($file = readdir($handle))) {
                 if ($file != '.' && $file != '..') {
                     $tpl_files[] = $file;
@@ -71,44 +78,39 @@ class site {
             }
         }
 
-        // copy dirs
-        // copy images
-        $source = $htmlwarrior->config['basepath'] . '/' .
-                $arr['site_name'] .
-                $htmlwarrior->config['path_images'];
-        if (is_dir($source)) {
-            $target = $htmlwarrior->config['basepath'] . '/' .
-                    $arr['site_name'] . '/' .
-                    $htmlwarrior->config['build_dir'] .
-                    $htmlwarrior->config['path_images'];
-            recursive_remove_directory($target);
-            full_copy($source, $target);
-        }
+        // copy dirs to build dir
+        // all except build, templates, overlays and cfg
+        $site_root_files = glob($site_path . '/*');
+        foreach ($site_root_files as $path) {
+            if (is_dir($path)) {
+                // check if dir is templates dir
+                $path_templates = str_replace('/', '\/', $htmlwarrior->config['path_templates']);
+                $is_templates_dir = preg_match('/' . $path_templates . '$/imsU', $path, $mt);
 
-        // copy scripts
-        $source = $htmlwarrior->config['basepath'] . '/' .
-                $arr['site_name'] .
-                $htmlwarrior->config['path_scripts'];
-        if (is_dir($source)) {
-            $target = $htmlwarrior->config['basepath'] . '/' .
-                    $arr['site_name'] . '/' .
-                    $htmlwarrior->config['build_dir'] .
-                    $htmlwarrior->config['path_scripts'];
-            recursive_remove_directory($target);
-            full_copy($source, $target);
-        }
+                // check if dir is cfg dir
+                $path_cfg = str_replace('/', '\/', $htmlwarrior->config['path_cfg']);
+                $is_cfg_dir = preg_match('/' . $path_cfg . '$/imsU', $path, $mt);
 
-        //  copy styles
-        $source = $htmlwarrior->config['basepath'] . '/' .
-                $arr['site_name'] .
-                $htmlwarrior->config['path_style'];
-        if (is_dir($source)) {
-            $target = $htmlwarrior->config['basepath'] . '/' .
-                    $arr['site_name'] . '/' .
-                    $htmlwarrior->config['build_dir'] .
-                    $htmlwarrior->config['path_style'];
-            recursive_remove_directory($target);
-            full_copy($source, $target);
+                // check if dir is build dir
+                $path_build = str_replace('/', '\/', $htmlwarrior->config['path_build']);
+                $is_build_dir = preg_match('/' . $path_build . '$/imsU', $path, $mt);
+
+                // check if dir is overlays dir
+                $path_overlays = str_replace('/', '\/', $htmlwarrior->config['path_overlays']);
+                $is_overlays_dir = preg_match('/' . $path_overlays . '$/imsU', $path, $mt);
+
+                if (!$is_templates_dir &&
+                        !$is_cfg_dir &&
+                        !$is_build_dir &&
+                        !$is_overlays_dir) {
+                    $dir = end(explode('/', $path));
+                    $target = $site_path . '/' .
+                            $htmlwarrior->config['build_dir'] . '/' .
+                            $dir;
+                    recursive_remove_directory($target);
+                    full_copy($path, $target);
+                }
+            }
         }
 
         printf($txt['site_build_done'], $arr['site_name'], $arr['return_url']);
