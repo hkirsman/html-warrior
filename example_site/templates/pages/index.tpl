@@ -4,6 +4,20 @@
   <h2 class="entry-title"><a href="index.html" title="Permalink: Hello, html guru!" rel="bookmark">Hello, html guru!</a></h2>
 
   <div class="entry-content">
+{markdown}
+lorem ipsum
+
+lorem ipsum
+foo
+{/markdown}
+
+{markdown}
+lorem ipsum123
+
+lorem ipsum
+foo
+{/markdown}
+
     <p>Welcome to HTML Warrior! I'm index.tpl called from page templates ( example_site\templates\pages\ ). Page templates are called based on url - thus index.html calls index.tpl.
 
     <p>Before I go on, that thing on the top right corner, it's part of HTML Warrior. It's for creating overlay of your design. Just save your
