@@ -13,6 +13,9 @@
 function smarty_function_partial($params, $template) {
     global $smarty, $htmlwarrior;
 
+    // make $page variable accessible to partial helper
+    $page = $htmlwarrior->page;
+
     if (empty($params['tpl'])) {
         trigger_error("[plugin] fetch parameter 'tpl' cannot be empty", E_USER_NOTICE);
         return;
@@ -24,6 +27,7 @@ function smarty_function_partial($params, $template) {
             $params["tpl"] . ".php";
 
     if (file_exists($path_partial_helper)) {
+        
         require($path_partial_helper);
     }
 
