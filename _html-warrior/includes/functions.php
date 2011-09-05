@@ -184,21 +184,23 @@ function dir_list($dir) {
 }
 
 /**
- * Unified javascript tag
- * @param string $file required URI to js. Js extension can be omitted. Php
+ * Unified javascript tag. Used mainly in script partial.
+ * @param string $file required URI to js. Js extension can be omitted. PHP
  * extension can be used.
  * @return string <script> tag
  */
 function html_javascript($file, $scripts_as_root = true) {
-    $a_file = explode("/", $file);
-    $template_name = end($a_file);
-    $file = str_replace($template_name, "", $file);
-    if (strpos($template_name, ".php") === false) {
-        $file .= $template_name . ".js";
+    $a_file = explode('/', $file);
+    $tpl = end($a_file);
+    $tpl_escaped = str_replace('.', '\.', $tpl);
+    $path = preg_replace('/' . $tpl_escaped . '$/isU', '', $file);
+    if (strpos($tpl, '.php') === false) {
+        $path .= $tpl . '.js';
     } else {
-        $file .= $template_name;
+        $path .= $tpl;
     }
-    return '<script type="text/javascript" src="' . ($scripts_as_root ? 'scripts/' : '') . $file . '"></script>';
+    $src = ($scripts_as_root ? 'scripts/' : '') . $path;
+    return '<script type="text/javascript" src="' . $src . '"></script>';
 }
 
 /**
