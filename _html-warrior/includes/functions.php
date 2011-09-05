@@ -248,10 +248,14 @@ function parse_variables($content) {
     }
     foreach ($variables as $key => $var) {
         if (count($var) == 1) {
-            $variables[$key] = $var[0];
+            $tempvar = $var[0];
         } else {
-            $variables[$key] = $var;
+            $$tempvar = $var;
         }
+        if ($tempvar === "false") {
+            $tempvar = false;
+        }
+        $variables[$key] = $tempvar;
     }
     return $variables;
 }

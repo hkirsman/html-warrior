@@ -198,8 +198,6 @@ require_once($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['sit
 //require_once('filelist.php');
 
 ob_start('callback');
-// i'm using this solution to have page without layout.. but should this be solved differently?
-// maby define @layout = false
 if ($page_variables['layout'] === false) {
     $layout_path = $htmlwarrior->config['code_path'] . $htmlwarrior->config['path_templates_layouts'] . '/' . 'empty.tpl';
 }
