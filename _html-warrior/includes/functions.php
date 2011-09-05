@@ -239,10 +239,10 @@ function parse_variables($content) {
     $variables = array();
     $file = explode("\n", $content);
     foreach ($file as $key => $var) {
-        if (preg_match("/^@/", $var)) {
-            $tempvar = explode(" = ", $var);
-            $tempvar_key = trim(str_replace("@", "", $tempvar[0]));
-            $tempvar_value = trim(str_replace('"', "", $tempvar[1]));
+        if (preg_match('/^@/', $var)) {
+            $tempvar = explode('=', $var);
+            $tempvar_key = trim(str_replace("@", '', $tempvar[0]));
+            $tempvar_value = trim(str_replace('"', '', $tempvar[1]));
             $variables[$tempvar_key][] = $tempvar_value;
         }
     }
