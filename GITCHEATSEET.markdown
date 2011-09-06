@@ -17,7 +17,7 @@ git gommit origin master
 commit to github
 
 git reset --hard HEAD
-reset to last commit
+reset to last commit ( does not delete non-versioned directories thank god :) )
 
 git diff --check
 Check if files about the committed don't have trailing white-space
