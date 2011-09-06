@@ -30,12 +30,15 @@ $htmlwarrior->config['debug'] = false;
 $htmlwarrior->config['devmode'] = true; # shov layer overlay, pagelist etc
 $htmlwarrior->config['build_dir'] = 'build';
 $htmlwarrior->config['path_build'] = $htmlwarrior->config['build_dir'];
-$htmlwarrior->config['path_templates_layouts'] = '/templates/layouts';
-$htmlwarrior->config['path_templates_pages'] = '/templates/pages';
-$htmlwarrior->config['path_templates_partials'] = '/templates/partials';
+$htmlwarrior->config['path_templates'] = '/templates';
+$htmlwarrior->config['path_templates_layouts'] = $htmlwarrior->config['path_templates'] . '/layouts';
+$htmlwarrior->config['path_templates_pages'] = $htmlwarrior->config['path_templates'] . '/pages';
+$htmlwarrior->config['path_templates_partials'] = $htmlwarrior->config['path_templates'] . '/partials';
 $htmlwarrior->config['path_images'] = '/images';
 $htmlwarrior->config['path_style'] = '/style';
 $htmlwarrior->config['path_scripts'] = '/scripts';
+$htmlwarrior->config['path_cfg'] = '/cfg';
+$htmlwarrior->config['path_overlays'] = '/overlays';
 
 $htmlwarrior->config['locale'] = 'english-utf8.php';
 
