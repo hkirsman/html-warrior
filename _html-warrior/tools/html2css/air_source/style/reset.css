@@ -1,0 +1,29 @@
+/*[fmt]0000-000A-A*/
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{color:inherit;border:0;font-size:100%;margin:0;outline:0;padding:0;vertical-align:baseline;}
+body{line-height:1;}
+ol,ul{list-style:none;}
+blockquote,q{quotes:none;}
+#header :focus{outline:0;}
+ins{text-decoration:underline;}
+del{text-decoration:line-through;}
+table{border-collapse:collapse;border-spacing:0;font-size:inherit;}
+input,textarea,select,button{font-family:inherit;font-size:inherit;font-weight:inherit;}
+textarea{overflow:auto;}
+body,html{height:100%;text-align:left;}
+button{border:0;width:auto;overflow:visible !important;cursor:pointer;margin:0;}
+.button:hover{text-decoration:none;}
+textarea{border:0;}
+th{text-align:left;}
+button::-moz-focus-inner{border:none;padding:0;}
+.safari button span{margin:-1px -3px 0;position:relative;}
+a span{cursor:pointer;}
+img,iframe{display:block;}
+
+INPUT.radio, INPUT.checkbox
+{
+	vertical-align: middle;
+	width: 13px;
+	height: 13px;
+	margin: 0;
+	padding: 0;
+}
