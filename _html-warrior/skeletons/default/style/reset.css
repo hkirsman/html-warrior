@@ -33,3 +33,4 @@ button::-moz-focus-inner{border:none;padding:0}
 a span{cursor:pointer}
 img,iframe{display:block}
 .checker {width:13px;height:13px;display:inline-block;vertical-align:middle;margin:0;padding:0;}
+div,span{position:relative}
