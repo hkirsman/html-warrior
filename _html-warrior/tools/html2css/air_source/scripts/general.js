@@ -1,3 +1,10 @@
+function applicationExit(){
+    var exitingEvent = new air.Event(air.Event.EXITING, false, true);
+    air.NativeApplication.nativeApplication.dispatchEvent(exitingEvent);
+    if (!exitingEvent.isDefaultPrevented()) {
+        air.NativeApplication.nativeApplication.exit();
+    }
+}
 
 $(document).ready(function() {
     var outbutton = $('#outbutton');
@@ -40,6 +47,14 @@ $(document).ready(function() {
 
         out_div.html(out);
     }
+
+    html2css();
+
+    if(air.Clipboard.generalClipboard.hasFormat(air.ClipboardFormats.TEXT_FORMAT)) {
+        air.Clipboard.generalClipboard.setData(air.ClipboardFormats.TEXT_FORMAT, out_div.val());
+    }
+
+    applicationExit();
 
     outbutton.click(function () {
         html2css();
