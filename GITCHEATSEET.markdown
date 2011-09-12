@@ -52,3 +52,7 @@ Remove/revert the last commit
 
 git checkout -b iss53
 Create branch for iss53. Another point is how to branch issues in a short name.
+
+git checkout master
+git merge hotfix
+Merge hotfix branch with master
