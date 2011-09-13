@@ -1,6 +1,18 @@
 Change Log
 ==========
 
+HTML Warrior 0.4.24
+-------------------
+
+1. Strip down server: takes 42,2MB less disk space
+2. Add Markdown syntax {markdown}{/markdown}
+3. @layout = false uses empty layout
+4. Build logic change - copy all but system dirs
+5. Load any var @var to page
+6. HTML@CSS tool. Creates selectors from HTML
+7. Lots of small fixes
+
+
 HTML Warrior 0.4.11
 -------------------
 
