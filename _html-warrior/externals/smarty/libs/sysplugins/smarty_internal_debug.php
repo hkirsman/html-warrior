@@ -188,7 +188,11 @@ class Smarty_Internal_Debug extends Smarty_Internal_Data {
         if (isset(self::$template_data[$key])) {
             return $key;
         } else {
-            self::$template_data[$key]['name'] = $template->source->filepath;
+            if (in_array($template->source->type, array('string','eval'))) {
+                self::$template_data[$key]['name'] = '\''.substr($template->source->name,0,25).'...\'';
+            } else {
+                self::$template_data[$key]['name'] = $template->source->filepath;
+            }
             self::$template_data[$key]['compile_time'] = 0;
             self::$template_data[$key]['render_time'] = 0;
             self::$template_data[$key]['cache_time'] = 0;

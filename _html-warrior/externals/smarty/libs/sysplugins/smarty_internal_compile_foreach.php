@@ -131,12 +131,7 @@ class Smarty_Internal_Compile_Foreach extends Smarty_Internal_CompileBase {
                 $output .= " \$_smarty_tpl->tpl_vars['smarty']->value['foreach'][$name]['show']=(\$_smarty_tpl->tpl_vars[$item]->total > 0);\n";
             }
         }
-        if ($usesPropTotal) {
-            $output .= "if (\$_smarty_tpl->tpl_vars[$item]->total > 0){\n";
-        } else {
-            $output .= "if (\$_smarty_tpl->_count(\$_from) > 0){\n";
-        }
-        $output .= "    foreach (\$_from as \$_smarty_tpl->tpl_vars[$item]->key => \$_smarty_tpl->tpl_vars[$item]->value){\n";
+        $output .= "\$_loop = false;\nforeach (\$_from as \$_smarty_tpl->tpl_vars[$item]->key => \$_smarty_tpl->tpl_vars[$item]->value){\n\$_loop = true;\n";
         if ($key != null) {
             $output .= " \$_smarty_tpl->tpl_vars[$key]->value = \$_smarty_tpl->tpl_vars[$item]->key;\n";
         }
@@ -196,7 +191,7 @@ class Smarty_Internal_Compile_Foreachelse extends Smarty_Internal_CompileBase {
         list($openTag, $nocache, $item, $key) = $this->closeTag($compiler, array('foreach'));
         $this->openTag($compiler, 'foreachelse', array('foreachelse', $nocache, $item, $key));
 
-        return "<?php }} else { ?>";
+        return "<?php }\nif (!\$_loop) {\n?>";
     }
 
 }
@@ -228,11 +223,7 @@ class Smarty_Internal_Compile_Foreachclose extends Smarty_Internal_CompileBase {
 
         list($openTag, $compiler->nocache, $item, $key) = $this->closeTag($compiler, array('foreach', 'foreachelse'));
 
-        if ($openTag == 'foreachelse') {
-            return "<?php } ?>";
-        } else {
-            return "<?php }} ?>";
-        }
+        return "<?php } ?>";
     }
 
 }

@@ -1,13 +1,14 @@
-Smarty 3.1 RC1
+Smarty 3.1.0
 
-Author: Monte Ohrt <monte at ohrt dot com >
-Author: Uwe Tews
+Developer: Monte Ohrt <monte at ohrt dot com >
+Developer: Uwe Tews
+Developer: Rodney Rehm
 
 AN INTRODUCTION TO SMARTY 3
 
-NOTICE for 3.1 release:
+NOTICE FOR 3.1 release:
 
-Please see the SMARTY_3.1_NOTES.txt file for details.
+Please see the SMARTY_3.1_NOTES.txt file that comes with the distribution.
 
 NOTICE for 3.0.5 release:
 

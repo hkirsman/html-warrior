@@ -310,7 +310,7 @@ class Smarty_Internal_Data {
      * @param string $variable the name of the config variable
      * @return mixed the value of the config variable
      */
-    public function getConfigVariable($variable)
+    public function getConfigVariable($variable, $error_enable = true)
     {
         $_ptr = $this;
         while ($_ptr !== null) {
@@ -321,7 +321,7 @@ class Smarty_Internal_Data {
             // not found, try at parent
             $_ptr = $_ptr->parent;
         }
-        if ($this->smarty->error_unassigned) {
+        if ($this->smarty->error_unassigned && $error_enable) {
             // force a notice
             $x = $$variable;
         }

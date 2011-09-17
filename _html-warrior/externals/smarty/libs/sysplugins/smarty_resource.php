@@ -16,7 +16,16 @@
  * @subpackage TemplateResources
  */
 abstract class Smarty_Resource {
-
+    /**
+     * cache for Smarty_Template_Source instances
+     * @var array
+     */
+    public static $sources = array();
+    /**
+     * cache for Smarty_Template_Compiled instances
+     * @var array
+     */
+    public static $compileds = array();
     /**
      * cache for Smarty_Resource instances
      * @var array
@@ -31,7 +40,8 @@ abstract class Smarty_Resource {
         'string' => true,
         'extends' => true,
         'stream' => true,
-        'eval' => true
+        'eval' => true,
+        'php' => true
     );
 
     /**
@@ -193,11 +203,11 @@ abstract class Smarty_Resource {
 
         // files relative to a template only get one shot
         if (isset($_file_exact_match)) {
-            return file_exists($file) ? $file : false;
+            return $this->fileExists($source, $file) ? $file : false;
         }
 
         // template_dir index?
-        if (preg_match('#^\[(?<key>[^\]]+)\](?<file>.+)$#', $file, $match)) {
+        if (preg_match('#^\[(?P<key>[^\]]+)\](?P<file>.+)$#', $file, $match)) {
             if ($match['file'][0] == '.' && ($match['file'][1] == '.' || $match['file'][1] == '/' || $match['file'][1] == "\\")) {
                 throw new SmartyException("Template '{$match['file']}' may not start with ../ or ./'");
             }
@@ -221,7 +231,7 @@ abstract class Smarty_Resource {
             if ($_directory) {
                 $_file = substr($file, strpos($file, ']') + 1);
                 $_filepath = $_directory . $_file;
-                if (file_exists($_filepath)) {
+                if ($this->fileExists($source, $_filepath)) {
                     return $_filepath;
                 }
             }
@@ -231,7 +241,7 @@ abstract class Smarty_Resource {
         if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $file)) {
             foreach ($_directories as $_directory) {
                 $_filepath = $_directory . $file;
-                if (file_exists($_filepath)) {
+                if ($this->fileExists($source, $_filepath)) {
                     return $_filepath;
                 }
                 if ($source->smarty->use_include_path && !preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_directory)) {
@@ -244,7 +254,7 @@ abstract class Smarty_Resource {
         }
 
         // try absolute filepath
-        if (file_exists($file)) {
+        if ($this->fileExists($source, $file)) {
             return $file;
         }
 
@@ -260,16 +270,33 @@ abstract class Smarty_Resource {
             $_return = call_user_func_array($_default_handler,
                 array($source->type, $source->name, &$_content, &$_timestamp, $source->smarty));
             if (is_string($_return)) {
+                $source->timestamp = @filemtime($_return);
+                $source->exists = !!$source->timestamp;
                 return $_return;
             } elseif ($_return === true) {
                 $source->content = $_content;
                 $source->timestamp = $_timestamp;
+                $source->exists = true;
                 return $_filepath;
             }
         }
 
         // give up
         return false;
+    }
+
+    /**
+     * test is file exists and save timestamp
+     *
+     * @param Smarty_Template_Source   $source    source object
+     * @param string $file file name
+     * @return bool  true if file exists
+     */
+    protected function fileExists(Smarty_Template_Source $source, $file)
+    {
+        $source->timestamp = @filemtime($file);
+        return $source->exists = !!$source->timestamp;
+
     }
 
     /**
@@ -343,6 +370,8 @@ abstract class Smarty_Resource {
             return self::$resources['stream'];
         }
 
+        // TODO: try default_(template|config)_handler
+
         // give up
         throw new SmartyException('Unkown resource type \'' . $resource_type . '\'');
     }
@@ -364,6 +393,12 @@ abstract class Smarty_Resource {
             $template_resource = $_template->template_resource;
         }
 
+        // check runtime cache
+        $_cache_key = 'template|' . $template_resource;
+        if (isset(self::$sources[$_cache_key])) {
+            return self::$sources[$_cache_key];
+        }
+
         if (($pos = strpos($template_resource, ':')) === false) {
             // no resource given, use default
             $resource_type = $smarty->default_resource_type;
@@ -382,6 +417,9 @@ abstract class Smarty_Resource {
         $resource = Smarty_Resource::load($smarty, $resource_type);
         $source = new Smarty_Template_Source($resource, $smarty, $template_resource, $resource_type, $resource_name);
         $resource->populate($source, $_template);
+
+        // runtime cache
+        self::$sources[$_cache_key] = $source;
         return $source;
     }
 
@@ -411,7 +449,7 @@ abstract class Smarty_Resource {
             }
         }
 
-        if (in_array($resource_type, array('eval', 'string', 'extends'))) {
+        if (in_array($resource_type, array('eval', 'string', 'extends', 'php'))) {
             throw new SmartyException ("Unable to use resource '{$resource_type}' for config");
         }
 
@@ -550,10 +588,20 @@ class Smarty_Template_Source {
      */
     public function getCompiled(Smarty_Internal_Template $_template)
     {
+        // check runtime cache
+        $_cache_key = $_template->template_resource . '#' . $_template->compile_id;
+        if (isset(Smarty_Resource::$compileds[$_cache_key])) {
+            return Smarty_Resource::$compileds[$_cache_key];
+        }
+
         $compiled = new Smarty_Template_Compiled($this);
         $this->handler->populateCompiledFilepath($compiled, $_template);
         $compiled->timestamp = @filemtime($compiled->filepath);
         $compiled->exists = !!$compiled->timestamp;
+
+        // runtime cache
+        Smarty_Resource::$compileds[$_cache_key] = $compiled;
+
         return $compiled;
     }
 
@@ -664,6 +712,14 @@ class Smarty_Template_Compiled {
      * @var Smarty_Template_Source
      */
     public $source = null;
+
+    /**
+     * Metadata properties
+     *
+     * populated by Smarty_Internal_Template::decodeProperties()
+     * @var array
+     */
+    public $_properties = null;
 
     /**
      * create Compiled Object container

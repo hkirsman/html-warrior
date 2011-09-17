@@ -60,6 +60,10 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
         } else {
             // display value
             $output = $parameter['value'];
+            // tag modifier
+            if (!empty($parameter['modifierlist'])) {
+                $output = $compiler->compileTag('private_modifier', array(), array('modifierlist' => $parameter['modifierlist'], 'value' => $output));
+            }
             // default modifier
             if (!empty($compiler->smarty->default_modifiers)) {
                 if (empty($compiler->default_modifier_list)) {
@@ -114,10 +118,6 @@ class Smarty_Internal_Compile_Private_Print_Expression extends Smarty_Internal_C
                         }
                     }
                 }
-            }
-            // tag modifier
-            if (!empty($parameter['modifierlist'])) {
-                $output = $compiler->compileTag('private_modifier', array(), array('modifierlist' => $parameter['modifierlist'], 'value' => $output));
             }
 
             $compiler->has_output = true;

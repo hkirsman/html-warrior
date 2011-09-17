@@ -144,7 +144,7 @@ class Smarty_Internal_Compile_Block extends Smarty_Internal_CompileBase {
             $compiler->trigger_template_error('{$smarty.block.child} used out of context', $compiler->lex->taglineno);
         }
         // undefined child?
-        if (!isset($compiler->template->block_data[$_name])) {
+        if (!isset($compiler->template->block_data[$_name]['source'])) {
             return '';
         }
         $_tpl = new Smarty_Internal_template ('string:' . $compiler->template->block_data[$_name]['source'], $compiler->smarty, $compiler->template, $compiler->template->cache_id,

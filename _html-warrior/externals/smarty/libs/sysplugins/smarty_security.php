@@ -89,17 +89,17 @@ class Smarty_Security {
     /**
      * This is an array of allowed modifier plugins.
      *
-     * If empty no restriction by allowed_modifier.
+     * If empty no restriction by allowed_modifiers.
      * @var array
      */
-    public $allowed_modifier = array();
+    public $allowed_modifiers = array();
     /**
      * This is an array of disabled modifier plugins.
      *
-     * If empty no restriction by disabled_modifier.
+     * If empty no restriction by disabled_modifiers.
      * @var array
      */
-    public $disabled_modifier = array();
+    public $disabled_modifiers = array();
     /**
      * This is an array of trusted streams.
      *
@@ -120,7 +120,7 @@ class Smarty_Security {
     public $allow_super_globals = true;
 
     /**
-     * @param Smarty $smarty 
+     * @param Smarty $smarty
      */
     public function __construct($smarty)
     {
@@ -251,13 +251,13 @@ class Smarty_Security {
             return true;
         }
         // check security settings
-        if (empty($this->allowed_modifier)) {
-            if (empty($this->disabled_modifier) || !in_array($modifier_name, $this->disabled_modifier)) {
+        if (empty($this->allowed_modifiers)) {
+            if (empty($this->disabled_modifiers) || !in_array($modifier_name, $this->disabled_modifiers)) {
                 return true;
             } else {
                 $compiler->trigger_template_error("modifier '{$modifier_name}' disabled by security setting", $compiler->lex->taglineno);
             }
-        } else if (in_array($modifier_name, $this->allowed_modifier) && !in_array($modifier_name, $this->disabled_modifier)) {
+        } else if (in_array($modifier_name, $this->allowed_modifiers) && !in_array($modifier_name, $this->disabled_modifiers)) {
             return true;
         } else {
             $compiler->trigger_template_error("modifier '{$modifier_name}' not allowed by security setting", $compiler->lex->taglineno);

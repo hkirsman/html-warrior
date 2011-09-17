@@ -1,4 +1,97 @@
-﻿===== Smarty 3.1-RC1 =====
+﻿===== Smarty 3.1  =====
+15/09/2011
+- optimization of {foreach}; call internal _count() method only when "total" or "last" {foreach} properties are used
+
+11/09/2011
+- added  unregisterObject() methode
+
+06/09/2011
+- bugfix  isset() did not work in templates on config variables
+
+03/09/2011
+- bugfix createTemplate() must default to cache_id and compile_id of Smarty object
+- bugfix Smarty_CacheResource_KeyValueStore must include $source->uid in cache filepath to keep templates with same
+  name but different folders seperated
+- added cacheresource.apc.php example in demo folder
+
+02/09/2011
+- bugfix cache lock file must use absolute filepath
+
+01/09/2011
+- update of cache locking
+
+30/08/2011
+- added locking mechanism to CacheResource API (implemented with File and KeyValueStores)
+
+28/08/2011
+- bugfix clearCompileTemplate() did not work for specific template subfolder or resource
+
+27/08/2011
+- bugfix {$foo|bar+1} did create syntax error
+
+26/08/2011
+- bugfix when generating nocache code which contains double \
+- bugfix handle race condition if cache file was deleted between filemtime and include
+
+17/08/2011
+- bugfix CacheResource_Custom bad internal fetch() call
+
+15/08/2011
+- bugfix CacheResource would load content twice for KeyValueStore and Custom handlers
+
+06/08/2011
+- bugfix {include} with scope attribute could execute in wrong scope
+- optimization of compile_check processing
+
+03/08/2011
+- allow comment tags to comment {block} tags out in child templates
+
+26/07/2011
+- bugfix experimental getTags() method did not work
+
+24/07/2011
+- sure opened output buffers are closed on exception
+- bugfix {foreach} did not work on IteratorAggregate
+
+22/07/2011
+- clear internal caches on clearAllCache(), clearCache(), clearCompiledTemplate()
+
+21/07/2011
+- bugfix value changes of variable values assigned to Smarty object could not be seen on repeated $smarty->fetch() calls
+
+17/07/2011
+- bugfix {$smarty.block.child} did drop a notice at undefined child
+
+15/07/2011
+- bugfix individual cache_lifetime of {include} did not work correctly inside {block} tags
+- added caches for Smarty_Template_Source and Smarty_Template_Compiled to reduce I/O for multiple cache_id rendering
+
+14/07/2011
+- made Smarty::loadPlugin() respect the include_path if required
+
+13/07/2011
+- optimized internal file write functionality
+- bugfix PHP did eat line break on nocache sections
+- fixed typo of Smarty_Security properties $allowed_modifiers and $disabled_modifiers
+
+06/07/2011
+- bugfix variable modifier must run befor gereral filtering/escaping
+
+04/07/2011
+- bugfix use (?P<name>) syntax at preg_match as some pcre libraries failed on (?<name>)
+- some performance improvement when using generic getter/setter on template objects
+
+30/06/2011
+- bugfix generic getter/setter of Smarty properties used on template objects did throw exception
+- removed is_dir and is_readable checks from directory setters for better performance
+
+28/06/2011
+- added back support of php template resource as undocumented feature
+- bugfix automatic recompilation on version change could drop undefined index notice on old 3.0 cache and compiled files
+- update of README_3_1_DEV.txt and moved into the distribution folder
+- improvement show first characters of eval and string templates instead sha1 Uid in debug window
+
+===== Smarty 3.1-RC1 =====
 25/06/2011
 - revert change of 17/06/2011. $_smarty varibale removed. call loadPlugin() from inside plugin code if required
 - code cleanup, remove no longer used properties and methods

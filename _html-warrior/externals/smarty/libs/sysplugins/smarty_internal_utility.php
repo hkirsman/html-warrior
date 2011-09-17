@@ -185,8 +185,20 @@ class Smarty_Internal_Utility {
         $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
         $_dir_sep = $smarty->use_sub_dirs ? DS : '^';
         if (isset($resource_name)) {
-            $_resource_part_1 = $resource_name . '.php';
-            $_resource_part_2 = $resource_name . '.cache' . '.php';
+            $_save_stat = $smarty->caching;
+            $smarty->caching = false;
+            $tpl = new $smarty->template_class($resource_name, $smarty);
+            $smarty->caching = $_save_stat;
+            if ($tpl->source->exists) {
+                 $_resource_part_1 = basename(str_replace('^', '/', $tpl->compiled->filepath));
+                // remove from template cache
+                unset($smarty->template_objects[sha1($tpl->template_resource . $tpl->cache_id . $tpl->compile_id)]);
+            } else {
+                // remove from template cache
+                unset($smarty->template_objects[sha1($tpl->template_resource . $tpl->cache_id . $tpl->compile_id)]);
+                return 0;
+            }
+            $_resource_part_2 = str_replace('.php','.cache.php',$_resource_part_1);
         } else {
             $_resource_part = '';
         }
@@ -222,6 +234,9 @@ class Smarty_Internal_Utility {
                 }
             }
         }
+        // clear compiled cache
+        Smarty_Resource::$sources = array();
+        Smarty_Resource::$compileds = array();
         return $_count;
     }
 
@@ -238,7 +253,7 @@ class Smarty_Internal_Utility {
         return $template->used_tags;
     }
 
-    
+
     /**
      * diagnose Smarty setup
      *
@@ -251,13 +266,13 @@ class Smarty_Internal_Utility {
     public static function testInstall(Smarty $smarty, &$errors=null)
     {
         $status = true;
-        
+
         if ($errors === null) {
             echo "<PRE>\n";
             echo "Smarty Installation test...\n";
             echo "Testing template directory...\n";
         }
-        
+
         // test if all registered template_dir are accessible
         foreach($smarty->getTemplateDir() as $template_dir) {
             if (!is_dir($template_dir)) {
@@ -282,12 +297,12 @@ class Smarty_Internal_Utility {
                 }
             }
         }
-        
-        
+
+
         if ($errors === null) {
             echo "Testing compile directory...\n";
         }
-        
+
         // test if registered compile_dir is accessible
         $_compile_dir = $smarty->getCompileDir();
         if (!is_dir($_compile_dir)) {
@@ -319,12 +334,12 @@ class Smarty_Internal_Utility {
                 echo "{$_compile_dir} is OK.\n";
             }
         }
-        
-        
+
+
         if ($errors === null) {
             echo "Testing plugins directory...\n";
         }
-        
+
         // test if all registered plugins_dir are accessible
         // and if core plugins directory is still registered
         $_core_plugins_dir = realpath(dirname(__FILE__) .'/../plugins');
@@ -363,7 +378,7 @@ class Smarty_Internal_Utility {
                 $errors['plugins_dir'] = $message;
             }
         }
-        
+
         if ($errors === null) {
             echo "Testing cache directory...\n";
         }
@@ -400,8 +415,8 @@ class Smarty_Internal_Utility {
                 echo "{$_cache_dir} is OK.\n";
             }
         }
-        
-        
+
+
         if ($errors === null) {
             echo "Testing configs directory...\n";
         }
@@ -430,8 +445,8 @@ class Smarty_Internal_Utility {
                 }
             }
         }
-        
-        
+
+
         if ($errors === null) {
             echo "Testing sysplugin files...\n";
         }
@@ -623,12 +638,12 @@ class Smarty_Internal_Utility {
                 $errors['plugins_dir_constant'] = $message;
             }
         }
-        
+
         if ($errors === null) {
             echo "Tests complete.\n";
             echo "</PRE>\n";
         }
-    
+
         return $status;
     }
 
