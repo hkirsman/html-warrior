@@ -13,8 +13,8 @@ One day, seeing StaticMatic, I started building my own system without HAML. So n
 
 Download HTML Warrior,  
 unpack it to c:\www ( for example ),  
-copy c:\www\_html-warrior\config-sample.php to c:\www\_html-warrior\config.php,  
-run c:\www\_html-warrior\servers\server2go\Server2Go.exe and  
+copy c:\www\\_html-warrior\config-sample.php to c:\www\\_html-warrior\config.php,  
+run c:\www\\_html-warrior\servers\server2go\Server2Go.exe and  
 browse to http://127.0.0.1:8080/ or http://YOUR_IP:8080/.  
 Choose example_site and start reading
 
