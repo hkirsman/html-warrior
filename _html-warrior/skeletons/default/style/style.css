@@ -1,20 +1,24 @@
-/*[fmt]0A40-0A0A-A*/
+/*[fmt]1A40-0A0A-E*/
 /*------------------------------------*\
 GLOBAL
 \*------------------------------------*/
-body{
+body {
     background:#FFFFFF;
     width:100%;
 }
-body,input,textarea,select,button{
+body,
+input,
+textarea,
+select,
+button {
     font:11px/18px Verdana, Arial, sans-serif;
     color:#000;
 }
-a{
+a {
     color:#1259C7;
     text-decoration:none;
 }
-h1{
+h1 {
     color:#082320;
     font-size:1.3em;
     font-weight:bold;
@@ -22,182 +26,189 @@ h1{
 /*------------------------------------*\
 $HEADER
 \*------------------------------------*/
-#header{
+#header {
 }
-#logo{
+#logo {
 }
 /*------------------------------------*\
 $FOOTER
 \*------------------------------------*/
-#footer{
+#footer {
 }
 /*------------------------------------*\
-$CONTENTS
+$DEFAULT-FORMATTING
 \*------------------------------------*/
-#content{
-}
-/*--- DEF ---*/
-.def em{
+.def em {
     font-style:italic;
 }
-.def strong,.def b{
+.def strong,
+.def b {
     font-weight:bold;
 }
-.def em strong,.def em b,.def strong em,.def strong b{
+.def em strong,
+.def em b,
+.def strong em,
+.def strong b {
     font-style:italic;
     font-weight:bold;
 }
-.def i{
+.def i {
     font-style:italic;
 }
-.def p{
+.def p {
     line-height:16px;
     margin:16px 0;
 }
-.def a{
+.def a {
     text-decoration:underline;
 }
-.def ul,.def ol{
+.def ul,
+.def ol {
     margin-bottom:20px;
     margin-left:20px;
 }
-.def ul{
+.def ul {
     list-style-type:disc;
     clear:both;
 }
-.def ol{
+.def ol {
     list-style-type:decimal;
     clear:both;
 }
-* html .def ol{
+* html .def ol {
     margin-left:25px;
 }
-.def ul ol,.def ol ol,.def ul ul,.def ol ul{
+.def ul ol,
+.def ol ol,
+.def ul ul,
+.def ol ul {
     margin-bottom:0px;
 }
-.def ul li,.def ol li{
+.def ul li,
+.def ol li {
     line-height:18px;
 }
-.def img{
+.def img {
     margin:20px;
     display:inline;
 }
-.def blockquote{
+.def blockquote {
     padding:0 0 0 20px;
     margin:0 0 10px;
 }
-/*--- COLUMNS ---*/
-.col{
+/*------------------------------------*\
+$COLUMNS
+\*------------------------------------*/
+.col {
     float:left;
     min-height:1px;
 }
-* html .col{
+* html .col {
     height:1px;
 }
-.col01{
+.col01 {
     margin:0 25px 0 0;
     width:204px;
 }
-.col02{
+.col02 {
     width:560px;
 }
-/*--- PAGINATION ---*/
-.pagination{
+/*------------------------------------*\
+$PAGINATION
+\*------------------------------------*/
+.pagination {
     border-top:1px solid #DDD;
     clear:both;
     margin:0 0 0.5em;
     padding:2.5em 0 1em;
     text-align:center;
 }
-.pagination a{
+.pagination a {
     background:#FFFFFF;
     border:1px solid #999;
     text-decoration:none;
 }
-.pagination a:hover{
+.pagination a:hover {
     background:#3774D0;
     color:#FFFFFF;
 }
-.pagination a,.pagination span{
+.pagination a,
+.pagination span {
     padding:0.3em 0.5em;
 }
-.pagination a.pn{
+.pagination a.pn {
     border:1px solid #FFF;
 }
-.pagination a.pn b{
+.pagination a.pn b {
     font-weight:normal;
 }
-.pagination a.pn:hover{
+.pagination a.pn:hover {
     border:1px solid #999;
 }
-.pagination p{
+.pagination p {
     color:#999;
 }
-/*--- MESSAGES ---*/
-.msg-error{
+/*------------------------------------*\
+$MESSAGES
+\*------------------------------------*/
+.msg-error,
+.msg-success,
+.msg-note {
+    margin:10px 0;
+    padding:5px 10px;
+    /*+border-radius:5px;*/
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    -khtml-border-radius:5px;
+    border-radius:5px 5px 5px 5px;
+    clear:both;
+    border-width:1px;
+    border-style:solid;
+    overflow:hidden;
+}
+.msg-error p,
+.msg-success p,
+.msg-note p {
+    margin:5px 0;
+}
+.msg-error {
     background-color:#FFE5E5;
-    border:2px solid #EF5435;
-    clear:both;
-    margin:0px 0px 10px;
-    overflow:hidden;
-    padding:10px 10px 5px;
-    position:relative;
+    border-color:#EF5435;
 }
-.msg-error p{
+.msg-error p {
     color:#E42600;
-    margin:0px 0px 5px;
 }
-.msg-error ul,.msg-error ol{
-    color:#E42600;
-    margin:0px 0px 5px 20px;
-}
-.msg-success{
+.msg-success {
     background-color:#F1FDE8;
-    border:2px solid #83EB44;
-    clear:both;
-    margin:0px 0px 10px;
-    overflow:hidden;
-    padding:10px 10px 5px;
-    position:relative;
+    border-color:#83EB44;
 }
-.msg-success p{
+.msg-success p {
     color:#3B3B3B;
-    margin:0px 0px 5px;
 }
-.msg-success ul,.msg-success ol{
-    margin:0px 0px 5px 20px;
-}
-.msg-note{
+.msg-note {
     background-color:#F9F6C1;
-    border:2px solid #EED860;
-    clear:both;
-    margin:0px 0px 10px;
-    overflow:hidden;
-    padding:10px 10px 5px;
-    position:relative;
+    border-color:#EED860;
 }
-.msg-note p{
+.msg-note p {
     color:#3B3B3B;
-    margin:0px 0px 5px;
 }
-.msg-note ul,.msg-note ol{
-    margin:0px 0px 5px 20px;
-}
-/*--- OTHER ---*/
-.hidden{
+/*------------------------------------*\
+$OTHER
+\*------------------------------------*/
+.hidden {
     display:none;
 }
-.hidden2{
+.hidden2 {
     position:absolute;
     top:-2000px;
 }
-.lfloat{
+.lfloat {
     float:left;
 }
-.rfloat{
+.rfloat {
     float:right;
 }
-.sidefloat{
+.sidefloat {
     display:table-cell;
     vertical-align:top;
     width:10000px;
@@ -205,13 +216,13 @@ $CONTENTS
     =zoom:1;
     =width:auto;
 }
-.aleft{
+.aleft {
     text-align:left;
 }
-.aright{
+.aright {
     text-align:right;
 }
-.clear{
+.clear {
     clear:both;
     display:block;
     height:0;
@@ -219,7 +230,7 @@ $CONTENTS
     width:0;
     visibility:hidden;
 }
-.clearfix:after{
+.clearfix:after {
     clear:both;
     content:' ';
     display:block;
@@ -229,18 +240,23 @@ $CONTENTS
     width:0;
     visibility:hidden;
 }
-.clearfix{
+.clearfix {
     display:inline-block;
 }
-* html .clearfix{
+* html .clearfix {
     height:1%;
 }
-.clearfix{
+.clearfix {
     display:block;
 }
-.no-underline{
+.no-underline {
     text-decoration:none !important;
 }
-.hidden{
+.hidden {
     display:none;
+}
+/*------------------------------------*\
+$CONTENTS
+\*------------------------------------*/
+#content {
 }
