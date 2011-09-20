@@ -1,7 +1,0 @@
-These are plugins for easy adding to your site.
-
-I haven't yet figured out how to make it matter of clicking to enable or disable plugins.
-
-For now, you have to manually uncomment or add it to sites cfg ( example_site\cfg\config.php ) and copy files content to your site ( _html-warrior\plugins\jquery.hrzAccordion\files\ )
-
-Overall, plugins should be something that's in Wordpress. Users should be able to share them.
