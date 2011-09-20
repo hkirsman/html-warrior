@@ -1,1 +1,0 @@
-This document describes how to open HTML Warrior templates from Chrome browser for editing in your editor.
