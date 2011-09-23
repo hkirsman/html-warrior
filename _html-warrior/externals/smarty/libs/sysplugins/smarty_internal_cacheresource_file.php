@@ -54,14 +54,16 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource {
             // create locking file name
             // relative file name?
             if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $_cache_dir)) {
-                $_lock_dir = getcwd().$_cache_dir;
+                $_lock_dir = rtrim(getcwd(), '/\\') . DS . $_cache_dir;
             } else {
                 $_lock_dir = $_cache_dir;
             }
             $cached->lock_id = $_lock_dir.sha1($_cache_id.$_compile_id.$_template->source->uid).'.lock';
         }
         $cached->filepath = $_cache_dir . $_cache_id . $_compile_id . $_filepath . '.' . basename($_source_file_path) . '.php';
+        Smarty::muteExpectedErrors();
         $cached->timestamp = @filemtime($cached->filepath);
+        Smarty::unmuteExpectedErrors();
         $cached->exists = !!$cached->timestamp;
     }
 
@@ -73,7 +75,9 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource {
      */
     public function populateTimestamp(Smarty_Template_Cached $cached)
     {
+        Smarty::muteExpectedErrors();
         $cached->timestamp = @filemtime($cached->filepath);
+        Smarty::unmuteExpectedErrors();
         $cached->exists = !!$cached->timestamp;
     }
 
@@ -154,10 +158,10 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource {
             if ($tpl->source->exists) {
                 $_resourcename_parts = basename(str_replace('^', '/', $tpl->cached->filepath));
                 // remove from template cache
-                unset($smarty->template_objects[sha1($tpl->template_resource . $tpl->cache_id . $tpl->compile_id)]);
+                unset($smarty->template_objects[sha1(join(DIRECTORY_SEPARATOR, $smarty->getTemplateDir()).$tpl->template_resource . $tpl->cache_id . $tpl->compile_id)]);
             } else {
                 // remove from template cache
-                unset($smarty->template_objects[sha1($tpl->template_resource . $tpl->cache_id . $tpl->compile_id)]);
+                unset($smarty->template_objects[sha1(join(DIRECTORY_SEPARATOR, $smarty->getTemplateDir()).$tpl->template_resource . $tpl->cache_id . $tpl->compile_id)]);
                 return 0;
             }
         }

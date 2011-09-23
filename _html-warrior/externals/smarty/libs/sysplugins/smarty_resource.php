@@ -159,12 +159,16 @@ abstract class Smarty_Resource {
             }
             $file = dirname($_template->parent->source->filepath) . DS . $file;
             $_file_exact_match = true;
-        } elseif ($_file_is_dotted) {
-            throw new SmartyException("Template '{$file}' may not start with ../ or ./'");
-        }
+            if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $file)) {
+                // the path gained from the parent template is relative to the current working directory
+                // as expansions (like include_path) have already been done
+                $file = getcwd() . DS . $file;
+            }
+        } 
 
         // resolve relative path
         if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $file)) {
+            $_was_relative_prefix = $file[0] == '.' ? substr($file, 0, strpos($file, '|')) : null;
             $_path = DS . trim($file, '/\\');
             $_was_relative = true;
         } else {
@@ -196,8 +200,13 @@ abstract class Smarty_Resource {
         }
         // revert to relative
         if (isset($_was_relative)) {
-            $_path = substr($_path, 1);
+            if (isset($_was_relative_prefix)){
+                $_path = $_was_relative_prefix . $_path;
+            } else {
+                $_path = substr($_path, 1);
+            }
         }
+
         // this is only required for directories
         $file = rtrim($_path, '/\\');
 
@@ -208,10 +217,6 @@ abstract class Smarty_Resource {
 
         // template_dir index?
         if (preg_match('#^\[(?P<key>[^\]]+)\](?P<file>.+)$#', $file, $match)) {
-            if ($match['file'][0] == '.' && ($match['file'][1] == '.' || $match['file'][1] == '/' || $match['file'][1] == "\\")) {
-                throw new SmartyException("Template '{$match['file']}' may not start with ../ or ./'");
-            }
-
             $_directory = null;
             // try string indexes
             if (isset($_directories[$match['key']])) {
@@ -394,9 +399,13 @@ abstract class Smarty_Resource {
         }
 
         // check runtime cache
+        $_cache_key_dir = join(DIRECTORY_SEPARATOR, $smarty->getTemplateDir());
         $_cache_key = 'template|' . $template_resource;
-        if (isset(self::$sources[$_cache_key])) {
-            return self::$sources[$_cache_key];
+        if (!isset(self::$sources[$_cache_key_dir])) {
+            self::$sources[$_cache_key_dir] = array();
+        }
+        if (isset(self::$sources[$_cache_key_dir][$_cache_key])) {
+            return self::$sources[$_cache_key_dir][$_cache_key];
         }
 
         if (($pos = strpos($template_resource, ':')) === false) {
@@ -413,13 +422,13 @@ abstract class Smarty_Resource {
                 $resource_name = $template_resource;
             }
         }
-
+        
         $resource = Smarty_Resource::load($smarty, $resource_type);
         $source = new Smarty_Template_Source($resource, $smarty, $template_resource, $resource_type, $resource_name);
         $resource->populate($source, $_template);
 
         // runtime cache
-        self::$sources[$_cache_key] = $source;
+        self::$sources[$_cache_key_dir][$_cache_key] = $source;
         return $source;
     }
 
@@ -589,18 +598,24 @@ class Smarty_Template_Source {
     public function getCompiled(Smarty_Internal_Template $_template)
     {
         // check runtime cache
+        $_cache_key_dir = join(DIRECTORY_SEPARATOR, $_template->smarty->getTemplateDir());
         $_cache_key = $_template->template_resource . '#' . $_template->compile_id;
-        if (isset(Smarty_Resource::$compileds[$_cache_key])) {
-            return Smarty_Resource::$compileds[$_cache_key];
+        if (!isset(Smarty_Resource::$compileds[$_cache_key_dir])) {
+            Smarty_Resource::$compileds[$_cache_key_dir] = array();
+        }
+        if (isset(Smarty_Resource::$compileds[$_cache_key_dir][$_cache_key])) {
+            return Smarty_Resource::$compileds[$_cache_key_dir][$_cache_key];
         }
 
         $compiled = new Smarty_Template_Compiled($this);
         $this->handler->populateCompiledFilepath($compiled, $_template);
+        Smarty::muteExpectedErrors();
         $compiled->timestamp = @filemtime($compiled->filepath);
+        Smarty::unmuteExpectedErrors();
         $compiled->exists = !!$compiled->timestamp;
 
         // runtime cache
-        Smarty_Resource::$compileds[$_cache_key] = $compiled;
+        Smarty_Resource::$compileds[$_cache_key_dir][$_cache_key] = $compiled;
 
         return $compiled;
     }

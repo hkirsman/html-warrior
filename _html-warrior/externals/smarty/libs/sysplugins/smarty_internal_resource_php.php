@@ -1,28 +1,37 @@
 <?php
+
 /**
- * Smarty Internal Plugin Resource File
- *
+ * Smarty Internal Plugin Resource PHP
+ * 
+ * Implements the file system as resource for PHP templates
+ * 
  * @package Smarty
  * @subpackage TemplateResources
- * @author Uwe Tews
+ * @author Uwe Tews 
  * @author Rodney Rehm
  */
-
-/**
- * Smarty Internal Plugin Resource File
- *
- * Implements the file system as resource for Smarty templates
- *
- * @package Smarty
- * @subpackage TemplateResources
- */
-class Smarty_Internal_Resource_File extends Smarty_Resource {
-
+class Smarty_Internal_Resource_PHP extends Smarty_Resource_Uncompiled {
+    /**
+     * container for short_open_tag directive's value before executing PHP templates
+     * @var string
+     */
+    protected $short_open_tag;
+    
+    /**
+     * Create a new PHP Resource
+     *
+     */
+    public function __construct()
+    {
+        $this->short_open_tag = ini_get( 'short_open_tag' );
+    } 
+    
     /**
      * populate Source Object with meta data from Resource
      *
-     * @param Smarty_Template_Source   $source    source object
+     * @param Smarty_Template_Source $source source object
      * @param Smarty_Internal_Template $_template template object
+     * @return void
      */
     public function populate(Smarty_Template_Source $source, Smarty_Internal_Template $_template=null)
     {
@@ -33,20 +42,21 @@ class Smarty_Internal_Resource_File extends Smarty_Resource {
             if (is_object($source->smarty->security_policy)) {
                 $source->smarty->security_policy->isTrustedResourceDir($source->filepath);
             }
-
+            
             $source->uid = sha1($source->filepath);
-            if ($source->smarty->compile_check && !isset($source->timestamp)) {
+            if ($source->smarty->compile_check) {
                 $source->timestamp = @filemtime($source->filepath);
                 $source->exists = !!$source->timestamp;
             }
         }
         Smarty::unmuteExpectedErrors();
     }
-
+    
     /**
      * populate Source Object with timestamp and exists from Resource
      *
      * @param Smarty_Template_Source $source source object
+     * @return void
      */
     public function populateTimestamp(Smarty_Template_Source $source)
     {
@@ -58,7 +68,7 @@ class Smarty_Internal_Resource_File extends Smarty_Resource {
 
     /**
      * Load template's source from file into current template object
-     *
+     * 
      * @param Smarty_Template_Source $source source object
      * @return string template source
      * @throws SmartyException if source cannot be loaded
@@ -66,29 +76,38 @@ class Smarty_Internal_Resource_File extends Smarty_Resource {
     public function getContent(Smarty_Template_Source $source)
     {
         if ($source->timestamp) {
-            return file_get_contents($source->filepath);
-        }
-        if ($source instanceof Smarty_Config_Source) {
-            throw new SmartyException("Unable to read config {$source->type} '{$source->name}'");
+            return '';
         }
         throw new SmartyException("Unable to read template {$source->type} '{$source->name}'");
-    }
+    } 
 
     /**
-     * Determine basename for compiled filename
+     * Render and output the template (without using the compiler)
      *
      * @param Smarty_Template_Source $source source object
-     * @return string resource's basename
+     * @param Smarty_Internal_Template $_template template object
+     * @return void
+     * @throws SmartyException if template cannot be loaded or allow_php_templates is disabled
      */
-    public function getBasename(Smarty_Template_Source $source)
+    public function renderUncompiled(Smarty_Template_Source $source, Smarty_Internal_Template $_template)
     {
-        $_file = $source->name;
-        if (($_pos = strpos($_file, ']')) !== false) {
-            $_file = substr($_file, $_pos + 1);
-        }
-        return basename($_file);
-    }
-
-}
+        $_smarty_template = $_template;
+        
+        if (!$source->smarty->allow_php_templates) {
+            throw new SmartyException("PHP templates are disabled");
+        } 
+        if (!$source->exists) {
+            throw new SmartyException("Unable to load template \"{$source->type} : {$source->name}\"");
+        } 
+        
+        // prepare variables
+        extract($_template->getTemplateVars());
+        
+        // include PHP template with short open tags enabled
+        ini_set( 'short_open_tag', '1' );
+        include($source->filepath);
+        ini_set( 'short_open_tag', $this->short_open_tag );
+    } 
+} 
 
 ?>
