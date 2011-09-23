@@ -36,6 +36,8 @@
       </div><!-- #footer -->
     </div><!-- #wrapper -->
     {htmlwarrior_plugins position="bottom" indent="    "}
+    {partial tpl=script file="functions/placeholder"}
+    {partial tpl=script file="proto"}
     {partial tpl=script file="general"}
     {htmlwarrior_init position="bottom"}
   </body>
