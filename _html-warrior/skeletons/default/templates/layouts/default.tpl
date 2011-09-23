@@ -10,9 +10,6 @@
     <link rel="stylesheet" type="text/css" href="style/print.css" media="print" title="" />
     {htmlwarrior_plugins indent="    "}
     <title>{$title}</title>
-    <!--[if lt IE 8]>
-    <link href="style/style_lt_ie8.css" rel="stylesheet" type="text/css" media="screen" />
-    <![endif]-->
   </head>
   <body>
     {partial template="oldbrowser"}
@@ -22,10 +19,10 @@
       </div><!-- #header -->
       <div id="nav">
         <ul>
-          <li><a {if $page == "index"}class="active" {/if}href="javascript:void(0)">Frontpage</a></li>
-          <li><a href="javascript:void(0)"></a></li>
-          <li><a href="javascript:void(0)"></a></li>
-          <li><a href="javascript:void(0)"></a></li>
+          <li><a {if $page == "index"}class="active" {/if}href="">Frontpage</a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
+          <li><a href=""></a></li>
         </ul>
       </div>
       <div id="content">
