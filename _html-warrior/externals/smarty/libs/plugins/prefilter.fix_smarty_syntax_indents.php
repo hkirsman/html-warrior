@@ -12,7 +12,7 @@
 
 function smarty_prefilter_fix_smarty_syntax_indents($source, &$smarty) {
     $a_source = explode("\n", $source);
-    $trimmable_smarty_tags = array('if', 'for', 'foreach', 'capture');
+    $trimmable_smarty_tags = array('if', 'for', 'foreach', 'capture', 'literal');
     $trimmable_smarty_tags_other = array('else');
     $indent_level = 0;
     $indent_level_as_string = '';
