@@ -15,7 +15,7 @@ function smarty_prefilter_add_partial_indents($source, &$smarty) {
     $a_source = explode("\n", $source);
 
     foreach ($a_source as $key => $var) {
-        if (preg_match("/^(\s*)({partial.*([\"|']{1})})/U", $var, $mt)) {
+        if (preg_match("/^(\s*)({partial.*([\"|'|)]{1})})/U", $var, $mt)) {
             $found_partial = $mt[2];
             $quote = $mt[3];
             $found_partial = str_replace($quote . '}', $quote . ' indent="' . $mt[1] . '"}', $found_partial);
