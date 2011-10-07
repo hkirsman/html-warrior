@@ -2,7 +2,7 @@
 /**
 * Project:     Smarty: the PHP compiling template engine
 * File:        Smarty.class.php
-* SVN:         $Id: Smarty.class.php 4307 2011-09-21 22:45:21Z rodneyrehm $
+* SVN:         $Id: Smarty.class.php 4360 2011-10-06 14:36:30Z uwe.tews@googlemail.com $
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Lesser General Public
@@ -28,7 +28,7 @@
 * @author Uwe Tews
 * @author Rodney Rehm
 * @package Smarty
-* @version 3.1.1
+* @version 3.1.3
 */
 
 /**
@@ -107,7 +107,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     /**
     * smarty version
     */
-    const SMARTY_VERSION = 'Smarty-3.1.1';
+    const SMARTY_VERSION = 'Smarty-3.1.3';
 
     /**
     * define variable scopes
@@ -157,11 +157,15 @@ class Smarty extends Smarty_Internal_TemplateBase {
     * assigned global tpl vars
     */
     public static $global_tpl_vars = array();
+    
     /**
-     * Enable error_handler suppression to outsmart badly implemented external error_handlers
-     * @var boolean
+     * error handler returned by set_error_hanlder() in Smarty::muteExpectedErrors()
      */
-    public static $error_muting = true;
+    public static $_previous_error_handler = null;
+    /**
+     * contains directories outside of SMARTY_DIR that are to be muted by muteExpectedErrors()
+     */
+    public static $_muted_directories = array();
 
     /**#@+
     * variables
@@ -184,9 +188,14 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public $use_include_path = false;
     /**
     * template directory
+    * @var array
+    */
+    protected $template_dir = array();
+    /**
+    * joined template directory string used in cache keys
     * @var string
     */
-    protected $template_dir = null;
+    public $joined_template_dir = null;
     /**
     * default template handler
     * @var callable
@@ -209,9 +218,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
     protected $compile_dir = null;
     /**
     * plugins directory
-    * @var string
+    * @var array
     */
-    protected $plugins_dir = null;
+    protected $plugins_dir = array();
     /**
     * cache directory
     * @var string
@@ -219,9 +228,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
     protected $cache_dir = null;
     /**
     * config directory
-    * @var string
+    * @var array
     */
-    protected $config_dir = null;
+    protected $config_dir = array();
     /**
     * force template compiling?
     * @var boolean
@@ -559,11 +568,12 @@ class Smarty extends Smarty_Internal_TemplateBase {
         }
         $this->start_time = microtime(true);
         // set default dirs
-        $this->template_dir = array('.' . DS . 'templates' . DS);
-        $this->compile_dir = '.' . DS . 'templates_c' . DS;
-        $this->plugins_dir = array(SMARTY_PLUGINS_DIR);
-        $this->cache_dir = '.' . DS . 'cache' . DS;
-        $this->config_dir = array('.' . DS . 'configs' . DS);
+        $this->setTemplateDir('.' . DS . 'templates' . DS)
+            ->setCompileDir('.' . DS . 'templates_c' . DS)
+            ->setPluginsDir(SMARTY_PLUGINS_DIR)
+            ->setCacheDir('.' . DS . 'cache' . DS)
+            ->setConfigDir('.' . DS . 'configs' . DS);
+            
         $this->debug_tpl = 'file:' . dirname(__FILE__) . '/debug.tpl';
         if (isset($_SERVER['SCRIPT_NAME'])) {
             $this->assignGlobal('SCRIPT_NAME', $_SERVER['SCRIPT_NAME']);
@@ -689,13 +699,10 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     function clearAllCache($exp_time = null, $type = null)
     {
-        Smarty::muteExpectedErrors();
         // load cache resource and call clearAll
         $_cache_resource = Smarty_CacheResource::load($this, $type);
         Smarty_CacheResource::invalidLoadedCache($this);
-        $t = $_cache_resource->clearAll($this, $exp_time);
-        Smarty::unmuteExpectedErrors();
-        return $t;
+        return $_cache_resource->clearAll($this, $exp_time);
     }
 
     /**
@@ -710,13 +717,10 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public function clearCache($template_name, $cache_id = null, $compile_id = null, $exp_time = null, $type = null)
     {
-        Smarty::muteExpectedErrors();
         // load cache resource and call clear
         $_cache_resource = Smarty_CacheResource::load($this, $type);
         Smarty_CacheResource::invalidLoadedCache($this);
-        $t = $_cache_resource->clear($this, $template_name, $cache_id, $compile_id, $exp_time);
-        Smarty::unmuteExpectedErrors();
-        return $t;
+        return $_cache_resource->clear($this, $template_name, $cache_id, $compile_id, $exp_time);
     }
 
     /**
@@ -772,6 +776,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
             $this->template_dir[$k] = rtrim($v, '/\\') . DS;
         }
 
+        $this->joined_template_dir = join(DIRECTORY_SEPARATOR, $this->template_dir);
         return $this;
     }
 
@@ -805,7 +810,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
             // append new directory
             $this->template_dir[] = rtrim($template_dir, '/\\') . DS;
         }
-
+        $this->joined_template_dir = join(DIRECTORY_SEPARATOR, $this->template_dir);
         return $this;
     }
 
@@ -821,7 +826,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
             return isset($this->template_dir[$index]) ? $this->template_dir[$index] : null;
         }
 
-        return $this->template_dir;
+        return (array)$this->template_dir;
     }
 
     /**
@@ -885,7 +890,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
             return isset($this->config_dir[$index]) ? $this->config_dir[$index] : null;
         }
 
-        return $this->config_dir;
+        return (array)$this->config_dir;
     }
 
     /**
@@ -942,7 +947,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public function getPluginsDir()
     {
-        return $this->plugins_dir;
+        return (array)$this->plugins_dir;
     }
 
     /**
@@ -954,6 +959,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public function setCompileDir($compile_dir)
     {
         $this->compile_dir = rtrim($compile_dir, '/\\') . DS;
+        if (!isset(Smarty::$_muted_directories[$this->compile_dir])) {
+            Smarty::$_muted_directories[$this->compile_dir] = null;
+        }
         return $this;
     }
 
@@ -976,6 +984,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public function setCacheDir($cache_dir)
     {
         $this->cache_dir = rtrim($cache_dir, '/\\') . DS;
+        if (!isset(Smarty::$_muted_directories[$this->cache_dir])) {
+            Smarty::$_muted_directories[$this->cache_dir] = null;
+        }
         return $this;
     }
 
@@ -1143,7 +1154,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
         $cache_id = $cache_id === null ? $this->cache_id : $cache_id;
         $compile_id = $compile_id === null ? $this->compile_id : $compile_id;
         // already in template cache?
-        $_templateId =  sha1(join(DIRECTORY_SEPARATOR, $this->getTemplateDir()).$template . $cache_id . $compile_id);
+        $_templateId =  sha1($this->smarty->joined_template_dir.$template . $cache_id . $compile_id);
         if ($do_clone) {
             if (isset($this->template_objects[$_templateId])) {
                 // return cached template object
@@ -1293,7 +1304,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     {
         return Smarty_Internal_Utility::testInstall($this, $errors);
     }
-    
+
     /**
      * Error Handler to mute expected messages
      *
@@ -1301,12 +1312,46 @@ class Smarty extends Smarty_Internal_TemplateBase {
      * @param integer $errno Error level
      * @return boolean
      */
-    public static function mutingErrorHandler($errno)
+    public static function mutingErrorHandler($errno, $errstr, $errfile, $errline, $errcontext)
     {
-        // return false if $errno is not 0 and included in current error level
-        return (bool)($errno && $errno & error_reporting());
+        $_is_muted_directory = false;
+        
+        // add the SMARTY_DIR to the list of muted directories
+        if (!isset(Smarty::$_muted_directories[SMARTY_DIR])) {
+            $smarty_dir = realpath(SMARTY_DIR);
+            Smarty::$_muted_directories[SMARTY_DIR] = array(
+                'file' => $smarty_dir,
+                'length' => strlen($smarty_dir),
+            );
+        }
+        
+        // walk the muted directories and test against $errfile
+        foreach (Smarty::$_muted_directories as $key => &$dir) {
+            if (!$dir) {
+                // resolve directory and length for speedy comparisons
+                $file = realpath($key);
+                $dir = array(
+                    'file' => $file,
+                    'length' => strlen($file),
+                );
+            }
+            if (!strncmp($errfile, $dir['file'], $dir['length'])) {
+                $_is_muted_directory = true;
+                break;
+            }
+        }
+
+        // pass to next error handler if this error did not occur inside SMARTY_DIR
+        // or the error was within smarty but masked to be ignored
+        if (!$_is_muted_directory || ($errno && $errno & error_reporting())) {
+            if (Smarty::$_previous_error_handler) {
+                return call_user_func(Smarty::$_previous_error_handler, $errno, $errstr, $errfile, $errline, $errcontext);
+            } else {
+                return false;
+            }
+        }
     }
-    
+
     /**
      * Enable error handler to mute expected messages
      *
@@ -1315,26 +1360,30 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public static function muteExpectedErrors()
     {
         /*
-            error muting is done because some people implemented custom error_handlers using 
+            error muting is done because some people implemented custom error_handlers using
             http://php.net/set_error_handler and for some reason did not understand the following paragraph:
-            
-                It is important to remember that the standard PHP error handler is completely bypassed for the 
-                error types specified by error_types unless the callback function returns FALSE. 
-                error_reporting() settings will have no effect and your error handler will be called regardless - 
-                however you are still able to read the current value of error_reporting and act appropriately. 
-                Of particular note is that this value will be 0 if the statement that caused the error was 
-                prepended by the @ error-control operator. 
-            
+
+                It is important to remember that the standard PHP error handler is completely bypassed for the
+                error types specified by error_types unless the callback function returns FALSE.
+                error_reporting() settings will have no effect and your error handler will be called regardless -
+                however you are still able to read the current value of error_reporting and act appropriately.
+                Of particular note is that this value will be 0 if the statement that caused the error was
+                prepended by the @ error-control operator.
+
             Smarty deliberately uses @filemtime() over file_exists() and filemtime() in some places. Reasons include
                 - @filemtime() is almost twice as fast as using an additional file_exists()
-                - between file_exists() and filemtime() a possible race condition is opened, 
+                - between file_exists() and filemtime() a possible race condition is opened,
                   which does not exist using the simple @filemtime() approach.
         */
-        if (self::$error_muting) {
-            set_error_handler(array('Smarty', 'mutingErrorHandler'));
+        $error_handler = array('Smarty', 'mutingErrorHandler');
+        $previous = set_error_handler($error_handler);
+
+        // avoid dead loops
+        if ($previous !== $error_handler) {
+            Smarty::$_previous_error_handler = $previous;
         }
     }
-    
+
     /**
      * Disable error handler muting expected messages
      *
@@ -1342,9 +1391,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
      */
     public static function unmuteExpectedErrors()
     {
-        if (self::$error_muting) {
-            restore_error_handler();
-        }
+        restore_error_handler();
     }
 }
 
@@ -1380,7 +1427,7 @@ function smartyAutoload($class)
         'smarty_resource_uncompiled' => true,
         'smarty_resource_recompiled' => true,
     );
-    
+
     if (!strncmp($_class, 'smarty_internal_', 16) || isset($_classes[$_class])) {
         include SMARTY_SYSPLUGINS_DIR . $_class . '.php';
     }

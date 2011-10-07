@@ -61,9 +61,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource {
             $cached->lock_id = $_lock_dir.sha1($_cache_id.$_compile_id.$_template->source->uid).'.lock';
         }
         $cached->filepath = $_cache_dir . $_cache_id . $_compile_id . $_filepath . '.' . basename($_source_file_path) . '.php';
-        Smarty::muteExpectedErrors();
         $cached->timestamp = @filemtime($cached->filepath);
-        Smarty::unmuteExpectedErrors();
         $cached->exists = !!$cached->timestamp;
     }
 
@@ -75,9 +73,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource {
      */
     public function populateTimestamp(Smarty_Template_Cached $cached)
     {
-        Smarty::muteExpectedErrors();
         $cached->timestamp = @filemtime($cached->filepath);
-        Smarty::unmuteExpectedErrors();
         $cached->exists = !!$cached->timestamp;
     }
 
@@ -158,10 +154,10 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource {
             if ($tpl->source->exists) {
                 $_resourcename_parts = basename(str_replace('^', '/', $tpl->cached->filepath));
                 // remove from template cache
-                unset($smarty->template_objects[sha1(join(DIRECTORY_SEPARATOR, $smarty->getTemplateDir()).$tpl->template_resource . $tpl->cache_id . $tpl->compile_id)]);
+                unset($smarty->template_objects[sha1($smarty->joined_template_dir.$tpl->template_resource . $tpl->cache_id . $tpl->compile_id)]);
             } else {
                 // remove from template cache
-                unset($smarty->template_objects[sha1(join(DIRECTORY_SEPARATOR, $smarty->getTemplateDir()).$tpl->template_resource . $tpl->cache_id . $tpl->compile_id)]);
+                unset($smarty->template_objects[sha1($smarty->joined_template_dir.$tpl->template_resource . $tpl->cache_id . $tpl->compile_id)]);
                 return 0;
             }
         }
