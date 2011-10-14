@@ -154,7 +154,7 @@ abstract class Smarty_Resource {
         // go relative to a given template?
         $_file_is_dotted = $file[0] == '.' && ($file[1] == '.' || $file[1] == '/' || $file[1] == "\\");
         if ($_template && $_template->parent instanceof Smarty_Internal_Template && $_file_is_dotted) {
-            if ($_template->parent->source->type != 'file' && $_template->parent->source->type != 'extends') {
+            if ($_template->parent->source->type != 'file' && $_template->parent->source->type != 'extends' && !$_template->parent->allow_relative_path) {
                 throw new SmartyException("Template '{$file}' cannot be relative to template of resource type '{$_template->parent->source->type}'");
             }
             $file = dirname($_template->parent->source->filepath) . DS . $file;
@@ -164,7 +164,7 @@ abstract class Smarty_Resource {
                 // as expansions (like include_path) have already been done
                 $file = getcwd() . DS . $file;
             }
-        } 
+        }
 
         // resolve relative path
         if (!preg_match('/^([\/\\\\]|[a-zA-Z]:[\/\\\\])/', $file)) {
@@ -399,7 +399,7 @@ abstract class Smarty_Resource {
         }
 
         // check runtime cache
-        $_cache_key_dir = join(DIRECTORY_SEPARATOR, $smarty->getTemplateDir());
+        $_cache_key_dir = $smarty->joined_template_dir;
         $_cache_key = 'template|' . $template_resource;
         if (!isset(self::$sources[$_cache_key_dir])) {
             self::$sources[$_cache_key_dir] = array();
@@ -422,7 +422,7 @@ abstract class Smarty_Resource {
                 $resource_name = $template_resource;
             }
         }
-        
+
         $resource = Smarty_Resource::load($smarty, $resource_type);
         $source = new Smarty_Template_Source($resource, $smarty, $template_resource, $resource_type, $resource_name);
         $resource->populate($source, $_template);
@@ -440,6 +440,7 @@ abstract class Smarty_Resource {
      */
     public static function config(Smarty_Internal_Config $_config)
     {
+        static $_incompatible_resources = array('eval' => true, 'string' => true, 'extends' => true, 'php' => true);
         $config_resource = $_config->config_resource;
         $smarty = $_config->smarty;
 
@@ -457,8 +458,8 @@ abstract class Smarty_Resource {
                 $resource_name = $config_resource;
             }
         }
-
-        if (in_array($resource_type, array('eval', 'string', 'extends', 'php'))) {
+        
+        if (isset($_incompatible_resources[$resource_type])) {
             throw new SmartyException ("Unable to use resource '{$resource_type}' for config");
         }
 
@@ -598,7 +599,7 @@ class Smarty_Template_Source {
     public function getCompiled(Smarty_Internal_Template $_template)
     {
         // check runtime cache
-        $_cache_key_dir = join(DIRECTORY_SEPARATOR, $_template->smarty->getTemplateDir());
+        $_cache_key_dir = $_template->smarty->joined_template_dir;
         $_cache_key = $_template->template_resource . '#' . $_template->compile_id;
         if (!isset(Smarty_Resource::$compileds[$_cache_key_dir])) {
             Smarty_Resource::$compileds[$_cache_key_dir] = array();
@@ -609,9 +610,7 @@ class Smarty_Template_Source {
 
         $compiled = new Smarty_Template_Compiled($this);
         $this->handler->populateCompiledFilepath($compiled, $_template);
-        Smarty::muteExpectedErrors();
         $compiled->timestamp = @filemtime($compiled->filepath);
-        Smarty::unmuteExpectedErrors();
         $compiled->exists = !!$compiled->timestamp;
 
         // runtime cache

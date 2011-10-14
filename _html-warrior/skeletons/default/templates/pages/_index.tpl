@@ -1,3 +1,3 @@
-@title = "Esileht"
+@title = ""
 
 frontpage html

@@ -36,6 +36,7 @@
           {$txt.admin_create_site}:
           <select name="donor">
             <option value="default">default</option>
+            <option value="html5">html5</option>
             <option value="newsletter">newsletter</option>
           </select>
 
