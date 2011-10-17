@@ -11,9 +11,9 @@
 
   Example:
   minimal parameters:
-  {partial tpl='gmap'}
+  {partial tpl="gmap"}
   all parameters:
-  {partial tpl='gmap' lat=58.84 lng=25.30 width='100%' height='100' zoom=10}
+  {partial tpl="gmap" lat="58.84" lng="25.30" width="100%" height="100" zoom="10"}
  */
 $lat = $params['lat'];
 $lng = $params['lng'];
