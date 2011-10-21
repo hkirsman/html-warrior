@@ -55,6 +55,10 @@ if ($htmlwarrior->config['frontpage_site'] === false) {
 if (file_exists($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/functions.php')) {
     require_once($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/functions.php');
 }
+// load custom site configs
+if (file_exists($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/cfg/config.php')) {
+    require_once($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/cfg/config.php');
+}
 
 
 // build all templates
@@ -192,8 +196,6 @@ if ($htmlwarrior->config['log']) {
         'url' => $_SERVER['REQUEST_URI']
     ));
 }
-
-require_once($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/cfg/config.php');
 
 //require_once('filelist.php');
 
