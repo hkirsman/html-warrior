@@ -34,7 +34,7 @@
           draggable: true
         });
         google.maps.event.addListener(marker, 'dblclick', function(event) {
-          alert('lat='+event.latLng.Ja+' lng='+event.latLng.Ka+' zoom='+this.map.zoom);
+          alert('lat="'+event.latLng.lat()+'" lng="'+event.latLng.lng()+'" zoom="'+this.map.zoom+'"');
         });
         markersArray.push(marker);
       }
