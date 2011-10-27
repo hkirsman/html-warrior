@@ -18,7 +18,7 @@ table,caption,tbody,tfoot,thead,tr,th,td{
 body{line-height:1}
 ol,ul{list-style:none}
 blockquote,q{quotes:none}
-#header :focus{outline:0}
+:focus{outline:0}
 ins{text-decoration:underline}
 del{text-decoration:line-through}
 table{border-collapse:collapse;border-spacing:0;font-size:inherit}
