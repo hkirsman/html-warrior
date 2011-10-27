@@ -1,1 +1,0 @@
-<label class="{if $class}{$class}{else}radio{/if}"><input class="checker" type="radio" name="" />{if $label_caption!==false}<span class="caption">{if $label_caption}{$label_caption}{else}{literal}label_caption{/literal}{/if}</span>{/if}</label>
