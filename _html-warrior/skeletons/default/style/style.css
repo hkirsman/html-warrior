@@ -11,16 +11,15 @@ input,
 textarea,
 select,
 button {
-    font:11px/18px Verdana, Arial, sans-serif;
-    color:#000;
+    font:11px/20px Verdana, Arial, sans-serif;
+    color:#404040;
 }
 a {
     color:#1259C7;
     text-decoration:none;
 }
 h1 {
-    color:#082320;
-    font-size:1.3em;
+    font-size:24px;
     font-weight:bold;
 }
 /*------------------------------------*\
@@ -38,6 +37,21 @@ $FOOTER
 /*------------------------------------*\
 $DEFAULT-FORMATTING
 \*------------------------------------*/
+.def h1 {
+    font-size:24px;
+}
+.def h2{
+    font-size:20px;
+}
+.def h3 {
+    font-size:18px;
+}
+.def h4 {
+    font-size:16px;
+}
+.def h5 {
+    font-size:14px;
+}
 .def em {
     font-style:italic;
 }
@@ -56,8 +70,7 @@ $DEFAULT-FORMATTING
     font-style:italic;
 }
 .def p {
-    line-height:16px;
-    margin:16px 0;
+    margin:20px 0;
 }
 .def a {
     text-decoration:underline;

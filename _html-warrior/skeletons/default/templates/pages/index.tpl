@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Site Name HTML protype</title>
+    <title>Site Name HTML prototype</title>
     {literal}
     <style type="text/css">
     * {margin:0;padding:0;}
@@ -25,7 +25,7 @@
 
 
     <div id="content">
-      <h1>Site Name HTML protype</h1>
+      <h1>Site Name HTML prototype</h1>
 
       {$out}
     </div><!-- #content -->
