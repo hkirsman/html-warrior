@@ -7,7 +7,7 @@ error_reporting(~E_NOTICE);
 
 header('Content-Type: text/html; charset=utf-8');
 
-require $htmlwarrior->config['code_path'] . '/init.php';
+require_once('init.php');
 
 if ($htmlwarrior->config['frontpage_site']) {
     $htmlwarrior->runtime['site_dir'] = trim($htmlwarrior->config['frontpage_site'], '/');
