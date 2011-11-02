@@ -46,7 +46,6 @@ $htmlwarrior->config['locale'] = 'english-utf8.php';
 $htmlwarrior->config['path_db_dir'] = $htmlwarrior->config['code_path'] . '/database/';
 
 $htmlwarrior->config['timeoffset'] = 3600;
-$htmlwarrior->config['htmlwarrior_prefix'] = 'htmlwarrior';
 $htmlwarrior->config['show_partial_edit_links'] = false;
 // Hide templates from listings with these prefixes
 $htmlwarrior->config['hidden_file_prefix'] = '__';
