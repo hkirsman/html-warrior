@@ -3,12 +3,11 @@
 class htmlwarrior {
 
     public function load_page($url_path = false) {
-        global $htmlwarrior, $smarty;
+        global $htmlwarrior, $smarty, $text;
 
         if ($url_path === false) {
             $url_path = $htmlwarrior->runtime['parsed_url']['path'];
         }
-
         $page_tpl_path = get_page_template_path($url_path);
         $page_object = $smarty->createTemplate($page_tpl_path);
         $page_content_before_assigns = $smarty->fetch($page_object);
@@ -33,6 +32,10 @@ class htmlwarrior {
         $page_object = $smarty->createTemplate($page_tpl_path);
         foreach ($params as $key => $val) {
             $page_object->assign($key, $val);
+        }
+        // load translations
+        if ($htmlwarrior->config['multilingual']) {
+            $page_object->assign('text', $text);
         }
         $page_content = $smarty->fetch($page_object);
         if ($htmlwarrior->config['build']) {

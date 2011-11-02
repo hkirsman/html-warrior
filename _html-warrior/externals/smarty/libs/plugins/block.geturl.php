@@ -2,8 +2,7 @@
 
 /**
  * Smarty plugin to generate correct url with lang variable
- * Also tries to nicify url: add slash before path and remove it from the end.
- * 
+ *
  * @package Smarty
  * @subpackage PluginsBlock
  * @author Hannes Kirsman
@@ -11,7 +10,7 @@
 
 /**
  * Smarty {geturl}{/geturl} block plugin
- * 
+ *
  * @param string $content contents of the block
  * @param object $template template object
  * @param boolean $ &$repeat repeat flag
@@ -19,22 +18,23 @@
  */
 function smarty_block_geturl($params, $content, $template, &$repeat) {
     if (!$repeat) {
-        global $htmlwarrior;
+        global $htmlwarrior, $urls;
 
         $out = "";
-        $content = '/' . trim($content, '/');
 
         if ($htmlwarrior->config['multilingual']) {
-            $lang_current = '/' . $htmlwarrior->runtime['lang_current'];
+            $lang_current = $htmlwarrior->runtime['lang_current'];
 
-            if ($content == "/") {
-                $out = $lang_current;
+            // home - frontpage link is always first element in $urls array
+            $home = current($urls);
+
+            if ($content == '/') {
+                $out = $home[$lang_current];
             } else {
-                $out = $lang_current . $content;
+                $out = $urls[$content][$lang_current]['link'];
             }
-        } else {
-            $out = $content;
         }
+        // else. do something?
     }
 
     return $out;

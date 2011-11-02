@@ -391,14 +391,11 @@ function remove_bom($str='') {
  * @return string
  */
 function get_page_template_path($url_path) {
-    global $htmlwarrior;
+    global $htmlwarrior, $urls;
     $template_path = '';
     $array_splice_offset = 1;
     if ($htmlwarrior->config['frontpage_site']) {
         $array_splice_offset = 0;
-    }
-    if ($htmlwarrior->config['multilingual']) {
-        $array_splice_offset++;
     }
     $a_url_path = explode('/', trim($url_path, "/"));
     $a_url_path_without_site = array_splice($a_url_path, $array_splice_offset, count($a_url_path));
@@ -406,6 +403,24 @@ function get_page_template_path($url_path) {
 
     if (strlen($url_path_without_site) === 0) {
         $url_path_without_site = 'index';
+    }
+
+    if ($htmlwarrior->config['multilingual']) {
+      foreach($urls as $key=>$var) {
+        foreach($var as $key2=>$var2) {
+          if(strpos($var2['link'], '*')) {
+            if (preg_match ("/".str_replace('/', '\/', $var2['link'])."/iU", '/'.$url_path, $mt )) {
+              if ( isset($var2['tpl'] )) {
+                $url_path_without_site = str_replace('.tpl', '', $var2['tpl']);
+              } else {
+                $url_path_without_site = str_replace('.tpl', '', $var2['tpl']);
+              }
+            }
+          } elseif ($var2['link']  === '/'.$url_path_without_site) {
+             $url_path_without_site = str_replace('.tpl', '', $var2['tpl']);
+          }
+        }
+      }
     }
 
     $find = array('__logged', '.html');
@@ -418,7 +433,6 @@ function get_page_template_path($url_path) {
 
     $template_path_with_ext = $template_path . '.tpl';
 
-    // if
     if (is_dir($template_path)) {
         // check if index exists
         if (file_exists($template_path . '/index.tpl')) {
@@ -474,6 +488,11 @@ function mk_orb($class, $action, $arr = array()) {
 
 function get_cur_lang() {
     global $htmlwarrior;
+    if ($htmlwarrior->config['multilingual'] === false) {
+      return false;
+    }
+
+    global $urls;
     $out = false;
     $prefix = $htmlwarrior->config['htmlwarrior_prefix'];
     $cookie_name = $htmlwarrior->config['lang_cookie_name'];
@@ -483,13 +502,27 @@ function get_cur_lang() {
     $a_path = explode('/', $pathtrimmed);
     $possible_lang = $a_path[0];
 
-    if ($_COOKIE[$cookie_name]) {
-        $out = $_COOKIE[$cookie_name];
-    } elseif (strlen($possible_lang) == 2) {
+    foreach($urls as $key=>$var) {
+      foreach($var as $key2=>$var2) {
+        if(strpos($var2['link'], '*')) {
+          if (preg_match ("/".str_replace('/', '\/', $var2['link'])."/iU", $htmlwarrior->runtime['parsed_url']['path'], $mt )) {
+            $possible_lang = $key2;
+          }
+        } elseif ($var2['link'] === $htmlwarrior->runtime['parsed_url']['path']) {
+          $possible_lang = $key2;
+          break;
+        }
+      }
+    }
+
+    if (strlen($possible_lang) == 2) {
         $out = $possible_lang;
+    } elseif ($_COOKIE[$cookie_name]) {
+        $out = $_COOKIE[$cookie_name];
     } else {
         $out = $htmlwarrior->config['lang_default'];
     }
+    $_COOKIE[$cookie_name] = $out;
     return $out;
 }
 

@@ -27,4 +27,3 @@ $htmlwarrior->runtime = array(
     'url' => get_cur_page_url(),
     'parsed_url' => parse_url(get_cur_page_url()),
 );
-$htmlwarrior->runtime['lang_current'] = get_cur_lang();

@@ -17,6 +17,31 @@ if ($htmlwarrior->config['frontpage_site']) {
     unset($site_dir);
 }
 
+
+// load lang files
+if ($htmlwarrior->config['multilingual']) {
+  // urls
+  if (file_exists($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/locale/nav.php')) {
+    require_once($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/locale/nav.php');
+  }
+
+  $htmlwarrior->runtime['lang_current'] = get_cur_lang();
+
+  // translations
+  if (file_exists($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/locale/' . $htmlwarrior->runtime['lang_current'] .'/translations.php')) {
+    require_once($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/locale/' . $htmlwarrior->runtime['lang_current'] .'/translations.php');
+  }
+}
+
+// don't allow / page with multilingual option. there are pages
+// for everything
+if ($htmlwarrior->config['multilingual']) {
+  if ($htmlwarrior->runtime['parsed_url']['path'] == '/') {
+    $home = reset($urls);
+    header('Location: ' . $home[$htmlwarrior->runtime['lang_current']]['link']);
+  }
+}
+
 $smarty->assign('config', $htmlwarrior->config);
 
 $smarty->loadFilter('pre', 'fix_smarty_syntax_indents');
@@ -84,11 +109,6 @@ $smarty->setTemplateDir($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->r
 
 $request_uri = explode('/', trim($htmlwarrior->runtime['parsed_url']['path'], '/'));
 
-// delete lang part of request_uri
-if ($htmlwarrior->config['multilingual']) {
-    $request_uri = array_splice($request_uri, 1);
-}
-
 if ($htmlwarrior->config['live']) {
     if (!isset($request_uri[0]) || $request_uri[0] == '') {
         $htmlwarrior->page = 'index';
@@ -116,8 +136,16 @@ if (isset($_GET['debug'])) {
 $smarty->assign('debug', $htmlwarrior->config['debug']);
 
 $smarty->assign('page', $htmlwarrior->page); // cool var; must stay in future code
+
 // shortcut for frontpage
-if ($htmlwarrior->page == 'index' || $htmlwarrior->page == 'index__logged') {
+if ($htmlwarrior->config['multilingual']) {
+    $home = reset($urls);
+    foreach($home as $key=>$var) {
+       if ($var['link'] == '/'.$request_uri[0] ) {
+          $smarty->assign('frontpage', true);
+       }
+    }
+} elseif ($htmlwarrior->page == 'index' || $htmlwarrior->page == 'index__logged') {
     $smarty->assign('frontpage', true);
 } else {
     $smarty->assign('frontpage', false);
@@ -187,6 +215,7 @@ foreach ($page_variables as $key=>$var) {
 $yield = indent(remove_variables($page_content), $variable_indents['yield']);
 $yield = ltrim($yield);
 $smarty->assign('yield', $yield);
+$smarty->assign('text', $text);
 unset($yield);
 
 // add access log; must be after frontpage so we don't log that
