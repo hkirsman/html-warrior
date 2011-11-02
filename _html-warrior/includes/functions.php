@@ -522,7 +522,7 @@ function get_cur_lang() {
     } else {
         $out = $htmlwarrior->config['lang_default'];
     }
-    $_COOKIE[$cookie_name] = $out;
+    setcookie($cookie_name,  $out, time()+3600);
     return $out;
 }
 
