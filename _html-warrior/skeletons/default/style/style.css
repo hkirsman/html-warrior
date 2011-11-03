@@ -127,39 +127,35 @@ $COLUMNS
     width:560px;
 }
 /*------------------------------------*\
-$PAGINATION
+$PAGER
 \*------------------------------------*/
-.pagination {
-    border-top:1px solid #DDD;
-    clear:both;
-    margin:0 0 0.5em;
-    padding:2.5em 0 1em;
+.pager {
     text-align:center;
+    line-height:14px;
+    font-size:12px;
+    display:block;
+    margin:20px 0;
 }
-.pagination a {
-    background:#FFFFFF;
-    border:1px solid #999;
-    text-decoration:none;
+.pager-inner {
+    display:inline-block;
+    overflow:hidden;
 }
-.pagination a:hover {
-    background:#3774D0;
+.pager .prev-next-button {
+}
+.pager span span,
+.pager a {
+    display:inline-block;
+    padding:3px;
+    font-weight:bold;
+    margin-left:2px;
+    margin-right:2px;
+    vertical-align:top;
+    float:left;
+}
+.pager .active {
+    background-color:#FF712C;
+    border-bottom:2px solid #993200;
     color:#FFFFFF;
-}
-.pagination a,
-.pagination span {
-    padding:0.3em 0.5em;
-}
-.pagination a.pn {
-    border:1px solid #FFF;
-}
-.pagination a.pn b {
-    font-weight:normal;
-}
-.pagination a.pn:hover {
-    border:1px solid #999;
-}
-.pagination p {
-    color:#999;
 }
 /*------------------------------------*\
 $MESSAGES
