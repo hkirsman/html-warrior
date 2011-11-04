@@ -36,6 +36,7 @@ class htmlwarrior {
         // load translations
         if ($htmlwarrior->config['multilingual']) {
             $page_object->assign('text', $text);
+            $page_object->assign('lang_current', $htmlwarrior->runtime['lang_current']);
         }
         $page_content = $smarty->fetch($page_object);
         if ($htmlwarrior->config['build']) {
