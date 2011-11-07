@@ -16,6 +16,7 @@ $htmlwarrior->config['build'] = true;
 $htmlwarrior->config['log'] = true;
 $htmlwarrior->config['live'] = false;
 $htmlwarrior->config['error_page'] = false; # example 'error' - which means error.tpl in templates/pages
+$htmlwarrior->config["email_to_submit_on_404"] = false; // default false, otherwise email address
 
 $htmlwarrior->config['htmlwarrior_prefix'] = 'htmlwarrior';
 

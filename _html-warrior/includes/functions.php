@@ -406,21 +406,21 @@ function get_page_template_path($url_path) {
     }
 
     if ($htmlwarrior->config['multilingual']) {
-      foreach($urls as $key=>$var) {
-        foreach($var as $key2=>$var2) {
-          if(strpos($var2['link'], '*')) {
-            if (preg_match ("/".str_replace('/', '\/', $var2['link'])."/iU", '/'.$url_path, $mt )) {
-              if ( isset($var2['tpl'] )) {
-                $url_path_without_site = str_replace('.tpl', '', $var2['tpl']);
-              } else {
-                $url_path_without_site = str_replace('.tpl', '', $var2['tpl']);
-              }
+        foreach ($urls as $key => $var) {
+            foreach ($var as $key2 => $var2) {
+                if (strpos($var2['link'], '*')) {
+                    if (preg_match("/" . str_replace('/', '\/', $var2['link']) . "/iU", '/' . $url_path, $mt)) {
+                        if (isset($var2['tpl'])) {
+                            $url_path_without_site = str_replace('.tpl', '', $var2['tpl']);
+                        } else {
+                            $url_path_without_site = str_replace('.tpl', '', $var2['tpl']);
+                        }
+                    }
+                } elseif ($var2['link'] === '/' . $url_path_without_site) {
+                    $url_path_without_site = str_replace('.tpl', '', $var2['tpl']);
+                }
             }
-          } elseif ($var2['link']  === '/'.$url_path_without_site) {
-             $url_path_without_site = str_replace('.tpl', '', $var2['tpl']);
-          }
         }
-      }
     }
 
     $find = array('__logged', '.html');
@@ -489,7 +489,7 @@ function mk_orb($class, $action, $arr = array()) {
 function get_cur_lang() {
     global $htmlwarrior;
     if ($htmlwarrior->config['multilingual'] === false) {
-      return false;
+        return false;
     }
 
     global $urls;
@@ -502,17 +502,17 @@ function get_cur_lang() {
     $a_path = explode('/', $pathtrimmed);
     $possible_lang = $a_path[0];
 
-    foreach($urls as $key=>$var) {
-      foreach($var as $key2=>$var2) {
-        if(strpos($var2['link'], '*')) {
-          if (preg_match ("/".str_replace('/', '\/', $var2['link'])."/iU", $htmlwarrior->runtime['parsed_url']['path'], $mt )) {
-            $possible_lang = $key2;
-          }
-        } elseif ($var2['link'] === $htmlwarrior->runtime['parsed_url']['path']) {
-          $possible_lang = $key2;
-          break;
+    foreach ($urls as $key => $var) {
+        foreach ($var as $key2 => $var2) {
+            if (strpos($var2['link'], '*')) {
+                if (preg_match("/" . str_replace('/', '\/', $var2['link']) . "/iU", $htmlwarrior->runtime['parsed_url']['path'], $mt)) {
+                    $possible_lang = $key2;
+                }
+            } elseif ($var2['link'] === $htmlwarrior->runtime['parsed_url']['path']) {
+                $possible_lang = $key2;
+                break;
+            }
         }
-      }
     }
 
     if (strlen($possible_lang) == 2) {
@@ -522,7 +522,7 @@ function get_cur_lang() {
     } else {
         $out = $htmlwarrior->config['lang_default'];
     }
-    setcookie($cookie_name,  $out, time()+3600);
+    setcookie($cookie_name, $out, time() + 3600);
     return $out;
 }
 
@@ -560,4 +560,34 @@ function recursive_remove_directory($directory, $empty=false) {
         }
     }
     return true;
+}
+
+/**
+ * Detect if the page we're showing is error page
+ * and thus do something (like send header 404 code)
+ * @return bool
+ */
+function is_error_page() {
+    global $htmlwarrior, $urls;
+    $out = false;
+
+    $error_page = $htmlwarrior->config['error_page'];
+    if ($error_page) {
+        $multilingual = $htmlwarrior->config['multilingual'];
+        $lang_current = $htmlwarrior->runtime['lang_current'];
+        $current_path = $htmlwarrior->runtime['parsed_url']['path'];
+
+        if ($multilingual) {
+            // check if current url is equal to url in $urls error array
+            if ($urls[$error_page][$lang_current]['link'] == $current_path) {
+                $out = true;
+            }
+        } else {
+            if ('/' . $error_page == $current_path) {
+                $out = true;
+            }
+        }
+    }
+
+    return $out;
 }

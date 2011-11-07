@@ -20,26 +20,26 @@ if ($htmlwarrior->config['frontpage_site']) {
 
 // load lang files
 if ($htmlwarrior->config['multilingual']) {
-  // urls
-  if (file_exists($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/locale/nav.php')) {
-    require_once($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/locale/nav.php');
-  }
+    // urls
+    if (file_exists($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/locale/nav.php')) {
+        require_once($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/locale/nav.php');
+    }
 
-  $htmlwarrior->runtime['lang_current'] = get_cur_lang();
+    $htmlwarrior->runtime['lang_current'] = get_cur_lang();
 
-  // translations
-  if (file_exists($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/locale/' . $htmlwarrior->runtime['lang_current'] .'/translations.php')) {
-    require_once($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/locale/' . $htmlwarrior->runtime['lang_current'] .'/translations.php');
-  }
+    // translations
+    if (file_exists($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/locale/' . $htmlwarrior->runtime['lang_current'] . '/translations.php')) {
+        require_once($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/locale/' . $htmlwarrior->runtime['lang_current'] . '/translations.php');
+    }
 }
 
 // don't allow / page with multilingual option. there are pages
 // for everything
 if ($htmlwarrior->config['multilingual']) {
-  if ($htmlwarrior->runtime['parsed_url']['path'] == '/') {
-    $home = reset($urls);
-    header('Location: ' . $home[$htmlwarrior->runtime['lang_current']]['link']);
-  }
+    if ($htmlwarrior->runtime['parsed_url']['path'] == '/') {
+        $home = reset($urls);
+        header('Location: ' . $home[$htmlwarrior->runtime['lang_current']]['link']);
+    }
 }
 
 $smarty->assign('config', $htmlwarrior->config);
@@ -136,14 +136,13 @@ if (isset($_GET['debug'])) {
 $smarty->assign('debug', $htmlwarrior->config['debug']);
 
 $smarty->assign('page', $htmlwarrior->page); // cool var; must stay in future code
-
 // shortcut for frontpage
 if ($htmlwarrior->config['multilingual']) {
     $home = reset($urls);
-    foreach($home as $key=>$var) {
-       if ($var['link'] == '/'.$request_uri[0] ) {
-          $smarty->assign('frontpage', true);
-       }
+    foreach ($home as $key => $var) {
+        if ($var['link'] == '/' . $request_uri[0]) {
+            $smarty->assign('frontpage', true);
+        }
     }
 } elseif ($htmlwarrior->page == 'index' || $htmlwarrior->page == 'index__logged') {
     $smarty->assign('frontpage', true);
@@ -208,8 +207,12 @@ $variable_indents = get_indents_for_variables(file_get_contents($layout_path));
 
 // set variables
 // should these be added to layout template object (which we don't have yet)
-foreach ($page_variables as $key=>$var) {
+foreach ($page_variables as $key => $var) {
     $smarty->assign($key, $var);
+}
+// assign lang variable to layout
+if ($htmlwarrior->config['multilingual']) {
+    $smarty->assign('lang_current', $htmlwarrior->runtime['lang_current']);
 }
 
 $yield = indent(remove_variables($page_content), $variable_indents['yield']);
@@ -227,6 +230,9 @@ if ($htmlwarrior->config['log']) {
 }
 
 //require_once('filelist.php');
+if (is_error_page ()) {
+    header('HTTP/1.0 404 Not Found');
+}
 
 ob_start('callback');
 if ($page_variables['layout'] === false) {
