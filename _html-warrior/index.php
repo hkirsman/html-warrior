@@ -80,10 +80,6 @@ if ($htmlwarrior->config['frontpage_site'] === false) {
 if (file_exists($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/functions.php')) {
     require_once($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/functions.php');
 }
-// load custom site configs
-if (file_exists($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/cfg/config.php')) {
-    require_once($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/cfg/config.php');
-}
 
 
 // build all templates
@@ -187,7 +183,6 @@ if (@strpos($request_uri[1], '__logged')) {
 // variable called $params;
 list($page_content, $page_variables) = $htmlwarrior->load_page();
 
-
 // Set default template if not set from page template
 if (!isset($page_variables['layout'])) {
     $htmlwarrior->layout = 'default';
@@ -220,6 +215,11 @@ $yield = ltrim($yield);
 $smarty->assign('yield', $yield);
 $smarty->assign('text', $text);
 unset($yield);
+
+// load custom site configs
+if (file_exists($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/cfg/config.php')) {
+    require_once($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/cfg/config.php');
+}
 
 // add access log; must be after frontpage so we don't log that
 if ($htmlwarrior->config['log']) {
