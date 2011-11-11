@@ -181,7 +181,7 @@ if (@strpos($request_uri[1], '__logged')) {
 // available.
 // write all the variables that you want to be added to the template to a
 // variable called $params;
-list($page_content, $page_variables) = $htmlwarrior->load_page();
+list($page_content, $page_variables, $template_filetime) = $htmlwarrior->load_page();
 
 // Set default template if not set from page template
 if (!isset($page_variables['layout'])) {
