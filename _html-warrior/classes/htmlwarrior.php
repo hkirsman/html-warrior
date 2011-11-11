@@ -61,6 +61,13 @@ class htmlwarrior {
         $page_object = $smarty->createTemplate($page_tpl_path);
 
 
+        // to find out if @php is set, we need to fetch template
+        // 2x times (here and later in this function)
+        // hope Smarty does this somehow smartysh way
+        $page_content = $smarty->fetch($page_object);
+        $page_variables = parse_variables($page_content);
+
+
         // load page php and assign variables to template
         if (isset($page_variables['php'])) {
             $page_template_php_path = $config['basepath'] . '/' .
@@ -95,7 +102,7 @@ class htmlwarrior {
         $page_content = $smarty->fetch($page_object);
 
 
-        // parse @ variables from template
+        // parse @ variables from template; overwrite old $page_variables
         // todo: should we clean up @ variables now or in the index.php?
         $page_variables = parse_variables($page_content);
 
