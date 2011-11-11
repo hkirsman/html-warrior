@@ -9,9 +9,8 @@
  * Purpose:  include partial and assing parameters
  * -------------------------------------------------------------
  */
-
 function smarty_function_partial($params, $template) {
-    global $smarty, $htmlwarrior;
+    global $htmlwarrior, $smarty, $text, $urls;
 
     // make $page variable accessible to partial helper
     $page = $htmlwarrior->page;
@@ -27,7 +26,7 @@ function smarty_function_partial($params, $template) {
             $params["tpl"] . ".php";
 
     if (file_exists($path_partial_helper)) {
-        
+
         require($path_partial_helper);
     }
 
@@ -56,6 +55,13 @@ function smarty_function_partial($params, $template) {
             $tpl->assign($key, $var);
         }
     }
+
+    // load translations
+    if ($htmlwarrior->config['multilingual']) {
+        $smarty->assign('text', $text);
+        $smarty->assign('lang_current', $htmlwarrior->runtime['lang_current']);
+    }
+
     $output = $smarty->fetch($tpl);
     $output = remove_bom($output);
 
