@@ -2,7 +2,7 @@
 /**
 * Project:     Smarty: the PHP compiling template engine
 * File:        Smarty.class.php
-* SVN:         $Id: Smarty.class.php 4360 2011-10-06 14:36:30Z uwe.tews@googlemail.com $
+* SVN:         $Id: Smarty.class.php 4445 2011-10-21 18:40:16Z rodneyrehm $
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Lesser General Public
@@ -28,7 +28,7 @@
 * @author Uwe Tews
 * @author Rodney Rehm
 * @package Smarty
-* @version 3.1.3
+* @version 3.1.5
 */
 
 /**
@@ -107,7 +107,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
     /**
     * smarty version
     */
-    const SMARTY_VERSION = 'Smarty-3.1.3';
+    const SMARTY_VERSION = 'Smarty-3.1.5';
 
     /**
     * define variable scopes
@@ -197,6 +197,11 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public $joined_template_dir = null;
     /**
+    * joined config directory string used in cache keys
+    * @var string
+    */
+    public $joined_config_dir = null;
+    /**
     * default template handler
     * @var callable
     */
@@ -246,6 +251,11 @@ class Smarty extends Smarty_Internal_TemplateBase {
     * @var boolean
     */
     public $use_sub_dirs = false;
+    /**
+     * allow ambiguous resources (that are made unique by the resource handler)
+     * @var boolean
+     */
+    public $allow_ambiguous_resources = false;
     /**
     * caching enabled
     * @var boolean
@@ -488,10 +498,20 @@ class Smarty extends Smarty_Internal_TemplateBase {
     */
     public $registered_resources = array();
     /**
+    * resource handler cache
+    * @var array
+    */
+    public $_resource_handlers = array();
+    /**
     * registered cache resources
     * @var array
     */
     public $registered_cache_resources = array();
+    /**
+    * cache resource handler cache
+    * @var array
+    */
+    public $_cacheresource_handlers = array();
     /**
     * autoload filter
     * @var array
@@ -579,6 +599,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
             $this->assignGlobal('SCRIPT_NAME', $_SERVER['SCRIPT_NAME']);
         }
     }
+    
 
     /**
     * Class destructor
@@ -841,7 +862,8 @@ class Smarty extends Smarty_Internal_TemplateBase {
         foreach ((array) $config_dir as $k => $v) {
             $this->config_dir[$k] = rtrim($v, '/\\') . DS;
         }
-
+        
+        $this->joined_config_dir = join(DIRECTORY_SEPARATOR, $this->config_dir);
         return $this;
     }
 
@@ -874,7 +896,8 @@ class Smarty extends Smarty_Internal_TemplateBase {
             // append new directory
             $this->config_dir[] = rtrim($config_dir, '/\\') . DS;
         }
-
+        
+        $this->joined_config_dir = join(DIRECTORY_SEPARATOR, $this->config_dir);
         return $this;
     }
 
@@ -1154,7 +1177,14 @@ class Smarty extends Smarty_Internal_TemplateBase {
         $cache_id = $cache_id === null ? $this->cache_id : $cache_id;
         $compile_id = $compile_id === null ? $this->compile_id : $compile_id;
         // already in template cache?
-        $_templateId =  sha1($this->smarty->joined_template_dir.$template . $cache_id . $compile_id);
+        if ($this->allow_ambiguous_resources) {
+            $_templateId = Smarty_Resource::getUniqueTemplateName($this, $template) . $cache_id . $compile_id;
+        } else {
+            $_templateId = $this->joined_template_dir . '#' . $template . $cache_id . $compile_id;
+        }
+        if (isset($_templateId[150])) {
+            $_templateId = sha1($_templateId);
+        }
         if ($do_clone) {
             if (isset($this->template_objects[$_templateId])) {
                 // return cached template object
@@ -1195,8 +1225,9 @@ class Smarty extends Smarty_Internal_TemplateBase {
     public function loadPlugin($plugin_name, $check = true)
     {
         // if function or class exists, exit silently (already loaded)
-        if ($check && (is_callable($plugin_name) || class_exists($plugin_name, false)))
+        if ($check && (is_callable($plugin_name) || class_exists($plugin_name, false))) {
             return true;
+        }
         // Plugin name is expected to be: Smarty_[Type]_[Name]
         $_name_parts = explode('_', $plugin_name, 3);
         // class name must have three parts to be valid plugin
@@ -1217,6 +1248,7 @@ class Smarty extends Smarty_Internal_TemplateBase {
         }
         // plugin filename is expected to be: [type].[name].php
         $_plugin_filename = "{$_name_parts[1]}.{$_name_parts[2]}.php";
+
         // loop through plugin dirs and find the plugin
         foreach($this->getPluginsDir() as $_plugin_dir) {
             $names = array(
