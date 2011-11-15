@@ -1,6 +1,3 @@
 <?php
 
-$site_footer = <<<EOF
-<script type="text/javascript" src="scripts/externals/jquery.js"></script>
-EOF;
-?>
+$site_footer = html_javascript('externals/jquery') . "\n";
