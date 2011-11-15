@@ -9,19 +9,6 @@ header('Content-Type: text/html; charset=utf-8');
 
 require_once('init.php');
 
-if ($htmlwarrior->config['frontpage_site']) {
-    $htmlwarrior->runtime['site_dir'] = trim($htmlwarrior->config['frontpage_site'], '/');
-} else {
-    $site_dir = explode('/', trim($htmlwarrior->runtime['parsed_url']['path'], '/'));
-    $htmlwarrior->runtime['site_dir'] = current($site_dir);
-    unset($site_dir);
-}
-
-
-// include custom config.php (if exists) from SITE_DIR/cfg/config.php
-$htmlwarrior->load_custom_config();
-
-
 // load lang files
 if ($htmlwarrior->config['multilingual']) {
     // urls
@@ -35,7 +22,7 @@ if ($htmlwarrior->config['multilingual']) {
     if (file_exists($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/locale/' . $htmlwarrior->runtime['lang_current'] . '/translations.php')) {
         require_once($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/locale/' . $htmlwarrior->runtime['lang_current'] . '/translations.php');
     }
-}
+    }
 
 // don't allow / page with multilingual option. there are pages
 // for everything
