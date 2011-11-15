@@ -115,4 +115,31 @@ class htmlwarrior {
         return array($page_content, $page_variables, $template_filetime);
     }
 
+    /**
+     * Loads custom config from SITE_DIR/cfg/config.php
+     * Useful for example when images path is not /images. img.tpl partial
+     * uses this variable to calculate image dimensions.
+     * @global object $htmlwarrior required
+     * @param string $path optional
+     */
+    public function load_custom_config($custom_config_path = false) {
+        global $htmlwarrior;
+
+        // get full path for custom config.php
+        // todo: function for calculating full paths?
+        $basepath = $htmlwarrior->config['basepath'];
+        $site_dir_full = $basepath . '/' . $htmlwarrior->runtime['site_dir'];
+        $path_cfg = $htmlwarrior->config['path_cfg'];
+        if (!$custom_config_path) {
+            $path_cfg_full = $site_dir_full . $path_cfg . '/config.php';
+        } else {
+            $path_cfg_full = $custom_config_path;
+        }
+
+
+        if (file_exists($path_cfg_full)) {
+            require $path_cfg_full;
+        }
+    }
+
 }

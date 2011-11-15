@@ -18,6 +18,10 @@ if ($htmlwarrior->config['frontpage_site']) {
 }
 
 
+// include custom config.php (if exists) from SITE_DIR/cfg/config.php
+$htmlwarrior->load_custom_config();
+
+
 // load lang files
 if ($htmlwarrior->config['multilingual']) {
     // urls
@@ -216,9 +220,9 @@ $smarty->assign('yield', $yield);
 $smarty->assign('text', $text);
 unset($yield);
 
-// load custom site configs
-if (file_exists($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/cfg/config.php')) {
-    require_once($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/cfg/config.php');
+// load custom site plugins
+if (file_exists($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/cfg/plugins.php')) {
+    require_once($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/cfg/plugins.php');
 }
 
 // add access log; must be after frontpage so we don't log that
