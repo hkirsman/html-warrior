@@ -1,0 +1,7 @@
+.chooser{display:block}
+.chooser .frmcaption{padding-bottom:0}
+.chooser .inputs{display:block;padding-left:3px;vertical-align:middle;width:290px}
+.chooser .inputs .option{display:inline-block;padding-bottom:4px;padding-right:10px;padding-top:4px}
+.chooser .inputs input{display:inline-block;height:13px;margin:0;padding:0;vertical-align:middle;width:13px}
+.chooser .inputs .caption{line-height:12px;padding-left:5px;vertical-align:middle}
+.chooserV .inputs .option{display:block;padding-bottom:2px;padding-top:2px}

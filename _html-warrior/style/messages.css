@@ -1,0 +1,35 @@
+/*------------------------------------*\*/
+/*$MESSAGES*/
+/*\*------------------------------------*/
+.msg-error,
+.msg-success {
+    margin:10px 0;
+    padding:5px 10px;
+    /*+border-radius:5px;*/
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    -khtml-border-radius:5px;
+    border-radius:5px 5px 5px 5px;
+    clear:both;
+    border-width:1px;
+    border-style:solid;
+    overflow:hidden;
+}
+.msg-error p,
+.msg-success p {
+    margin:5px 0;
+}
+.msg-error {
+    background-color:#FFE5E5;
+    border-color:#EF5435;
+}
+.msg-error p {
+    color:#E42600;
+}
+.msg-success {
+    background-color:#F1FDE8;
+    border-color:#83EB44;
+}
+.msg-success p {
+    color:#3B3B3B;
+}

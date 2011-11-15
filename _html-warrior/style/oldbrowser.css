@@ -1,0 +1,7 @@
+.oldbrowser{background: url("../images/base/oldbrowser.gif") repeat-x scroll 0 0 transparent;height: 40px;}
+.oldbrowser .a {background: url("../images/base/oldbrowserA.gif") no-repeat scroll 27px 0 transparent;height:40px;position: relative;width:960px;}
+.oldbrowser p{font-size:11px;line-height: 14px;color:white;font-weight: bold;padding:12px 0 0 142px;width:650px;}
+.oldbrowser .browserlist{position:absolute;top:4px;right:0}
+.oldbrowser .browserlist a,
+.oldbrowser .browserlist img{float:left}
+.oldbrowser .browserlist a {margin-left: 10px}

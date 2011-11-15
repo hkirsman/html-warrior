@@ -1,0 +1,3 @@
+.select .input{display:block}
+.select .input select{border:1px solid #D2D2D2;width:300px}
+.error .select .input select{border-color:#CD4545}

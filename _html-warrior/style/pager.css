@@ -1,0 +1,31 @@
+/*------------------------------------*\
+$PAGER
+\*------------------------------------*/
+.pager {
+    text-align:center;
+    line-height:14px;
+    font-size:12px;
+    display:block;
+    margin:20px 0;
+}
+.pager-inner {
+    display:inline-block;
+    overflow:hidden;
+}
+.pager .prev-next-button {
+}
+.pager span span,
+.pager a {
+    display:inline-block;
+    padding:3px;
+    font-weight:bold;
+    margin-left:2px;
+    margin-right:2px;
+    vertical-align:top;
+    float:left;
+}
+.pager .active {
+    background-color:#FF712C;
+    border-bottom:2px solid #993200;
+    color:#FFFFFF;
+}
