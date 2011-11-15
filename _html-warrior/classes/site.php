@@ -156,7 +156,7 @@ class site {
         $smarty->assign('runtime', $htmlwarrior->runtime);
         if (file_exists($partial_css_path)) {
             $partial_css = file_get_contents($partial_css_path);
-            $smarty->assign('partial', array('css'=>$partial_css));
+            $smarty->assign('partial', array('css' => $partial_css));
         }
 
 

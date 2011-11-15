@@ -22,7 +22,7 @@ if ($htmlwarrior->config['multilingual']) {
     if (file_exists($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/locale/' . $htmlwarrior->runtime['lang_current'] . '/translations.php')) {
         require_once($htmlwarrior->config['basepath'] . '/' . $htmlwarrior->runtime['site_dir'] . '/locale/' . $htmlwarrior->runtime['lang_current'] . '/translations.php');
     }
-    }
+}
 
 // don't allow / page with multilingual option. there are pages
 // for everything
