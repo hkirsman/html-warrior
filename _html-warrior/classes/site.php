@@ -116,4 +116,55 @@ class site {
         printf($txt['site_build_done'], $arr['site_name'], $arr['return_url']);
     }
 
+    // copy partial if it not found
+    // todo: create template logic for admin
+    public function partial_not_found($arr = array()) {
+        global $htmlwarrior, $smarty;
+
+
+        // variable shortcuts
+        $runtime = $htmlwarrior->runtime;
+        $config = $htmlwarrior->config;
+        $path_partials_css = $config['code_path'] . '/style';
+        $partial_css_path = $path_partials_css . '/' . $arr['tpl'] . '.css';
+        $path_partials_source = $config['code_path'] . '/templates/partials/';
+        $path_partials_target = $config['basepath'] . '/' .
+                $arr['site_dir'] . '/templates/partials/';
+
+
+        // copy and return to site
+        if ($arr['copy_and_return']) {
+            $partial_source = $path_partials_source . $arr['tpl'] . '.tpl';
+            $partial_target = $path_partials_target . $arr['tpl'] . '.tpl';
+
+            if (file_exists($partial_source)) {
+                copy($partial_source, $partial_target);
+            } else {
+                echo $partial_source . ' does not exist!';
+            }
+            header('Location: ' . $arr['return_url']);
+            die();
+        }
+
+
+        // set template dir for admin
+        $smarty->setTemplateDir($htmlwarrior->config['code_path'] . '/admin/templates');
+
+
+        // assign variables
+        $smarty->assign('config', $htmlwarrior->config);
+        $smarty->assign('runtime', $htmlwarrior->runtime);
+        if (file_exists($partial_css_path)) {
+            $partial_css = file_get_contents($partial_css_path);
+            $smarty->assign('partial', array('css'=>$partial_css));
+        }
+
+
+        // todo. create layout. maby do it smarty way
+        $smarty->display('partial_not_found.tpl');
+
+
+        die();
+    }
+
 }

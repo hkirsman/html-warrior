@@ -26,12 +26,12 @@ function smarty_function_partial($params, $template) {
         return;
     }
 
-
-    // create full path for partial
-    $path_partial_helper = $config['basepath'] . '/' .
+    // create full path for partials directory
+    $path_partial_dir = $config['basepath'] . '/' .
             $runtime['site_dir'] .
-            $config['path_templates_partials'] . '/' .
-            $params['tpl'] . '.php';
+            $config['path_templates_partials'];
+    // create full path for partial helper
+    $path_partial_helper = $path_partial_dir . '/' . $params['tpl'] . '.php';
 
 
     // check if partial template exists
@@ -51,20 +51,21 @@ function smarty_function_partial($params, $template) {
 
     // todo. not working right now
     // copy template from code to site if template does not exist
-    if (!file_exists($smarty->getTemplateDir(0) . '/partials/' . $params['tpl'] . '.tpl')) {
-        echo '<div style="background: red">Templatet ei ole olemas. Kopeerin uue?. <a href="?copy=yes">jah</a></div>';
-        if (@$_GET['copy'] == 'yes') {
-            if (copy($config['code_path'] . '/templates/partials/' . $params['tpl'] . '.tpl', $smarty->getTemplateDir(0) . '/partials/' . $params['template'] . '.tpl')) {
-                echo 'done';
-            } else {
-                echo $config['code_path'] . '/templates/partials/' . $params['tpl'] . '.tpl does not exist!';
-            }
-        }
+    if (!file_exists($path_partial_dir . '/' . $params['tpl'] . '.tpl')) {
+        arr($runtime['site_dir']);
+        $partial_not_found_url = mk_orb('site', 'partial_not_found', array(
+                'amp' => '&',
+                'site_dir' => $runtime['site_dir'],
+                'tpl' => $params['tpl'],
+                'return_url' => $runtime['url']
+            ));
+        header('Location: ' . $partial_not_found_url);
+        die();
     }
 
 
     // create template
-    $tpl = $smarty->createTemplate('partials/' . $params['tpl'] . '.tpl', $smarty);
+    $tpl = $smarty->createTemplate($path_partial_dir . '/' . $params['tpl'] . '.tpl', $smarty);
 
 
     // assign partial variables to template

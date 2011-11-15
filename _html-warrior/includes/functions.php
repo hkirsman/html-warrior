@@ -468,9 +468,16 @@ function classload($classname) {
 function mk_orb($class, $action, $arr = array()) {
     global $htmlwarrior;
 
+    if (isset($arr['amp'])) {
+        $amp = $arr['amp'];
+        unset($arr['amp']);
+    } else {
+        $amp = '&amp;';
+    }
+
     $orb = $htmlwarrior->config["path_code"] .
             '/orb.php?class=' . $class .
-            '&amp;action=' . $action;
+            $amp . 'action=' . $action;
 
     if (isset($arr["return_url"])) {
         $ru = $arr["return_url"];
@@ -478,10 +485,10 @@ function mk_orb($class, $action, $arr = array()) {
     }
 
     foreach ($arr as $key => $var) {
-        $orb .= '&amp;' . $key . '=' . $var;
+        $orb .= $amp . $key . '=' . $var;
     }
 
-    $orb .= '&amp;return_url=' . urlencode($ru);
+    $orb .= $amp . 'return_url=' . urlencode($ru);
 
     return $orb;
 }
