@@ -1,1 +1,0 @@
-../servers/server2go/server/php/php.exe check_example_site.php
