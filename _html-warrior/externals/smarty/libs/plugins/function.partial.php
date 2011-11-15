@@ -49,7 +49,6 @@ function smarty_function_partial($params, $template) {
     }
 
 
-    // todo. not working right now
     // copy template from code to site if template does not exist
     if (!file_exists($path_partial_dir . '/' . $params['tpl'] . '.tpl')) {
         arr($runtime['site_dir']);
