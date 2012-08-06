@@ -34,6 +34,7 @@ class htmlwarrior {
         foreach ($params as $key => $val) {
             $page_object->assign($key, $val);
         }
+        $page_object->assign('page', $htmlwarrior->page);
         $page_content = $smarty->fetch($page_object);
         if ($htmlwarrior->config['build']) {
             $template_filetime = filemtime($page_tpl_path);
